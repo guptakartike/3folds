@@ -1,0 +1,408 @@
+[
+  {
+    "utr_ref": "UTRp1gObD0iOtQN",
+    "narration": "NEFT/pay_5zQu9MxNmGyAVm/RAZORPAY SETTLEMENT",
+    "credit_amount_inr": 8753.5,
+    "value_date": "2026-08-01T10:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTRWzGpld7aFPfY",
+    "narration": "NEFT/pay_3gDk8Bg7W9LLxq/RAZORPAY SETTLEMENT",
+    "credit_amount_inr": 3296.35,
+    "value_date": "2026-08-01T11:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTR5jSrlvzERQgJ",
+    "narration": "NEFT/pay_T0L8r30xvTnj31/RAZORPAY SETTLEMENT",
+    "credit_amount_inr": 5475.6,
+    "value_date": "2026-08-01T12:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTRbO9SEKloHxMi",
+    "narration": "NEFT/pay_OyQDX5B43Visie",
+    "credit_amount_inr": 5212,
+    "value_date": "2026-08-01T13:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTRKwNXKY3yfQwC",
+    "narration": "NEFT/RAZORPAY/SETTLEMENT order_tqtNb6pTA5",
+    "credit_amount_inr": 8891.6,
+    "value_date": "2026-08-01T14:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTRWbhyPZ8KeccR",
+    "narration": "NEFT/pay_Naj5SV0DGTFd6e",
+    "credit_amount_inr": 6679.16,
+    "value_date": "2026-08-04T15:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTReUD8gKko9048",
+    "narration": "NEFT/pay_9HODWrOk6fpnwL/RAZORPAY SETTLEMENT",
+    "credit_amount_inr": 867.62,
+    "value_date": "2026-08-01T16:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTRHVdzTs36ZIfi",
+    "narration": "NEFT/RAZORPAY/SETTLEMENT order_c3F34UmFkt",
+    "credit_amount_inr": 8582.17,
+    "value_date": "2026-08-01T17:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTRkpGW0Fb86PDr",
+    "narration": "NEFT/pay_ucew3vh20f9wdm/RAZORPAY SETTLEMENT",
+    "credit_amount_inr": 8446.8,
+    "value_date": "2026-08-01T18:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTRZliQXbpg3uoe",
+    "narration": "NEFT/RAZORPAY/SETTLEMENT order_kYoaL6s7p2",
+    "credit_amount_inr": 1790.87,
+    "value_date": "2026-08-01T19:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTRkPhiIqPDnQEK",
+    "narration": "NEFT/RAZORPAY/SETTLEMENT order_CuxgO0brDr",
+    "credit_amount_inr": 6177.37,
+    "value_date": "2026-08-01T20:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTR0wnPQpSk8N0a",
+    "narration": "NEFT/pay_iFSoNeyOUnnR5e",
+    "credit_amount_inr": 5428.43,
+    "value_date": "2026-08-04T21:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTRPxzTjorrl4aa",
+    "narration": "NEFT/pay_hD7jkwEARPDc6q",
+    "credit_amount_inr": 7952,
+    "value_date": "2026-08-01T22:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTRoX9kv1EzZMUf",
+    "narration": "NEFT/pay_In0XjQnBfNNaAn",
+    "credit_amount_inr": 7240.31,
+    "value_date": "2026-08-04T23:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTREnSzPPBLexeJ",
+    "narration": "NEFT/pay_Vg86S6tUH4eYMh",
+    "credit_amount_inr": 1380.67,
+    "value_date": "2026-08-05T00:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTRqe2EglhB6lCb",
+    "narration": "NEFT/pay_ATK1zN0BSCdy07",
+    "credit_amount_inr": 9644,
+    "value_date": "2026-08-02T01:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTRWnMlCtmhPTcS",
+    "narration": "NEFT/pay_srVu5uGk4KrhEu",
+    "credit_amount_inr": 9147,
+    "value_date": "2026-08-02T02:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTRpBGRYCRGmpif",
+    "narration": "NEFT/RAZORPAY BATCH SETTLEMENT",
+    "credit_amount_inr": 6840.75,
+    "value_date": "2026-08-02T03:00:00Z",
+    "batch_flag": true
+  },
+  {
+    "utr_ref": "UTRWwV7vNb6ZODR",
+    "narration": "NEFT/pay_LRcIpxivsTKQvs/RAZORPAY SETTLEMENT",
+    "credit_amount_inr": 1689.99,
+    "value_date": "2026-08-02T04:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTRiMvXpYYmbfSK",
+    "narration": "NEFT/RAZORPAY BATCH SETTLEMENT",
+    "credit_amount_inr": 3906.75,
+    "value_date": "2026-08-02T05:00:00Z",
+    "batch_flag": true
+  },
+  {
+    "utr_ref": "UTR7EZxSuKrkz7S",
+    "narration": "NEFT/pay_aUZHCKeXPuJVgi/RAZORPAY SETTLEMENT",
+    "credit_amount_inr": 6470.95,
+    "value_date": "2026-08-02T06:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTRFnsLlyD1VNW7",
+    "narration": "NEFT/RAZORPAY BATCH SETTLEMENT",
+    "credit_amount_inr": 6709.87,
+    "value_date": "2026-08-02T07:00:00Z",
+    "batch_flag": true
+  },
+  {
+    "utr_ref": "UTReXix6S6uQP50",
+    "narration": "NEFT/pay_rGNujy8SZVwJ1j",
+    "credit_amount_inr": 4332,
+    "value_date": "2026-08-02T08:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTRvGF2uSFUcUY1",
+    "narration": "NEFT/pay_O5VPtzB83eHFCi/RAZORPAY SETTLEMENT",
+    "credit_amount_inr": 6532.57,
+    "value_date": "2026-08-02T09:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTR8Q2IZ60ptZYl",
+    "narration": "NEFT/pay_Cwb5lbMNU1eupg/RAZORPAY SETTLEMENT",
+    "credit_amount_inr": 7508.66,
+    "value_date": "2026-08-02T10:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTRMvfb1O8gTDHi",
+    "narration": "NEFT/pay_454zciaJA6Z3Cn/RAZORPAY SETTLEMENT",
+    "credit_amount_inr": 1197.33,
+    "value_date": "2026-08-02T11:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTRn8dm3VsufUAL",
+    "narration": "NEFT/RAZORPAY/SETTLEMENT order_CWItlDuOjj",
+    "credit_amount_inr": 3180.69,
+    "value_date": "2026-08-02T12:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTR6yGxBBvV1NAF",
+    "narration": "NEFT/pay_fcBk8RSaHDhRsO/RAZORPAY SETTLEMENT",
+    "credit_amount_inr": 7319.49,
+    "value_date": "2026-08-02T13:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTRBWNBlHvhM15N",
+    "narration": "NEFT/pay_xgAnqkBFc73T3b/RAZORPAY SETTLEMENT",
+    "credit_amount_inr": 6269.61,
+    "value_date": "2026-08-02T14:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTROThytKS9fJ5q",
+    "narration": "NEFT/pay_wtdvK81BIFVW3h/RAZORPAY SETTLEMENT",
+    "credit_amount_inr": 6140.48,
+    "value_date": "2026-08-02T15:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTRJdFRuBmef5Ra",
+    "narration": "NEFT/pay_L7JHzgqm8xkYQg",
+    "credit_amount_inr": 2690.44,
+    "value_date": "2026-08-05T16:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTRTOgzvyhlG4O4",
+    "narration": "NEFT/pay_4MWyfXsXIbWflm/RAZORPAY SETTLEMENT",
+    "credit_amount_inr": 6771.34,
+    "value_date": "2026-08-02T17:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTR33S4AXcYQh95",
+    "narration": "NEFT/pay_KCMB6AneDzoH5v",
+    "credit_amount_inr": 8272.61,
+    "value_date": "2026-08-05T18:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTRXwEfCZSiANjG",
+    "narration": "NEFT/RAZORPAY/SETTLEMENT order_rbUU9Ia08Z",
+    "credit_amount_inr": 3400.81,
+    "value_date": "2026-08-02T19:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTRbU7FcWTWx7lh",
+    "narration": "NEFT/RAZORPAY/SETTLEMENT order_KKhuMTguqC",
+    "credit_amount_inr": 9222.88,
+    "value_date": "2026-08-02T20:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTR5KIYUouSHsfe",
+    "narration": "NEFT/pay_6eSAfESV5I8eLP",
+    "credit_amount_inr": 1759.17,
+    "value_date": "2026-08-05T21:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTRbLxJeLiT1xui",
+    "narration": "NEFT/pay_KrLvmcj4tR5YYj/RAZORPAY SETTLEMENT",
+    "credit_amount_inr": 6415.39,
+    "value_date": "2026-08-02T22:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTRYyRVWID9vVln",
+    "narration": "NEFT/pay_YZ81jQYEaFRQw3/RAZORPAY SETTLEMENT",
+    "credit_amount_inr": 3949.17,
+    "value_date": "2026-08-03T00:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTROG2fArKIbgYZ",
+    "narration": "NEFT/pay_FevCzZhUhpWhOz/RAZORPAY SETTLEMENT",
+    "credit_amount_inr": 3663.95,
+    "value_date": "2026-08-03T01:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTRL90tkmlPVPvK",
+    "narration": "NEFT/RAZORPAY/SETTLEMENT order_i51SH0TvVq",
+    "credit_amount_inr": 7191.35,
+    "value_date": "2026-08-03T02:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTRCTgD1by8Mm20",
+    "narration": "NEFT/pay_3tmPMP3KOvZrpF/RAZORPAY SETTLEMENT",
+    "credit_amount_inr": 1292.93,
+    "value_date": "2026-08-03T03:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTRJjwnqc9gzWPp",
+    "narration": "NEFT/RAZORPAY BATCH SETTLEMENT",
+    "credit_amount_inr": 7910.41,
+    "value_date": "2026-08-03T04:00:00Z",
+    "batch_flag": true
+  },
+  {
+    "utr_ref": "UTRGhjigjdBe1B1",
+    "narration": "NEFT/pay_oBa6lqk2Vl0iBU",
+    "credit_amount_inr": 2387,
+    "value_date": "2026-08-03T05:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTRXpdWQuCfkznv",
+    "narration": "NEFT/pay_Wcoop4G9RuoLkS/RAZORPAY SETTLEMENT",
+    "credit_amount_inr": 947.6,
+    "value_date": "2026-08-03T06:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTRLIKRFWE7eD1H",
+    "narration": "NEFT/RAZORPAY/SETTLEMENT order_bYT8fqbagb",
+    "credit_amount_inr": 9316.76,
+    "value_date": "2026-08-03T08:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTRFNoqHyKBNUE0",
+    "narration": "NEFT/pay_ypusqhrWa5Cg30/RAZORPAY SETTLEMENT",
+    "credit_amount_inr": 9324.89,
+    "value_date": "2026-08-03T09:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTRZ3UFd4yaT12o",
+    "narration": "NEFT/RAZORPAY BATCH SETTLEMENT",
+    "credit_amount_inr": 2010.29,
+    "value_date": "2026-08-03T10:00:00Z",
+    "batch_flag": true
+  },
+  {
+    "utr_ref": "UTR7FX9wO8SRZVJ",
+    "narration": "NEFT/RAZORPAY BATCH SETTLEMENT",
+    "credit_amount_inr": 5186.51,
+    "value_date": "2026-08-03T11:00:00Z",
+    "batch_flag": true
+  },
+  {
+    "utr_ref": "UTRG4lMbSbRXIDE",
+    "narration": "NEFT/pay_jMkBJCdvgNDYvN",
+    "credit_amount_inr": 8088.03,
+    "value_date": "2026-08-06T12:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTRwp0txKL6T9Ae",
+    "narration": "NEFT/RAZORPAY/SETTLEMENT order_UA3O7iBDC4",
+    "credit_amount_inr": 9047.56,
+    "value_date": "2026-08-03T13:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTRnk7Sx513hZGi",
+    "narration": "NEFT/RAZORPAY BATCH SETTLEMENT",
+    "credit_amount_inr": 7014.91,
+    "value_date": "2026-08-03T14:00:00Z",
+    "batch_flag": true
+  },
+  {
+    "utr_ref": "UTR3Ye20y4odCg7",
+    "narration": "NEFT/pay_yJeZMfFse8gQ47/RAZORPAY SETTLEMENT",
+    "credit_amount_inr": 1006.57,
+    "value_date": "2026-08-03T15:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTRc4sGiR6YpFY1",
+    "narration": "NEFT/pay_F14PhDYvvwIoR8",
+    "credit_amount_inr": 612.27,
+    "value_date": "2026-08-06T16:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTRBxg7ggg4PeiA",
+    "narration": "NEFT/pay_qg9eULBlXeK3yc/RAZORPAY SETTLEMENT",
+    "credit_amount_inr": 4781.54,
+    "value_date": "2026-08-03T17:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTRlHd1E8RPxhpC",
+    "narration": "NEFT/RAZORPAY/SETTLEMENT order_Y6fsdVp8Cy",
+    "credit_amount_inr": 2554.21,
+    "value_date": "2026-08-03T18:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTR1VeuTHlkFjQ5",
+    "narration": "NEFT/pay_4wqoBYCsF1GAd9/RAZORPAY SETTLEMENT",
+    "credit_amount_inr": 2674.14,
+    "value_date": "2026-08-03T19:00:00Z",
+    "batch_flag": false
+  },
+  {
+    "utr_ref": "UTR0PikyDScLSIT",
+    "narration": "NEFT/RAZORPAY BATCH SETTLEMENT",
+    "credit_amount_inr": 3433.9,
+    "value_date": "2026-08-03T20:00:00Z",
+    "batch_flag": true
+  },
+  {
+    "utr_ref": "UTR9NfIqjNY3XSg",
+    "narration": "NEFT/pay_oFWUlOjhGDAOr2/RAZORPAY SETTLEMENT",
+    "credit_amount_inr": 7897.94,
+    "value_date": "2026-08-03T21:00:00Z",
+    "batch_flag": false
+  }
+]
