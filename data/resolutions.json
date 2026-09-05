@@ -1,50 +1,33 @@
 [
   {
-    "order_id": "order_tiBUUnJpBs",
-    "settlement_id": "stl_gt91IDgLIdgXR5",
-    "proposed_match_utr": "UTRpBGRYCRGmpif",
-    "confidence": "medium",
-    "resolved": true,
-    "reason": "same value date and batch flag, amount plausibly includes this settlement within a larger batch"
+    "order_id": "order_000058",
+    "settlement_id": "set_jn8fh3urm5cs",
+    "decision": "EXCEPTION",
+    "confidence": 1,
+    "reason": "No bank statement entry matches the settlement net amount (2585.89 INR) or the payment ID (pay_watbyyjonoy6); all candidate credits have different amounts and unrelated narrations.",
+    "evidence": [
+      "Settlement net_amount_inr: 2585.89",
+      "Bank credits: 3862.17 (UTRp9vaj6bbw4la), 6798.85 (UTRxkrdk2su2164), 3981.58 (UTRuc71rawoqb82)"
+    ]
   },
   {
-    "order_id": "order_8JHuXsU9tH",
-    "settlement_id": "stl_NFlmCHRN32cEm3",
-    "proposed_match_utr": "UTRiMvXpYYmbfSK",
-    "confidence": "medium",
-    "resolved": true,
-    "reason": "matches settlement date and batch flag, amount suggests it includes this settlement among others"
+    "order_id": "order_000059",
+    "settlement_id": "set_cyllkwjgmka4",
+    "decision": "EXCEPTION",
+    "confidence": 0.99,
+    "reason": "No bank statement entry contains the payment ID pay_zql5w8byzvr7 or the net settlement amount 5550.56 INR; amounts and narrations do not correspond to the settlement record.",
+    "evidence": [
+      "UTRp9vaj6bbw4la: credit 3862.17 INR, narration pay_opboi6c65ior",
+      "UTRxkrdk2su2164: credit 6798.85 INR, narration pay_iiaa8of7zgd8",
+      "UTRuc71rawoqb82: credit 3981.58 INR, narration pay_tqndl7sljqyw"
+    ]
   },
   {
-    "order_id": "order_bNkhqEw5NV",
-    "settlement_id": "stl_fczuuNhUEz4a43",
-    "proposed_match_utr": "UTRFnsLlyD1VNW7",
-    "confidence": "medium",
-    "resolved": true,
-    "reason": "The candidate shares the exact settlement date and is flagged as a batch, making it a plausible container despite the higher amount"
-  },
-  {
-    "order_id": "order_yVJuhZmDT1",
-    "settlement_id": "stl_ysG5wAN8Ql2C0s",
-    "proposed_match_utr": "UTR0PikyDScLSIT",
-    "confidence": "medium",
-    "resolved": true,
-    "reason": "Amount is close to net amount and date falls within same batch window, suggesting it may be a bundled settlement entry"
-  },
-  {
-    "order_id": "order_vMCNsaKaRX",
-    "settlement_id": "stl_epfpca2uc9whGZ",
-    "proposed_match_utr": "UTRFnsLlyD1VNW7",
-    "confidence": "medium",
-    "resolved": true,
-    "reason": "Amount (₹6709.87) and date (2026-08-02) are close to the settlement net amount (₹6660.41) and settled_at, suggesting this batch line likely includes the transaction."
-  },
-  {
-    "order_id": "order_2gapBSbxdx",
-    "settlement_id": "stl_CTwK3JxqFsEI6N",
-    "proposed_match_utr": "UTR0PikyDScLSIT",
-    "confidence": "medium",
-    "resolved": true,
-    "reason": "Amount 3433.90 INR on same settlement date is close to net 3291.97 INR, suggesting inclusion in a batch settlement"
+    "order_id": "order_000060",
+    "settlement_id": "set_yixcr7wwf2jo",
+    "decision": "EXCEPTION",
+    "confidence": 0.99,
+    "reason": "No bank statement entry matches the settlement's net amount (₹2811.31) or payment ID (pay_xx4xplcgqx7p); credit amounts and narrations differ, so reconciliation cannot be confirmed.",
+    "evidence": []
   }
 ]

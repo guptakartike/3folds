@@ -233,63 +233,63 @@
   {
     "utr_ref": "UTRhj6xm650xq1z",
     "narration": "NEFT/RAZORPAY/pay_0417nyeq5joe",
-    "credit_amount_inr": 9699.68,
+    "credit_amount_inr": 9699.18,
     "value_date": "2026-01-09T10:00:00Z",
     "batch_flag": false
   },
   {
     "utr_ref": "UTRpuf4gc2dorxw",
     "narration": "NEFT/RAZORPAY/pay_82k0k7b6sedn",
-    "credit_amount_inr": 5837.37,
+    "credit_amount_inr": 5836.87,
     "value_date": "2026-01-18T10:00:00Z",
     "batch_flag": false
   },
   {
     "utr_ref": "UTRjs4jq023lmwl",
     "narration": "NEFT/RAZORPAY/pay_wtrm9mssrzbo",
-    "credit_amount_inr": 2023.27,
+    "credit_amount_inr": 2022.77,
     "value_date": "2026-01-28T10:00:00Z",
     "batch_flag": false
   },
   {
     "utr_ref": "UTRccwnraplsspw",
     "narration": "NEFT/RAZORPAY/pay_44l48yei60oq",
-    "credit_amount_inr": 7349.97,
+    "credit_amount_inr": 7349.47,
     "value_date": "2026-01-26T10:00:00Z",
     "batch_flag": false
   },
   {
     "utr_ref": "UTRrw1ahqmulnjx",
     "narration": "NEFT/RAZORPAY/pay_cf81ase3ju9r",
-    "credit_amount_inr": 5548.9,
+    "credit_amount_inr": 5548.4,
     "value_date": "2026-03-01T10:00:00Z",
     "batch_flag": false
   },
   {
     "utr_ref": "UTRil3qs5t1839p",
     "narration": "NEFT/RAZORPAY/pay_cv25akk0631s",
-    "credit_amount_inr": 5203.34,
+    "credit_amount_inr": 5202.84,
     "value_date": "2026-01-17T10:00:00Z",
     "batch_flag": false
   },
   {
     "utr_ref": "UTRjz5djid4tgd8",
     "narration": "NEFT/RAZORPAY/pay_cvyq6e9jgjlq",
-    "credit_amount_inr": 6851.41,
+    "credit_amount_inr": 6850.91,
     "value_date": "2026-02-07T10:00:00Z",
     "batch_flag": false
   },
   {
     "utr_ref": "UTRii8joyv56692",
     "narration": "NEFT/RAZORPAY/pay_2xzuyod4fd52",
-    "credit_amount_inr": 9337.48,
+    "credit_amount_inr": 9336.98,
     "value_date": "2026-02-01T10:00:00Z",
     "batch_flag": false
   },
   {
     "utr_ref": "UTRes7e4ozznqu1",
     "narration": "NEFT/RAZORPAY/pay_lozsi4fzfs27",
-    "credit_amount_inr": 4601.82,
+    "credit_amount_inr": 4601.32,
     "value_date": "2026-01-19T10:00:00Z",
     "batch_flag": false
   },

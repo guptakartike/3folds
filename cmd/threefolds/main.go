@@ -13,13 +13,14 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"time"
 
+	"threefolds/internal/evaluation"
 	"threefolds/internal/generator"
 	"threefolds/internal/loader"
 	"threefolds/internal/matcher"
 	"threefolds/internal/report"
 	"threefolds/internal/resolver"
-	"threefolds/internal/evaluation"
 )
 
 func main() {
@@ -82,11 +83,18 @@ func runMatch(args []string) {
 		log.Fatalf("loading data: %v", err)
 	}
 
+	// Measure the actual reconciliation operation.
+	start := time.Now()
+
 	results := matcher.Match(
-	d.Settlements,
-	d.BankStatements,
-	d.LedgerEntries,
-)
+		d.Settlements,
+		d.BankStatements,
+		d.LedgerEntries,
+	)
+
+	elapsed := time.Since(start)
+	processingTimeMs := float64(elapsed.Nanoseconds()) / 1e6
+
 	writeJSON(filepath.Join(*inDir, "match_results.json"), results)
 
 	rate := matcher.MatchRate(results)
@@ -95,22 +103,39 @@ func runMatch(args []string) {
 		counts[r.Tier]++
 	}
 
+	throughput := 0.0
+	if processingTimeMs > 0 {
+		throughput = float64(len(d.Settlements)) / (processingTimeMs / 1000)
+	}
+
 	fmt.Printf("\n=== 3folds reconciliation report ===\n")
-	fmt.Printf("total settlements:   %d\n", len(results))
+	fmt.Printf("total settlements:   %d\n", len(d.Settlements))
 	fmt.Printf("match rate:          %.1f%%\n", rate*100)
 	fmt.Printf("  exact matches:     %d\n", counts[matcher.TierExact])
 	fmt.Printf("  fuzzy matches:     %d\n", counts[matcher.TierFuzzy])
 	fmt.Printf("  unresolved:        %d\n", counts[matcher.TierUnresolved])
+	fmt.Printf("  batch matches:     %d\n", counts[matcher.TierBatch])
+	fmt.Printf("processing time:     %.3f ms\n", processingTimeMs)
+	fmt.Printf("throughput:          %.0f records/sec\n", throughput)
 
 	if counts[matcher.TierUnresolved] > 0 {
 		fmt.Printf("\n--- exceptions ---\n")
 		for _, r := range results {
 			if r.Tier == matcher.TierUnresolved {
-				fmt.Printf("  order=%s settlement=%s reason=%q\n", r.OrderID, r.SettlementID, r.Reason)
+				fmt.Printf(
+					"  order=%s settlement=%s reason=%q\n",
+					r.OrderID,
+					r.SettlementID,
+					r.Reason,
+				)
 			}
 		}
 	}
-	fmt.Printf("\nfull results written to %s\n", filepath.Join(*inDir, "match_results.json"))
+
+	fmt.Printf(
+		"\nfull results written to %s\n",
+		filepath.Join(*inDir, "match_results.json"),
+	)
 }
 
 func runResolve(args []string) {
@@ -296,40 +321,76 @@ func runVerify(args []string) {
 	}
 }
 
-func runEvaluate(args []string) {
+func runEvaluate(args []string) error {
 	fs := flag.NewFlagSet("evaluate", flag.ExitOnError)
+
 	inDir := fs.String("in", "data", "input directory")
-	fs.Parse(args)
 
-	var truth []evaluation.GroundTruth
-	readJSON(filepath.Join(*inDir, "ground_truth.json"), &truth)
-
-	results, source, err := report.Load(*inDir)
-	if err != nil {
-		log.Fatalf("loading results: %v", err)
+	if err := fs.Parse(args); err != nil {
+		return err
 	}
 
-	log.Printf("evaluating results from %s", source)
+	truthPath := filepath.Join(*inDir, "ground_truth.json")
+	resultsPath := filepath.Join(*inDir, "match_results_final.json")
 
-	summary := evaluation.Calculate(truth, results)
+	log.Printf("evaluating results from %s", resultsPath)
 
-	writeJSON(
-		filepath.Join(*inDir, "evaluation.json"),
-		summary,
-	)
+	truthFile, err := os.ReadFile(truthPath)
+	if err != nil {
+		return err
+	}
 
-	fmt.Printf("\n=== evaluation ===\n")
+	var truth []evaluation.GroundTruth
+	if err := json.Unmarshal(truthFile, &truth); err != nil {
+		return err
+	}
+
+	resultsFile, err := os.ReadFile(resultsPath)
+	if err != nil {
+		return err
+	}
+
+	var results []matcher.Result
+	if err := json.Unmarshal(resultsFile, &results); err != nil {
+		return err
+	}
+
+	start := time.Now()
+
+	summary := evaluation.Calculate(truth, results, 0)
+
+	elapsed := time.Since(start)
+	processingTimeMs := float64(elapsed.Nanoseconds()) / 1e6
+
+	summary = evaluation.Calculate(truth, results, processingTimeMs)
+
+	fmt.Println()
+	fmt.Println("=== evaluation ===")
 	fmt.Printf("total:             %d\n", summary.Total)
 	fmt.Printf("correct:           %d\n", summary.Correct)
 	fmt.Printf("wrong:             %d\n", summary.Wrong)
-	fmt.Printf("accuracy:          %.1f%%\n", summary.Accuracy*100)
-	fmt.Printf("match rate:        %.1f%%\n", summary.MatchRate*100)
-	fmt.Printf("exception rate:    %.1f%%\n", summary.ExceptionRate*100)
+	fmt.Printf("accuracy:          %.1f%%\n", summary.Accuracy)
+	fmt.Printf("match rate:        %.1f%%\n", summary.MatchRate)
+	fmt.Printf("exception rate:    %.1f%%\n", summary.ExceptionRate)
 	fmt.Printf("false positives:   %d\n", summary.FalsePositives)
 	fmt.Printf("false negatives:   %d\n", summary.FalseNegatives)
+	fmt.Printf("processing time:   %.3f ms\n", summary.ProcessingTimeMs)
+	fmt.Printf("throughput:        %.0f records/sec\n", summary.RecordsPerSecond)
 
-	fmt.Printf("\nevaluation written to %s\n",
-		filepath.Join(*inDir, "evaluation.json"))
+	outputPath := filepath.Join(*inDir, "evaluation.json")
+
+	data, err := json.MarshalIndent(summary, "", "  ")
+	if err != nil {
+		return err
+	}
+
+	if err := os.WriteFile(outputPath, data, 0644); err != nil {
+		return err
+	}
+
+	log.Printf("evaluation written to %s", outputPath)
+
+	return nil
 }
 
 func writeJSON(path string, v interface{}) {

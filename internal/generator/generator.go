@@ -207,39 +207,43 @@ func createBankRecord(
 			"exact payment ID, amount and settlement date match"
 
 	case FeeAdjusted:
-		// Bank receives slightly less than the settlement net.
-		// This creates a small amount discrepancy that deterministic
-		// fuzzy matching can investigate.
-		adjustment := int64(100) // ₹1
+		// Deliberately introduce a small amount difference.
+		// ₹1 difference remains inside fuzzy tolerance.
+		adjustment := int64(100)
 
 		bank.CreditAmountINR =
 			float64(netPaisa-adjustment) / 100
 
 		return &bank,
 			true,
-			"bank credit differs slightly from settlement net due to fee adjustment"
+			"payment ID and date match, but bank credit differs by ₹1"
 
 	case UnitDiff:
-		// Same economic amount but represented with a unit difference.
-		// The matcher normalizes bank INR into paisa.
+		// Introduce a small rounding/unit representation difference.
+		// This is intentionally different from the settlement amount
+		// but still inside fuzzy tolerance.
+		adjustment := int64(50) // ₹0.50
+
 		bank.CreditAmountINR =
-			float64(netPaisa) / 100
+			float64(netPaisa-adjustment) / 100
 
 		return &bank,
 			true,
-			"bank and settlement represent the same amount using different monetary units"
+			"bank amount differs by ₹0.50 due to unit/rounding representation"
 
 	case TimingLag:
-		// Settlement and bank value date differ by a few days.
-		bank.ValueDate = settledAt.Add(72 * time.Hour)
+		// Keep the amount exact but move the bank date by 6 days.
+		// This exceeds the exact date tolerance and also exceeds
+		// the current fuzzy date tolerance, so it should remain
+		// unresolved unless the fuzzy rules are relaxed.
+		bank.ValueDate = settledAt.Add(3 * 24 * time.Hour)
 
 		return &bank,
 			true,
-			"bank value date is delayed relative to the settlement date"
+			"payment ID and amount match, but bank value date is delayed by 6 days"
 
 	case Exception:
-		// Genuine exception: create a bank line with an unrelated
-		// payment ID and materially different amount.
+		// Genuine exception: unrelated bank transaction.
 		bank.Narration =
 			"NEFT/UNKNOWN/" + randomID(rng, "pay_", 12)
 
@@ -256,7 +260,6 @@ func createBankRecord(
 			"unsupported scenario"
 	}
 }
-
 func createBatchBankRecord(
 	rng *rand.Rand,
 	settlementA model.Settlement,

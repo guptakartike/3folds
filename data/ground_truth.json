@@ -129,181 +129,181 @@
     "order_id": "order_000022",
     "type": "fee_adjusted",
     "should_match": true,
-    "explanation": "bank credit differs slightly from settlement net due to fee adjustment"
+    "explanation": "payment ID and date match, but bank credit differs by ₹1"
   },
   {
     "order_id": "order_000023",
     "type": "fee_adjusted",
     "should_match": true,
-    "explanation": "bank credit differs slightly from settlement net due to fee adjustment"
+    "explanation": "payment ID and date match, but bank credit differs by ₹1"
   },
   {
     "order_id": "order_000024",
     "type": "fee_adjusted",
     "should_match": true,
-    "explanation": "bank credit differs slightly from settlement net due to fee adjustment"
+    "explanation": "payment ID and date match, but bank credit differs by ₹1"
   },
   {
     "order_id": "order_000025",
     "type": "fee_adjusted",
     "should_match": true,
-    "explanation": "bank credit differs slightly from settlement net due to fee adjustment"
+    "explanation": "payment ID and date match, but bank credit differs by ₹1"
   },
   {
     "order_id": "order_000026",
     "type": "fee_adjusted",
     "should_match": true,
-    "explanation": "bank credit differs slightly from settlement net due to fee adjustment"
+    "explanation": "payment ID and date match, but bank credit differs by ₹1"
   },
   {
     "order_id": "order_000027",
     "type": "fee_adjusted",
     "should_match": true,
-    "explanation": "bank credit differs slightly from settlement net due to fee adjustment"
+    "explanation": "payment ID and date match, but bank credit differs by ₹1"
   },
   {
     "order_id": "order_000028",
     "type": "fee_adjusted",
     "should_match": true,
-    "explanation": "bank credit differs slightly from settlement net due to fee adjustment"
+    "explanation": "payment ID and date match, but bank credit differs by ₹1"
   },
   {
     "order_id": "order_000029",
     "type": "fee_adjusted",
     "should_match": true,
-    "explanation": "bank credit differs slightly from settlement net due to fee adjustment"
+    "explanation": "payment ID and date match, but bank credit differs by ₹1"
   },
   {
     "order_id": "order_000030",
     "type": "fee_adjusted",
     "should_match": true,
-    "explanation": "bank credit differs slightly from settlement net due to fee adjustment"
+    "explanation": "payment ID and date match, but bank credit differs by ₹1"
   },
   {
     "order_id": "order_000031",
     "type": "fee_adjusted",
     "should_match": true,
-    "explanation": "bank credit differs slightly from settlement net due to fee adjustment"
+    "explanation": "payment ID and date match, but bank credit differs by ₹1"
   },
   {
     "order_id": "order_000032",
     "type": "fee_adjusted",
     "should_match": true,
-    "explanation": "bank credit differs slightly from settlement net due to fee adjustment"
+    "explanation": "payment ID and date match, but bank credit differs by ₹1"
   },
   {
     "order_id": "order_000033",
     "type": "fee_adjusted",
     "should_match": true,
-    "explanation": "bank credit differs slightly from settlement net due to fee adjustment"
+    "explanation": "payment ID and date match, but bank credit differs by ₹1"
   },
   {
     "order_id": "order_000034",
     "type": "unit_difference",
     "should_match": true,
-    "explanation": "bank and settlement represent the same amount using different monetary units"
+    "explanation": "bank amount differs by ₹0.50 due to unit/rounding representation"
   },
   {
     "order_id": "order_000035",
     "type": "unit_difference",
     "should_match": true,
-    "explanation": "bank and settlement represent the same amount using different monetary units"
+    "explanation": "bank amount differs by ₹0.50 due to unit/rounding representation"
   },
   {
     "order_id": "order_000036",
     "type": "unit_difference",
     "should_match": true,
-    "explanation": "bank and settlement represent the same amount using different monetary units"
+    "explanation": "bank amount differs by ₹0.50 due to unit/rounding representation"
   },
   {
     "order_id": "order_000037",
     "type": "unit_difference",
     "should_match": true,
-    "explanation": "bank and settlement represent the same amount using different monetary units"
+    "explanation": "bank amount differs by ₹0.50 due to unit/rounding representation"
   },
   {
     "order_id": "order_000038",
     "type": "unit_difference",
     "should_match": true,
-    "explanation": "bank and settlement represent the same amount using different monetary units"
+    "explanation": "bank amount differs by ₹0.50 due to unit/rounding representation"
   },
   {
     "order_id": "order_000039",
     "type": "unit_difference",
     "should_match": true,
-    "explanation": "bank and settlement represent the same amount using different monetary units"
+    "explanation": "bank amount differs by ₹0.50 due to unit/rounding representation"
   },
   {
     "order_id": "order_000040",
     "type": "unit_difference",
     "should_match": true,
-    "explanation": "bank and settlement represent the same amount using different monetary units"
+    "explanation": "bank amount differs by ₹0.50 due to unit/rounding representation"
   },
   {
     "order_id": "order_000041",
     "type": "unit_difference",
     "should_match": true,
-    "explanation": "bank and settlement represent the same amount using different monetary units"
+    "explanation": "bank amount differs by ₹0.50 due to unit/rounding representation"
   },
   {
     "order_id": "order_000042",
     "type": "unit_difference",
     "should_match": true,
-    "explanation": "bank and settlement represent the same amount using different monetary units"
+    "explanation": "bank amount differs by ₹0.50 due to unit/rounding representation"
   },
   {
     "order_id": "order_000043",
     "type": "timing_lag",
     "should_match": true,
-    "explanation": "bank value date is delayed relative to the settlement date"
+    "explanation": "payment ID and amount match, but bank value date is delayed by 6 days"
   },
   {
     "order_id": "order_000044",
     "type": "timing_lag",
     "should_match": true,
-    "explanation": "bank value date is delayed relative to the settlement date"
+    "explanation": "payment ID and amount match, but bank value date is delayed by 6 days"
   },
   {
     "order_id": "order_000045",
     "type": "timing_lag",
     "should_match": true,
-    "explanation": "bank value date is delayed relative to the settlement date"
+    "explanation": "payment ID and amount match, but bank value date is delayed by 6 days"
   },
   {
     "order_id": "order_000046",
     "type": "timing_lag",
     "should_match": true,
-    "explanation": "bank value date is delayed relative to the settlement date"
+    "explanation": "payment ID and amount match, but bank value date is delayed by 6 days"
   },
   {
     "order_id": "order_000047",
     "type": "timing_lag",
     "should_match": true,
-    "explanation": "bank value date is delayed relative to the settlement date"
+    "explanation": "payment ID and amount match, but bank value date is delayed by 6 days"
   },
   {
     "order_id": "order_000048",
     "type": "timing_lag",
     "should_match": true,
-    "explanation": "bank value date is delayed relative to the settlement date"
+    "explanation": "payment ID and amount match, but bank value date is delayed by 6 days"
   },
   {
     "order_id": "order_000049",
     "type": "timing_lag",
     "should_match": true,
-    "explanation": "bank value date is delayed relative to the settlement date"
+    "explanation": "payment ID and amount match, but bank value date is delayed by 6 days"
   },
   {
     "order_id": "order_000050",
     "type": "timing_lag",
     "should_match": true,
-    "explanation": "bank value date is delayed relative to the settlement date"
+    "explanation": "payment ID and amount match, but bank value date is delayed by 6 days"
   },
   {
     "order_id": "order_000051",
     "type": "timing_lag",
     "should_match": true,
-    "explanation": "bank value date is delayed relative to the settlement date"
+    "explanation": "payment ID and amount match, but bank value date is delayed by 6 days"
   },
   {
     "order_id": "order_000052",

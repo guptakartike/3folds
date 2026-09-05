@@ -1,7 +1,11 @@
 package evaluation
 
-
 import "threefolds/internal/matcher"
+
+type GroundTruth struct {
+	OrderID     string `json:"order_id"`
+	ShouldMatch bool   `json:"should_match"`
+}
 
 type Summary struct {
 	Total             int     `json:"total"`
@@ -14,60 +18,71 @@ type Summary struct {
 	ExceptionRate     float64 `json:"exception_rate"`
 	FalsePositives    int     `json:"false_positives"`
 	FalseNegatives    int     `json:"false_negatives"`
+	ProcessingTimeMs  float64 `json:"processing_time_ms"`
+	RecordsPerSecond  float64 `json:"records_per_second"`
 }
 
 func Calculate(
 	truth []GroundTruth,
 	results []matcher.Result,
+	processingTimeMs float64,
 ) Summary {
+	s := Summary{
+		Total: len(truth),
+	}
+
 	resultByOrder := make(map[string]matcher.Result)
 
 	for _, r := range results {
 		resultByOrder[r.OrderID] = r
 	}
 
-	var summary Summary
-	summary.Total = len(truth)
-
 	for _, t := range truth {
-		r, ok := resultByOrder[t.OrderID]
-		if !ok {
-			summary.Wrong++
-			summary.FalseNegatives++
+		r, exists := resultByOrder[t.OrderID]
+
+		if !exists {
+			s.Wrong++
+
+			if t.ShouldMatch {
+				s.FalseNegatives++
+			}
+
 			continue
 		}
 
 		gotMatch := r.Tier != matcher.TierUnresolved
 
-		if gotMatch {
-			summary.Matches++
-		} else {
-			summary.Exceptions++
-		}
-
 		if gotMatch == t.ShouldMatch {
-			summary.Correct++
+			s.Correct++
 		} else {
-			summary.Wrong++
+			s.Wrong++
 
-			if gotMatch {
-				summary.FalsePositives++
+			if t.ShouldMatch {
+				s.FalseNegatives++
 			} else {
-				summary.FalseNegatives++
+				s.FalsePositives++
 			}
 		}
+
+		if gotMatch {
+			s.Matches++
+		} else {
+			s.Exceptions++
+		}
 	}
 
-	if summary.Total > 0 {
-		summary.Accuracy = float64(summary.Correct) / float64(summary.Total)
-		summary.MatchRate = float64(summary.Matches) / float64(summary.Total)
-		summary.ExceptionRate = float64(summary.Exceptions) / float64(summary.Total)
+	if s.Total > 0 {
+		s.Accuracy = float64(s.Correct) / float64(s.Total) * 100
+		s.MatchRate = float64(s.Matches) / float64(s.Total) * 100
+		s.ExceptionRate = float64(s.Exceptions) / float64(s.Total) * 100
 	}
 
-	return summary
-}
+	s.ProcessingTimeMs = processingTimeMs
 
-type GroundTruth struct {
-	OrderID    string `json:"order_id"`
-	ShouldMatch bool  `json:"should_match"`
+	if processingTimeMs > 0 {
+		s.RecordsPerSecond =
+			float64(s.Total) / (processingTimeMs / 1000)
+	}
+
+	return s
 }

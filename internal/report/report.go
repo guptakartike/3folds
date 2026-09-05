@@ -18,6 +18,7 @@ type Summary struct {
 	Total        int
 	Exact        int
 	Fuzzy        int
+	Batch        int
 	LLMResolved  int
 	Exceptions   int
 	MatchRatePct float64 // (Exact+Fuzzy+LLMResolved) / Total * 100
@@ -58,22 +59,34 @@ func readJSON(path string, v interface{}) error {
 // matching the track's "measured accuracy" requirement.
 func Summarize(results []matcher.Result) Summary {
 	s := Summary{Total: len(results)}
+
 	for _, r := range results {
 		switch r.Tier {
 		case matcher.TierExact:
 			s.Exact++
+
 		case matcher.TierFuzzy:
 			s.Fuzzy++
+
+		case matcher.TierBatch:
+			s.Batch++
+
 		case "llm_resolved":
 			s.LLMResolved++
-		default: // unresolved (or unrecognized tier -> treat as exception)
+
+		case matcher.TierUnresolved:
+			s.Exceptions++
+
+		default:
 			s.Exceptions++
 		}
 	}
+
 	if s.Total > 0 {
-		resolved := s.Exact + s.Fuzzy + s.LLMResolved
+		resolved := s.Exact + s.Fuzzy + s.Batch + s.LLMResolved
 		s.MatchRatePct = float64(resolved) / float64(s.Total) * 100
 	}
+
 	return s
 }
 
@@ -97,6 +110,7 @@ func PrintCLI(s Summary, exceptions []matcher.Result) {
 	fmt.Printf("match rate:         %.1f%%\n", s.MatchRatePct)
 	fmt.Printf("  exact:            %d\n", s.Exact)
 	fmt.Printf("  fuzzy:            %d\n", s.Fuzzy)
+	fmt.Printf("  batch:            %d\n", s.Batch)
 	fmt.Printf("  llm-resolved:     %d\n", s.LLMResolved)
 	fmt.Printf("  exceptions:       %d\n", s.Exceptions)
 

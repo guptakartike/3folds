@@ -1,538 +1,683 @@
 [
   {
-    "order_id": "order_l2INvNSQTZ",
-    "settlement_id": "stl_NkB33ionwj2qrs",
-    "bank_utr_ref": "UTRp1gObD0iOtQN",
+    "order_id": "order_000001",
+    "settlement_id": "set_6jif9u8g21qr",
+    "bank_utr_ref": "UTRdygacwkeoh0s",
     "tier": "exact",
     "amount_diff_inr": 0,
     "date_diff_hours": 0,
-    "reason": "payment id found in bank narration"
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "payment ID, amount and bank evidence match"
   },
   {
-    "order_id": "order_sLiFD4MY7O",
-    "settlement_id": "stl_2zGNO6q1Xh3S7g",
-    "bank_utr_ref": "UTRWzGpld7aFPfY",
+    "order_id": "order_000002",
+    "settlement_id": "set_8erdias74xqg",
+    "bank_utr_ref": "UTRhhh82fspv9m6",
     "tier": "exact",
     "amount_diff_inr": 0,
     "date_diff_hours": 0,
-    "reason": "payment id found in bank narration"
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "payment ID, amount and bank evidence match"
   },
   {
-    "order_id": "order_K6SV75azeo",
-    "settlement_id": "stl_WE1Wf9y7vf8sRN",
-    "bank_utr_ref": "UTR5jSrlvzERQgJ",
+    "order_id": "order_000003",
+    "settlement_id": "set_xol880hpdlq5",
+    "bank_utr_ref": "UTRl0c9xxmciy97",
     "tier": "exact",
     "amount_diff_inr": 0,
     "date_diff_hours": 0,
-    "reason": "payment id found in bank narration"
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "payment ID, amount and bank evidence match"
   },
   {
-    "order_id": "order_PeMmGDTQm9",
-    "settlement_id": "stl_hJer4vjD3tnghw",
-    "bank_utr_ref": "UTRbO9SEKloHxMi",
+    "order_id": "order_000004",
+    "settlement_id": "set_sat1f01w0z0f",
+    "bank_utr_ref": "UTR63w251p6rlc9",
     "tier": "exact",
-    "amount_diff_inr": 0.020000000000436557,
+    "amount_diff_inr": 0,
     "date_diff_hours": 0,
-    "reason": "payment id found in bank narration"
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "payment ID, amount and bank evidence match"
   },
   {
-    "order_id": "order_tqtNb6pTA5",
-    "settlement_id": "stl_uuLEkoRUcqPIsF",
-    "bank_utr_ref": "UTRKwNXKY3yfQwC",
+    "order_id": "order_000005",
+    "settlement_id": "set_9fy5auvyjntj",
+    "bank_utr_ref": "UTRjnvli1az7h2s",
+    "tier": "exact",
+    "amount_diff_inr": 0,
+    "date_diff_hours": 0,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "payment ID, amount and bank evidence match"
+  },
+  {
+    "order_id": "order_000006",
+    "settlement_id": "set_zhpbu7l08isp",
+    "bank_utr_ref": "UTR80314rlgttft",
+    "tier": "exact",
+    "amount_diff_inr": 0,
+    "date_diff_hours": 0,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "payment ID, amount and bank evidence match"
+  },
+  {
+    "order_id": "order_000007",
+    "settlement_id": "set_nasi56d1m6n5",
+    "bank_utr_ref": "UTRh6fy1h5tbiw6",
+    "tier": "exact",
+    "amount_diff_inr": 0,
+    "date_diff_hours": 0,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "payment ID, amount and bank evidence match"
+  },
+  {
+    "order_id": "order_000008",
+    "settlement_id": "set_yj80c1mq6pqm",
+    "bank_utr_ref": "UTR1oekv2qfaef6",
+    "tier": "exact",
+    "amount_diff_inr": 0,
+    "date_diff_hours": 0,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "payment ID, amount and bank evidence match"
+  },
+  {
+    "order_id": "order_000009",
+    "settlement_id": "set_wpsqqm7z7zef",
+    "bank_utr_ref": "UTRas8vi8vdma8l",
+    "tier": "exact",
+    "amount_diff_inr": 0,
+    "date_diff_hours": 0,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "payment ID, amount and bank evidence match"
+  },
+  {
+    "order_id": "order_000010",
+    "settlement_id": "set_ltlm6x46haw7",
+    "bank_utr_ref": "UTRngt8h78bmf2e",
+    "tier": "exact",
+    "amount_diff_inr": 0,
+    "date_diff_hours": 0,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "payment ID, amount and bank evidence match"
+  },
+  {
+    "order_id": "order_000011",
+    "settlement_id": "set_z4ba86xhbqnv",
+    "bank_utr_ref": "UTR56nvsus0pjcy",
+    "tier": "exact",
+    "amount_diff_inr": 0,
+    "date_diff_hours": 0,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "payment ID, amount and bank evidence match"
+  },
+  {
+    "order_id": "order_000012",
+    "settlement_id": "set_ts8ecyn68y4a",
+    "bank_utr_ref": "UTR3x1x21xj1p7c",
+    "tier": "exact",
+    "amount_diff_inr": 0,
+    "date_diff_hours": 0,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "payment ID, amount and bank evidence match"
+  },
+  {
+    "order_id": "order_000013",
+    "settlement_id": "set_zafzp8314ay8",
+    "bank_utr_ref": "UTRdnekpei2uknd",
+    "tier": "exact",
+    "amount_diff_inr": 0,
+    "date_diff_hours": 0,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "payment ID, amount and bank evidence match"
+  },
+  {
+    "order_id": "order_000014",
+    "settlement_id": "set_r3gv0wtrcosm",
+    "bank_utr_ref": "UTR0w7ns8rjnxll",
+    "tier": "exact",
+    "amount_diff_inr": 0,
+    "date_diff_hours": 0,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "payment ID, amount and bank evidence match"
+  },
+  {
+    "order_id": "order_000015",
+    "settlement_id": "set_r14gg8f30o4t",
+    "bank_utr_ref": "UTR2tszg9vg5tbv",
+    "tier": "exact",
+    "amount_diff_inr": 0,
+    "date_diff_hours": 0,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "payment ID, amount and bank evidence match"
+  },
+  {
+    "order_id": "order_000016",
+    "settlement_id": "set_eda4uw77i6xu",
+    "bank_utr_ref": "UTRw18b5xonxmv6",
+    "tier": "exact",
+    "amount_diff_inr": 0,
+    "date_diff_hours": 0,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "payment ID, amount and bank evidence match"
+  },
+  {
+    "order_id": "order_000017",
+    "settlement_id": "set_q2bjj2pkueho",
+    "bank_utr_ref": "UTRnlskoejxxe22",
+    "tier": "exact",
+    "amount_diff_inr": 0,
+    "date_diff_hours": 0,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "payment ID, amount and bank evidence match"
+  },
+  {
+    "order_id": "order_000018",
+    "settlement_id": "set_n10vnmi7xbwr",
+    "bank_utr_ref": "UTRwtkjny7fk5ci",
+    "tier": "exact",
+    "amount_diff_inr": 0,
+    "date_diff_hours": 0,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "payment ID, amount and bank evidence match"
+  },
+  {
+    "order_id": "order_000019",
+    "settlement_id": "set_um0km1n7003e",
+    "bank_utr_ref": "UTRgy41c7us3kwn",
+    "tier": "exact",
+    "amount_diff_inr": 0,
+    "date_diff_hours": 0,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "payment ID, amount and bank evidence match"
+  },
+  {
+    "order_id": "order_000020",
+    "settlement_id": "set_jh1wnfardf6g",
+    "bank_utr_ref": "UTR6cdradetfty1",
+    "tier": "exact",
+    "amount_diff_inr": 0,
+    "date_diff_hours": 0,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "payment ID, amount and bank evidence match"
+  },
+  {
+    "order_id": "order_000021",
+    "settlement_id": "set_ji0qctrz2kqc",
+    "bank_utr_ref": "UTR2knh41a1b5ft",
+    "tier": "exact",
+    "amount_diff_inr": 0,
+    "date_diff_hours": 0,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "payment ID, amount and bank evidence match"
+  },
+  {
+    "order_id": "order_000022",
+    "settlement_id": "set_dnju3dticqp4",
+    "bank_utr_ref": "UTRboo4a5cusyjr",
+    "tier": "exact",
+    "amount_diff_inr": 0,
+    "date_diff_hours": 0,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "payment ID, amount and bank evidence match"
+  },
+  {
+    "order_id": "order_000023",
+    "settlement_id": "set_ez5r0i487bhh",
+    "bank_utr_ref": "UTRh68iongfnp74",
+    "tier": "exact",
+    "amount_diff_inr": 0,
+    "date_diff_hours": 0,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "payment ID, amount and bank evidence match"
+  },
+  {
+    "order_id": "order_000024",
+    "settlement_id": "set_76hrqmszilmw",
+    "bank_utr_ref": "UTRlbaxqopx59fw",
+    "tier": "exact",
+    "amount_diff_inr": 0,
+    "date_diff_hours": 0,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "payment ID, amount and bank evidence match"
+  },
+  {
+    "order_id": "order_000025",
+    "settlement_id": "set_emvlwx8myyo3",
+    "bank_utr_ref": "UTRitsfme9lyel1",
+    "tier": "exact",
+    "amount_diff_inr": 0,
+    "date_diff_hours": 0,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "payment ID, amount and bank evidence match"
+  },
+  {
+    "order_id": "order_000026",
+    "settlement_id": "set_dvdq16ob4o3w",
+    "bank_utr_ref": "UTR5orijpguf1zl",
+    "tier": "exact",
+    "amount_diff_inr": 0,
+    "date_diff_hours": 0,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "payment ID, amount and bank evidence match"
+  },
+  {
+    "order_id": "order_000027",
+    "settlement_id": "set_uwutvlkhszlm",
+    "bank_utr_ref": "UTRnviisdth77bo",
+    "tier": "exact",
+    "amount_diff_inr": 0,
+    "date_diff_hours": 0,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "payment ID, amount and bank evidence match"
+  },
+  {
+    "order_id": "order_000028",
+    "settlement_id": "set_qypcbgg6l6yj",
+    "bank_utr_ref": "UTR0jefn9axv811",
+    "tier": "exact",
+    "amount_diff_inr": 0,
+    "date_diff_hours": 0,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "payment ID, amount and bank evidence match"
+  },
+  {
+    "order_id": "order_000029",
+    "settlement_id": "set_4lggdt3xksa0",
+    "bank_utr_ref": "UTRwn675tg6yoim",
+    "tier": "exact",
+    "amount_diff_inr": 0,
+    "date_diff_hours": 0,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "payment ID, amount and bank evidence match"
+  },
+  {
+    "order_id": "order_000030",
+    "settlement_id": "set_3hsouow6z55l",
+    "bank_utr_ref": "UTRapsgt80885xp",
+    "tier": "exact",
+    "amount_diff_inr": 0,
+    "date_diff_hours": 0,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "payment ID, amount and bank evidence match"
+  },
+  {
+    "order_id": "order_000031",
+    "settlement_id": "set_4h745c1iqzk7",
+    "bank_utr_ref": "UTRm3kcqcbo6qpz",
+    "tier": "exact",
+    "amount_diff_inr": 0,
+    "date_diff_hours": 0,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "payment ID, amount and bank evidence match"
+  },
+  {
+    "order_id": "order_000032",
+    "settlement_id": "set_t9nnf67mjtzw",
+    "bank_utr_ref": "UTRm2r9jay6c2fg",
+    "tier": "exact",
+    "amount_diff_inr": 0,
+    "date_diff_hours": 0,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "payment ID, amount and bank evidence match"
+  },
+  {
+    "order_id": "order_000033",
+    "settlement_id": "set_7zigbhn3mc0s",
+    "bank_utr_ref": "UTR50pclyihcsnv",
+    "tier": "exact",
+    "amount_diff_inr": 0,
+    "date_diff_hours": 0,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "payment ID, amount and bank evidence match"
+  },
+  {
+    "order_id": "order_000034",
+    "settlement_id": "set_l4r2zmksw68p",
+    "bank_utr_ref": "UTRhj6xm650xq1z",
+    "tier": "exact",
+    "amount_diff_inr": 0,
+    "date_diff_hours": 0,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "payment ID, amount and bank evidence match"
+  },
+  {
+    "order_id": "order_000035",
+    "settlement_id": "set_9o63ul02xy74",
+    "bank_utr_ref": "UTRpuf4gc2dorxw",
+    "tier": "exact",
+    "amount_diff_inr": 0,
+    "date_diff_hours": 0,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "payment ID, amount and bank evidence match"
+  },
+  {
+    "order_id": "order_000036",
+    "settlement_id": "set_ohwa2bs3rfc7",
+    "bank_utr_ref": "UTRjs4jq023lmwl",
+    "tier": "exact",
+    "amount_diff_inr": 0,
+    "date_diff_hours": 0,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "payment ID, amount and bank evidence match"
+  },
+  {
+    "order_id": "order_000037",
+    "settlement_id": "set_4dlkz97b0t6z",
+    "bank_utr_ref": "UTRccwnraplsspw",
+    "tier": "exact",
+    "amount_diff_inr": 0,
+    "date_diff_hours": 0,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "payment ID, amount and bank evidence match"
+  },
+  {
+    "order_id": "order_000038",
+    "settlement_id": "set_e3djkqsio09j",
+    "bank_utr_ref": "UTRrw1ahqmulnjx",
+    "tier": "exact",
+    "amount_diff_inr": 0,
+    "date_diff_hours": 0,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "payment ID, amount and bank evidence match"
+  },
+  {
+    "order_id": "order_000039",
+    "settlement_id": "set_x35joavi5yfl",
+    "bank_utr_ref": "UTRil3qs5t1839p",
+    "tier": "exact",
+    "amount_diff_inr": 0,
+    "date_diff_hours": 0,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "payment ID, amount and bank evidence match"
+  },
+  {
+    "order_id": "order_000040",
+    "settlement_id": "set_0fty33w5izlu",
+    "bank_utr_ref": "UTRjz5djid4tgd8",
+    "tier": "exact",
+    "amount_diff_inr": 0,
+    "date_diff_hours": 0,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "payment ID, amount and bank evidence match"
+  },
+  {
+    "order_id": "order_000041",
+    "settlement_id": "set_3nb43e96a9cx",
+    "bank_utr_ref": "UTRii8joyv56692",
+    "tier": "exact",
+    "amount_diff_inr": 0,
+    "date_diff_hours": 0,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "payment ID, amount and bank evidence match"
+  },
+  {
+    "order_id": "order_000042",
+    "settlement_id": "set_8gvku1z7sncc",
+    "bank_utr_ref": "UTRes7e4ozznqu1",
+    "tier": "exact",
+    "amount_diff_inr": 0,
+    "date_diff_hours": 0,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "payment ID, amount and bank evidence match"
+  },
+  {
+    "order_id": "order_000052",
+    "settlement_id": "set_nfi5ko5h1cf2",
+    "bank_utr_ref": "UTRo0lc4l70i9w5",
+    "tier": "batch",
+    "batch_settlement_ids": [
+      "set_nfi5ko5h1cf2",
+      "set_9asotowz9wkz"
+    ],
+    "amount_diff_inr": 0,
+    "date_diff_hours": 0,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "batch match: settlement set_nfi5ko5h1cf2 + settlement set_9asotowz9wkz reconcile to bank batch UTRo0lc4l70i9w5"
+  },
+  {
+    "order_id": "order_000053",
+    "settlement_id": "set_9asotowz9wkz",
+    "bank_utr_ref": "UTRo0lc4l70i9w5",
+    "tier": "batch",
+    "batch_settlement_ids": [
+      "set_9asotowz9wkz",
+      "set_nfi5ko5h1cf2"
+    ],
+    "amount_diff_inr": 0,
+    "date_diff_hours": 576,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "batch match: settlement set_9asotowz9wkz + settlement set_nfi5ko5h1cf2 reconcile to bank batch UTRo0lc4l70i9w5"
+  },
+  {
+    "order_id": "order_000054",
+    "settlement_id": "set_9rl1es8zhis0",
+    "bank_utr_ref": "UTR8ob21ymghvio",
+    "tier": "batch",
+    "batch_settlement_ids": [
+      "set_9rl1es8zhis0",
+      "set_wyr1m70q47z5"
+    ],
+    "amount_diff_inr": 0,
+    "date_diff_hours": 0,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "batch match: settlement set_9rl1es8zhis0 + settlement set_wyr1m70q47z5 reconcile to bank batch UTR8ob21ymghvio"
+  },
+  {
+    "order_id": "order_000055",
+    "settlement_id": "set_wyr1m70q47z5",
+    "bank_utr_ref": "UTR8ob21ymghvio",
+    "tier": "batch",
+    "batch_settlement_ids": [
+      "set_wyr1m70q47z5",
+      "set_9rl1es8zhis0"
+    ],
+    "amount_diff_inr": 0,
+    "date_diff_hours": 192,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "batch match: settlement set_wyr1m70q47z5 + settlement set_9rl1es8zhis0 reconcile to bank batch UTR8ob21ymghvio"
+  },
+  {
+    "order_id": "order_000056",
+    "settlement_id": "set_0qxla28au2sk",
+    "bank_utr_ref": "UTRq2mqbgedcpk3",
+    "tier": "batch",
+    "batch_settlement_ids": [
+      "set_0qxla28au2sk",
+      "set_ety9o46j70ny"
+    ],
+    "amount_diff_inr": 0,
+    "date_diff_hours": 768,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "batch match: settlement set_0qxla28au2sk + settlement set_ety9o46j70ny reconcile to bank batch UTRq2mqbgedcpk3"
+  },
+  {
+    "order_id": "order_000057",
+    "settlement_id": "set_ety9o46j70ny",
+    "bank_utr_ref": "UTRq2mqbgedcpk3",
+    "tier": "batch",
+    "batch_settlement_ids": [
+      "set_ety9o46j70ny",
+      "set_0qxla28au2sk"
+    ],
+    "amount_diff_inr": 0,
+    "date_diff_hours": 0,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "batch match: settlement set_ety9o46j70ny + settlement set_0qxla28au2sk reconcile to bank batch UTRq2mqbgedcpk3"
+  },
+  {
+    "order_id": "order_000043",
+    "settlement_id": "set_czaj2esg4llo",
+    "bank_utr_ref": "UTRvj877jp9rsdl",
     "tier": "fuzzy",
-    "amount_diff_inr": 0,
-    "date_diff_hours": 0,
-    "reason": "amount within ₹0.00 and date within 0h of settlement, no exact id match"
-  },
-  {
-    "order_id": "order_L8lGWG0ntL",
-    "settlement_id": "stl_Jf249WjJFafNT1",
-    "bank_utr_ref": "UTRWbhyPZ8KeccR",
-    "tier": "exact",
     "amount_diff_inr": 0,
     "date_diff_hours": 72,
-    "reason": "payment id found in bank narration"
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "fuzzy match: amount difference ₹0.00, date difference 72.0 hours"
   },
   {
-    "order_id": "order_SlGlRVT3uf",
-    "settlement_id": "stl_ZKLsl4Wf61rFyM",
-    "bank_utr_ref": "UTReUD8gKko9048",
-    "tier": "exact",
-    "amount_diff_inr": 0,
-    "date_diff_hours": 0,
-    "reason": "payment id found in bank narration"
-  },
-  {
-    "order_id": "order_c3F34UmFkt",
-    "settlement_id": "stl_KZuXJPQpTiMA2y",
-    "bank_utr_ref": "UTRHVdzTs36ZIfi",
+    "order_id": "order_000044",
+    "settlement_id": "set_qu559k0rlcre",
+    "bank_utr_ref": "UTR3rvay4ghczvh",
     "tier": "fuzzy",
-    "amount_diff_inr": 0,
-    "date_diff_hours": 0,
-    "reason": "amount within ₹0.00 and date within 0h of settlement, no exact id match"
-  },
-  {
-    "order_id": "order_1BB2v2qVDS",
-    "settlement_id": "stl_TZCx3IxkCT1tdx",
-    "bank_utr_ref": "UTRkpGW0Fb86PDr",
-    "tier": "exact",
-    "amount_diff_inr": 0,
-    "date_diff_hours": 0,
-    "reason": "payment id found in bank narration"
-  },
-  {
-    "order_id": "order_kYoaL6s7p2",
-    "settlement_id": "stl_eMfjOwnOA6qPDk",
-    "bank_utr_ref": "UTRZliQXbpg3uoe",
-    "tier": "fuzzy",
-    "amount_diff_inr": 0,
-    "date_diff_hours": 0,
-    "reason": "amount within ₹0.00 and date within 0h of settlement, no exact id match"
-  },
-  {
-    "order_id": "order_CuxgO0brDr",
-    "settlement_id": "stl_q9F6FVmubjfAr3",
-    "bank_utr_ref": "UTRkPhiIqPDnQEK",
-    "tier": "fuzzy",
-    "amount_diff_inr": 0,
-    "date_diff_hours": 0,
-    "reason": "amount within ₹0.00 and date within 0h of settlement, no exact id match"
-  },
-  {
-    "order_id": "order_guGgWIFHhE",
-    "settlement_id": "stl_eviXKliZqHHh0j",
-    "bank_utr_ref": "UTR0wnPQpSk8N0a",
-    "tier": "exact",
     "amount_diff_inr": 0,
     "date_diff_hours": 72,
-    "reason": "payment id found in bank narration"
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "fuzzy match: amount difference ₹0.00, date difference 72.0 hours"
   },
   {
-    "order_id": "order_SIlwtGRmuJ",
-    "settlement_id": "stl_eLKi6C62oRoHZS",
-    "bank_utr_ref": "UTRPxzTjorrl4aa",
-    "tier": "exact",
-    "amount_diff_inr": 0.3599999999996726,
-    "date_diff_hours": 0,
-    "reason": "payment id found in bank narration"
-  },
-  {
-    "order_id": "order_UvndoazGwO",
-    "settlement_id": "stl_SwXfpWGwspfhvV",
-    "bank_utr_ref": "UTRoX9kv1EzZMUf",
-    "tier": "exact",
-    "amount_diff_inr": 0,
-    "date_diff_hours": 72,
-    "reason": "payment id found in bank narration"
-  },
-  {
-    "order_id": "order_u34JpIuI5U",
-    "settlement_id": "stl_T3P8NLRwdcYFvw",
-    "bank_utr_ref": "UTREnSzPPBLexeJ",
-    "tier": "exact",
-    "amount_diff_inr": 0,
-    "date_diff_hours": 72,
-    "reason": "payment id found in bank narration"
-  },
-  {
-    "order_id": "order_Z312PEcQyC",
-    "settlement_id": "stl_cXz6pMGih7mG33",
-    "bank_utr_ref": "UTRqe2EglhB6lCb",
-    "tier": "exact",
-    "amount_diff_inr": 0.4599999999991269,
-    "date_diff_hours": 0,
-    "reason": "payment id found in bank narration"
-  },
-  {
-    "order_id": "order_Ujqj17Aptv",
-    "settlement_id": "stl_0kWxm9AY4t0urf",
-    "bank_utr_ref": "UTRWnMlCtmhPTcS",
-    "tier": "exact",
-    "amount_diff_inr": 0.2999999999992724,
-    "date_diff_hours": 0,
-    "reason": "payment id found in bank narration"
-  },
-  {
-    "order_id": "order_tiBUUnJpBs",
-    "settlement_id": "stl_gt91IDgLIdgXR5",
-    "bank_utr_ref": "UTRpBGRYCRGmpif",
-    "tier": "llm_resolved",
-    "amount_diff_inr": 0,
-    "date_diff_hours": 0,
-    "reason": "[medium confidence] same value date and batch flag, amount plausibly includes this settlement within a larger batch"
-  },
-  {
-    "order_id": "order_6kLdABb5HV",
-    "settlement_id": "stl_nQKwlQ6YDWoVhM",
-    "bank_utr_ref": "UTRWwV7vNb6ZODR",
-    "tier": "exact",
-    "amount_diff_inr": 0,
-    "date_diff_hours": 0,
-    "reason": "payment id found in bank narration"
-  },
-  {
-    "order_id": "order_8JHuXsU9tH",
-    "settlement_id": "stl_NFlmCHRN32cEm3",
-    "bank_utr_ref": "UTRiMvXpYYmbfSK",
-    "tier": "llm_resolved",
-    "amount_diff_inr": 0,
-    "date_diff_hours": 0,
-    "reason": "[medium confidence] matches settlement date and batch flag, amount suggests it includes this settlement among others"
-  },
-  {
-    "order_id": "order_kvE1wjQM0o",
-    "settlement_id": "stl_AISG53ms4pfT5b",
-    "bank_utr_ref": "UTR7EZxSuKrkz7S",
-    "tier": "exact",
-    "amount_diff_inr": 0,
-    "date_diff_hours": 0,
-    "reason": "payment id found in bank narration"
-  },
-  {
-    "order_id": "order_bNkhqEw5NV",
-    "settlement_id": "stl_fczuuNhUEz4a43",
-    "bank_utr_ref": "UTRFnsLlyD1VNW7",
-    "tier": "llm_resolved",
-    "amount_diff_inr": 0,
-    "date_diff_hours": 0,
-    "reason": "[medium confidence] The candidate shares the exact settlement date and is flagged as a batch, making it a plausible container despite the higher amount"
-  },
-  {
-    "order_id": "order_JQASAHzXw1",
-    "settlement_id": "stl_pkv7nkwkOGsFFw",
-    "bank_utr_ref": "UTReXix6S6uQP50",
-    "tier": "exact",
-    "amount_diff_inr": 0.010000000000218279,
-    "date_diff_hours": 0,
-    "reason": "payment id found in bank narration"
-  },
-  {
-    "order_id": "order_OB1ZXCG9et",
-    "settlement_id": "stl_VSOI0dRADVOVhu",
-    "bank_utr_ref": "UTRvGF2uSFUcUY1",
-    "tier": "exact",
-    "amount_diff_inr": 0,
-    "date_diff_hours": 0,
-    "reason": "payment id found in bank narration"
-  },
-  {
-    "order_id": "order_P1wuy9Gvvf",
-    "settlement_id": "stl_7tTqYQXssYshAb",
-    "bank_utr_ref": "UTR8Q2IZ60ptZYl",
-    "tier": "exact",
-    "amount_diff_inr": 0,
-    "date_diff_hours": 0,
-    "reason": "payment id found in bank narration"
-  },
-  {
-    "order_id": "order_6E7JuEG2NW",
-    "settlement_id": "stl_icdsHq2UYAJxSW",
-    "bank_utr_ref": "UTRMvfb1O8gTDHi",
-    "tier": "exact",
-    "amount_diff_inr": 0,
-    "date_diff_hours": 0,
-    "reason": "payment id found in bank narration"
-  },
-  {
-    "order_id": "order_CWItlDuOjj",
-    "settlement_id": "stl_ttbh2geWwvdMRY",
-    "bank_utr_ref": "UTRn8dm3VsufUAL",
+    "order_id": "order_000045",
+    "settlement_id": "set_mm900ym0yfn4",
+    "bank_utr_ref": "UTRye66zz29nthv",
     "tier": "fuzzy",
     "amount_diff_inr": 0,
-    "date_diff_hours": 0,
-    "reason": "amount within ₹0.00 and date within 0h of settlement, no exact id match"
+    "date_diff_hours": 72,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "fuzzy match: amount difference ₹0.00, date difference 72.0 hours"
   },
   {
-    "order_id": "order_jvYenwPKN4",
-    "settlement_id": "stl_eS52Sgv7eLsxq2",
-    "bank_utr_ref": "UTR6yGxBBvV1NAF",
-    "tier": "exact",
-    "amount_diff_inr": 0,
-    "date_diff_hours": 0,
-    "reason": "payment id found in bank narration"
-  },
-  {
-    "order_id": "order_nwn4GJZJ5Q",
-    "settlement_id": "stl_O9pvTfedRpoG8s",
-    "bank_utr_ref": "UTRBWNBlHvhM15N",
-    "tier": "exact",
-    "amount_diff_inr": 0,
-    "date_diff_hours": 0,
-    "reason": "payment id found in bank narration"
-  },
-  {
-    "order_id": "order_rSGBW95qP6",
-    "settlement_id": "stl_rnqeZeJZ4fPAfc",
-    "bank_utr_ref": "UTROThytKS9fJ5q",
-    "tier": "exact",
-    "amount_diff_inr": 0,
-    "date_diff_hours": 0,
-    "reason": "payment id found in bank narration"
-  },
-  {
-    "order_id": "order_fTs6AxZURm",
-    "settlement_id": "stl_MtsPCHOHgjrBmy",
-    "bank_utr_ref": "UTRJdFRuBmef5Ra",
-    "tier": "exact",
+    "order_id": "order_000046",
+    "settlement_id": "set_c0rq6fxl12ac",
+    "bank_utr_ref": "UTRgqrlgkmqs3g2",
+    "tier": "fuzzy",
     "amount_diff_inr": 0,
     "date_diff_hours": 72,
-    "reason": "payment id found in bank narration"
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "fuzzy match: amount difference ₹0.00, date difference 72.0 hours"
   },
   {
-    "order_id": "order_SiqESfwenZ",
-    "settlement_id": "stl_fp4w4z8OPHOiRt",
-    "bank_utr_ref": "UTRTOgzvyhlG4O4",
-    "tier": "exact",
-    "amount_diff_inr": 0,
-    "date_diff_hours": 0,
-    "reason": "payment id found in bank narration"
-  },
-  {
-    "order_id": "order_tJZ7RcY0dR",
-    "settlement_id": "stl_iohiBEJSpJuAf2",
-    "bank_utr_ref": "UTR33S4AXcYQh95",
-    "tier": "exact",
+    "order_id": "order_000047",
+    "settlement_id": "set_wrnnhhf3snbh",
+    "bank_utr_ref": "UTRo0rekhzv6z0e",
+    "tier": "fuzzy",
     "amount_diff_inr": 0,
     "date_diff_hours": 72,
-    "reason": "payment id found in bank narration"
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "fuzzy match: amount difference ₹0.00, date difference 72.0 hours"
   },
   {
-    "order_id": "order_rbUU9Ia08Z",
-    "settlement_id": "stl_kyANgsdya4ruCB",
-    "bank_utr_ref": "UTRXwEfCZSiANjG",
+    "order_id": "order_000048",
+    "settlement_id": "set_rz7pxu7b7yeo",
+    "bank_utr_ref": "UTRiudjnc89pfbn",
     "tier": "fuzzy",
-    "amount_diff_inr": 0,
-    "date_diff_hours": 0,
-    "reason": "amount within ₹0.00 and date within 0h of settlement, no exact id match"
-  },
-  {
-    "order_id": "order_KKhuMTguqC",
-    "settlement_id": "stl_6vJcxZ9ojY9eMm",
-    "bank_utr_ref": "UTRbU7FcWTWx7lh",
-    "tier": "fuzzy",
-    "amount_diff_inr": 0,
-    "date_diff_hours": 0,
-    "reason": "amount within ₹0.00 and date within 0h of settlement, no exact id match"
-  },
-  {
-    "order_id": "order_DS0DtsIn6i",
-    "settlement_id": "stl_12j39y4ivTBVVK",
-    "bank_utr_ref": "UTR5KIYUouSHsfe",
-    "tier": "exact",
     "amount_diff_inr": 0,
     "date_diff_hours": 72,
-    "reason": "payment id found in bank narration"
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "fuzzy match: amount difference ₹0.00, date difference 72.0 hours"
   },
   {
-    "order_id": "order_uaiCmWge3o",
-    "settlement_id": "stl_CK1bNGUoMvPSdW",
-    "bank_utr_ref": "UTRbLxJeLiT1xui",
-    "tier": "exact",
-    "amount_diff_inr": 0,
-    "date_diff_hours": 0,
-    "reason": "payment id found in bank narration"
-  },
-  {
-    "order_id": "order_yVJuhZmDT1",
-    "settlement_id": "stl_ysG5wAN8Ql2C0s",
-    "bank_utr_ref": "UTR0PikyDScLSIT",
-    "tier": "llm_resolved",
-    "amount_diff_inr": 0,
-    "date_diff_hours": 0,
-    "reason": "[medium confidence] Amount is close to net amount and date falls within same batch window, suggesting it may be a bundled settlement entry"
-  },
-  {
-    "order_id": "order_e56Bx0byzI",
-    "settlement_id": "stl_9Z1Kh7VX9NOF70",
-    "bank_utr_ref": "UTRYyRVWID9vVln",
-    "tier": "exact",
-    "amount_diff_inr": 0,
-    "date_diff_hours": 0,
-    "reason": "payment id found in bank narration"
-  },
-  {
-    "order_id": "order_laVsJpu1Lv",
-    "settlement_id": "stl_dCo86rvtws6uBu",
-    "bank_utr_ref": "UTROG2fArKIbgYZ",
-    "tier": "exact",
-    "amount_diff_inr": 0,
-    "date_diff_hours": 0,
-    "reason": "payment id found in bank narration"
-  },
-  {
-    "order_id": "order_i51SH0TvVq",
-    "settlement_id": "stl_IqG4X8syC9Pf4m",
-    "bank_utr_ref": "UTRL90tkmlPVPvK",
+    "order_id": "order_000049",
+    "settlement_id": "set_kwh0bxgn4y9t",
+    "bank_utr_ref": "UTR91wxydglmcj5",
     "tier": "fuzzy",
     "amount_diff_inr": 0,
-    "date_diff_hours": 0,
-    "reason": "amount within ₹0.00 and date within 0h of settlement, no exact id match"
+    "date_diff_hours": 72,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "fuzzy match: amount difference ₹0.00, date difference 72.0 hours"
   },
   {
-    "order_id": "order_ncZkSJv0Mh",
-    "settlement_id": "stl_pGkEfhJHzPk2Zi",
-    "bank_utr_ref": "UTRCTgD1by8Mm20",
-    "tier": "exact",
-    "amount_diff_inr": 0,
-    "date_diff_hours": 0,
-    "reason": "payment id found in bank narration"
-  },
-  {
-    "order_id": "order_vMCNsaKaRX",
-    "settlement_id": "stl_epfpca2uc9whGZ",
-    "bank_utr_ref": "UTRFnsLlyD1VNW7",
-    "tier": "llm_resolved",
-    "amount_diff_inr": 0,
-    "date_diff_hours": 0,
-    "reason": "[medium confidence] Amount (₹6709.87) and date (2026-08-02) are close to the settlement net amount (₹6660.41) and settled_at, suggesting this batch line likely includes the transaction."
-  },
-  {
-    "order_id": "order_WrWkEyFGlZ",
-    "settlement_id": "stl_uIt5iZTOST4L2l",
-    "bank_utr_ref": "UTRGhjigjdBe1B1",
-    "tier": "exact",
-    "amount_diff_inr": 0.4600000000000364,
-    "date_diff_hours": 0,
-    "reason": "payment id found in bank narration"
-  },
-  {
-    "order_id": "order_rNT58TerWH",
-    "settlement_id": "stl_ix4YCBpnegFb52",
-    "bank_utr_ref": "UTRXpdWQuCfkznv",
-    "tier": "exact",
-    "amount_diff_inr": 0,
-    "date_diff_hours": 0,
-    "reason": "payment id found in bank narration"
-  },
-  {
-    "order_id": "order_2gapBSbxdx",
-    "settlement_id": "stl_CTwK3JxqFsEI6N",
-    "bank_utr_ref": "UTR0PikyDScLSIT",
-    "tier": "llm_resolved",
-    "amount_diff_inr": 0,
-    "date_diff_hours": 0,
-    "reason": "[medium confidence] Amount 3433.90 INR on same settlement date is close to net 3291.97 INR, suggesting inclusion in a batch settlement"
-  },
-  {
-    "order_id": "order_bYT8fqbagb",
-    "settlement_id": "stl_VQgXqmYyD0GNNg",
-    "bank_utr_ref": "UTRLIKRFWE7eD1H",
+    "order_id": "order_000050",
+    "settlement_id": "set_k2qj6v3bnrel",
+    "bank_utr_ref": "UTR1abg3sg12m44",
     "tier": "fuzzy",
     "amount_diff_inr": 0,
-    "date_diff_hours": 0,
-    "reason": "amount within ₹0.00 and date within 0h of settlement, no exact id match"
+    "date_diff_hours": 72,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "fuzzy match: amount difference ₹0.00, date difference 72.0 hours"
   },
   {
-    "order_id": "order_euWgFQwo4Z",
-    "settlement_id": "stl_vNkprk6wsTOudo",
-    "bank_utr_ref": "UTRFNoqHyKBNUE0",
-    "tier": "exact",
+    "order_id": "order_000051",
+    "settlement_id": "set_p5kw0ezey4gk",
+    "bank_utr_ref": "UTR9l4k9uak634o",
+    "tier": "fuzzy",
     "amount_diff_inr": 0,
-    "date_diff_hours": 0,
-    "reason": "payment id found in bank narration"
+    "date_diff_hours": 72,
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "fuzzy match: amount difference ₹0.00, date difference 72.0 hours"
   },
   {
-    "order_id": "order_QXYAxSLqbV",
-    "settlement_id": "stl_r5dMloJewrX5Kk",
+    "order_id": "order_000058",
+    "settlement_id": "set_jn8fh3urm5cs",
     "tier": "unresolved",
     "amount_diff_inr": 0,
     "date_diff_hours": 0,
-    "reason": "no bank record found within amount/date tolerance"
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "confirmed exception: No bank statement entry matches the settlement net amount (2585.89 INR) or the payment ID (pay_watbyyjonoy6); all candidate credits have different amounts and unrelated narrations."
   },
   {
-    "order_id": "order_zNiOkgyJz3",
-    "settlement_id": "stl_EIT1zHkuqP03Az",
+    "order_id": "order_000059",
+    "settlement_id": "set_cyllkwjgmka4",
     "tier": "unresolved",
     "amount_diff_inr": 0,
     "date_diff_hours": 0,
-    "reason": "no bank record found within amount/date tolerance"
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "confirmed exception: No bank statement entry contains the payment ID pay_zql5w8byzvr7 or the net settlement amount 5550.56 INR; amounts and narrations do not correspond to the settlement record."
   },
   {
-    "order_id": "order_7itp3cCWBI",
-    "settlement_id": "stl_iMJIbqeiHBoUGM",
-    "bank_utr_ref": "UTRG4lMbSbRXIDE",
-    "tier": "exact",
-    "amount_diff_inr": 0,
-    "date_diff_hours": 72,
-    "reason": "payment id found in bank narration"
-  },
-  {
-    "order_id": "order_UA3O7iBDC4",
-    "settlement_id": "stl_ciuKlwiTnP8QPi",
-    "bank_utr_ref": "UTRwp0txKL6T9Ae",
-    "tier": "fuzzy",
-    "amount_diff_inr": 0,
-    "date_diff_hours": 0,
-    "reason": "amount within ₹0.00 and date within 0h of settlement, no exact id match"
-  },
-  {
-    "order_id": "order_XWwcNylyBF",
-    "settlement_id": "stl_H9IgBwy2eKty9Z",
+    "order_id": "order_000060",
+    "settlement_id": "set_yixcr7wwf2jo",
     "tier": "unresolved",
     "amount_diff_inr": 0,
     "date_diff_hours": 0,
-    "reason": "no bank record found within amount/date tolerance"
-  },
-  {
-    "order_id": "order_4dkMhs07qX",
-    "settlement_id": "stl_Ax5lHfumuL4sE5",
-    "bank_utr_ref": "UTR3Ye20y4odCg7",
-    "tier": "exact",
-    "amount_diff_inr": 0,
-    "date_diff_hours": 0,
-    "reason": "payment id found in bank narration"
-  },
-  {
-    "order_id": "order_FOlLdvj8bH",
-    "settlement_id": "stl_fSpEmJYYOnbYoK",
-    "bank_utr_ref": "UTRc4sGiR6YpFY1",
-    "tier": "exact",
-    "amount_diff_inr": 0,
-    "date_diff_hours": 72,
-    "reason": "payment id found in bank narration"
-  },
-  {
-    "order_id": "order_xougpEoCWt",
-    "settlement_id": "stl_SUzSlW5dB9GUKV",
-    "bank_utr_ref": "UTRBxg7ggg4PeiA",
-    "tier": "exact",
-    "amount_diff_inr": 0,
-    "date_diff_hours": 0,
-    "reason": "payment id found in bank narration"
-  },
-  {
-    "order_id": "order_Y6fsdVp8Cy",
-    "settlement_id": "stl_Jjuvv0W0T2HMoC",
-    "bank_utr_ref": "UTRlHd1E8RPxhpC",
-    "tier": "fuzzy",
-    "amount_diff_inr": 0,
-    "date_diff_hours": 0,
-    "reason": "amount within ₹0.00 and date within 0h of settlement, no exact id match"
-  },
-  {
-    "order_id": "order_KyAZUJgwQW",
-    "settlement_id": "stl_j3XunRvCIdqzWe",
-    "bank_utr_ref": "UTR1VeuTHlkFjQ5",
-    "tier": "exact",
-    "amount_diff_inr": 0,
-    "date_diff_hours": 0,
-    "reason": "payment id found in bank narration"
-  },
-  {
-    "order_id": "order_T6TcQkhJds",
-    "settlement_id": "stl_pQZVXdgnIGquZL",
-    "tier": "unresolved",
-    "amount_diff_inr": 0,
-    "date_diff_hours": 0,
-    "reason": "no bank record found within amount/date tolerance"
-  },
-  {
-    "order_id": "order_1mrPR0IBCv",
-    "settlement_id": "stl_y1J03QduuffUNA",
-    "bank_utr_ref": "UTR9NfIqjNY3XSg",
-    "tier": "exact",
-    "amount_diff_inr": 0,
-    "date_diff_hours": 0,
-    "reason": "payment id found in bank narration"
+    "ledger_found": true,
+    "ledger_status": "paid",
+    "reason": "confirmed exception: No bank statement entry matches the settlement's net amount (₹2811.31) or payment ID (pay_xx4xplcgqx7p); credit amounts and narrations differ, so reconciliation cannot be confirmed."
   }
 ]

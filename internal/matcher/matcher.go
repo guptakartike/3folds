@@ -12,10 +12,10 @@ import (
 type Tier string
 
 const (
-	TierExact       Tier = "exact"
-	TierFuzzy       Tier = "fuzzy"
-	TierBatch       Tier = "batch"
-	TierUnresolved  Tier = "unresolved"
+	TierExact      Tier = "exact"
+	TierFuzzy      Tier = "fuzzy"
+	TierBatch      Tier = "batch"
+	TierUnresolved Tier = "unresolved"
 )
 
 const (
@@ -24,18 +24,20 @@ const (
 )
 
 type Result struct {
-	OrderID       string `json:"order_id"`
-	SettlementID  string `json:"settlement_id"`
-	BankUTRRef    string `json:"bank_utr_ref,omitempty"`
-	Tier          Tier   `json:"tier"`
+	OrderID      string `json:"order_id"`
+	SettlementID string `json:"settlement_id"`
+	BankUTRRef   string `json:"bank_utr_ref,omitempty"`
+	Tier         Tier   `json:"tier"`
+
+	BatchSettlementIDs []string `json:"batch_settlement_ids,omitempty"`
 
 	AmountDiffINR float64 `json:"amount_diff_inr"`
 	DateDiffHours float64 `json:"date_diff_hours"`
 
-	LedgerFound      bool    `json:"ledger_found"`
-	LedgerAmountDiff float64 `json:"ledger_amount_diff_inr,omitempty"`
+	LedgerFound       bool    `json:"ledger_found"`
+	LedgerAmountDiff  float64 `json:"ledger_amount_diff_inr,omitempty"`
 	LedgerDateDiffHrs float64 `json:"ledger_date_diff_hours,omitempty"`
-	LedgerStatus     string  `json:"ledger_status,omitempty"`
+	LedgerStatus      string  `json:"ledger_status,omitempty"`
 
 	Reason string `json:"reason"`
 }
@@ -127,6 +129,15 @@ func Match(
 					ledgerByOrder,
 				),
 			)
+			results = append(results,
+
+				buildBatchResult(
+					b,
+					a,
+					bank,
+					ledgerByOrder,
+				),
+			)
 
 			usedBanks[bank.UTRRef] = true
 			usedSettlements[a.SettlementID] = true
@@ -206,6 +217,8 @@ func findExactMatch(
 	usedBanks map[string]bool,
 ) (model.BankStatement, bool) {
 
+	settlementAmount := float64(settlement.NetAmountPaisa) / 100
+
 	for _, bank := range bankStatements {
 		if usedBanks[bank.UTRRef] {
 			continue
@@ -215,9 +228,30 @@ func findExactMatch(
 			continue
 		}
 
-		if strings.Contains(bank.Narration, settlement.PaymentID) {
-			return bank, true
+		// Payment ID must be present.
+		if !strings.Contains(bank.Narration, settlement.PaymentID) {
+			continue
 		}
+
+		// Bank amount must match the settlement net amount.
+		amountDiff := math.Abs(
+			settlementAmount - bank.CreditAmountINR,
+		)
+
+		if amountDiff > amountToleranceINR {
+			continue
+		}
+
+		// Bank date must be reasonably close to settlement date.
+		dateDiff := math.Abs(
+			bank.ValueDate.Sub(settlement.SettledAt).Hours(),
+		)
+
+		if dateDiff > 24 {
+			continue
+		}
+
+		return bank, true
 	}
 
 	return model.BankStatement{}, false
@@ -274,27 +308,53 @@ func findBatchMatch(
 // ------------------------------------------------------------
 
 func buildBatchResult(
-	a model.Settlement,
-	b model.Settlement,
+	settlement model.Settlement,
+	other model.Settlement,
 	bank model.BankStatement,
 	ledgerByOrder map[string]model.LedgerEntry,
 ) Result {
 
-	return Result{
-		OrderID:       a.OrderID,
-		SettlementID:  a.SettlementID,
-		BankUTRRef:    bank.UTRRef,
-		Tier:          TierBatch,
+	result := Result{
+		OrderID:      settlement.OrderID,
+		SettlementID: settlement.SettlementID,
+		BankUTRRef:   bank.UTRRef,
+		Tier:         TierBatch,
+		BatchSettlementIDs: []string{
+			settlement.SettlementID,
+			other.SettlementID,
+		},
 		AmountDiffINR: 0,
-		DateDiffHours: math.Abs(bank.ValueDate.Sub(a.SettledAt).Hours()),
-		LedgerFound:   ledgerByOrder[a.OrderID].OrderID != "",
+		DateDiffHours: math.Abs(
+			bank.ValueDate.Sub(settlement.SettledAt).Hours(),
+		),
 		Reason: fmt.Sprintf(
 			"batch match: settlement %s + settlement %s reconcile to bank batch %s",
-			a.SettlementID,
-			b.SettlementID,
+			settlement.SettlementID,
+			other.SettlementID,
 			bank.UTRRef,
 		),
 	}
+
+	if ledger, ok := ledgerByOrder[settlement.OrderID]; ok {
+		result.LedgerFound = true
+
+		settlementGrossINR :=
+			float64(settlement.GrossAmountPaisa) / 100
+
+		result.LedgerAmountDiff =
+			math.Abs(settlementGrossINR - ledger.GrossAmountINR)
+
+		result.LedgerDateDiffHrs =
+			math.Abs(
+				ledger.ExpectedSettlementDate.
+					Sub(settlement.SettledAt).
+					Hours(),
+			)
+
+		result.LedgerStatus = ledger.InternalStatus
+	}
+
+	return result
 }
 
 // ------------------------------------------------------------
@@ -368,11 +428,11 @@ func buildResult(
 ) Result {
 
 	result := Result{
-		OrderID:       settlement.OrderID,
-		SettlementID:  settlement.SettlementID,
-		BankUTRRef:    bank.UTRRef,
-		Tier:          tier,
-		Reason:        reason,
+		OrderID:      settlement.OrderID,
+		SettlementID: settlement.SettlementID,
+		BankUTRRef:   bank.UTRRef,
+		Tier:         tier,
+		Reason:       reason,
 	}
 
 	if ledger, ok := ledgerByOrder[settlement.OrderID]; ok {
