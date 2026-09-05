@@ -20,12 +20,13 @@ const groqEndpoint = "https://api.groq.com/openai/v1/chat/completions"
 
 // Resolution is the LLM's verdict on one unresolved settlement.
 type Resolution struct {
-	OrderID          string `json:"order_id"`
-	SettlementID     string `json:"settlement_id"`
-	ProposedMatchUTR string `json:"proposed_match_utr,omitempty"` // "" if no match proposed
-	Confidence       string `json:"confidence"`                   // "high" | "medium" | "low"
-	Resolved         bool   `json:"resolved"`                     // true = LLM proposes a match
-	Reason           string `json:"reason"`
+    OrderID      string   `json:"order_id"`
+    SettlementID string   `json:"settlement_id"`
+    Decision     string   `json:"decision"`      // MATCH | EXCEPTION
+    Confidence   float64  `json:"confidence"`    // 0.0 - 1.0
+    BankUTRRef   string   `json:"bank_utr_ref,omitempty"`
+    Reason       string   `json:"reason"`
+    Evidence     []string `json:"evidence"`
 }
 
 // Client wraps calls to the Groq chat completions API.
@@ -80,25 +81,44 @@ type groqResponse struct {
 	} `json:"error,omitempty"`
 }
 
-const systemPrompt = `You are a payment reconciliation assistant. You will be given one
-settlement record and a list of candidate bank statement records that did NOT
-match it via exact ID lookup or amount/date tolerance rules.
 
-Decide whether any candidate is plausibly the same underlying transaction —
-for example, a bank line that bundles this settlement with another (batching),
-or a narration that references the transaction indirectly.
 
-Respond with ONLY a JSON object, no other text, in exactly this shape:
+const systemPrompt = `
+You are a financial reconciliation controller.
+
+Your job is to evaluate whether a Razorpay settlement
+can be reconciled against the supplied bank evidence.
+
+RULES:
+
+1. Never invent a transaction, payment ID, UTR, amount, or date.
+2. Never assume a missing bank record exists.
+3. Do not match based only on semantic similarity.
+4. A match requires concrete evidence from the supplied records.
+5. Consider:
+   - payment ID
+   - order ID
+   - net settlement amount
+   - bank credit amount
+   - settlement date
+   - bank value date
+   - ledger evidence
+6. Fee and tax deductions explain why gross and net amounts differ.
+7. Small rounding differences may be acceptable.
+8. Settlement and bank dates may differ because of settlement timing.
+9. If evidence is insufficient or contradictory, return EXCEPTION.
+10. When uncertain, return EXCEPTION.
+
+Return JSON only:
+
 {
-  "proposed_match_utr": "<utr_ref of the candidate you propose, or empty string if none>",
-  "confidence": "high" | "medium" | "low",
-  "resolved": true | false,
-  "reason": "<one sentence explaining your decision>"
+  "decision": "MATCH" or "EXCEPTION",
+  "confidence": 0.0,
+  "bank_utr_ref": "",
+  "reason": "",
+  "evidence": []
 }
-
-If no candidate is plausible, set resolved to false, proposed_match_utr to "",
-and explain why in reason (e.g. "no candidate within a reasonable amount or
-time window; likely reversed or delayed beyond this batch").`
+`
 
 // Resolve calls the LLM for one unresolved settlement and its remaining
 // unused bank candidates.

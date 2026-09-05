@@ -19,6 +19,7 @@ import (
 	"threefolds/internal/matcher"
 	"threefolds/internal/report"
 	"threefolds/internal/resolver"
+	"threefolds/internal/evaluation"
 )
 
 func main() {
@@ -35,8 +36,12 @@ func main() {
 		runResolve(os.Args[2:])
 	case "report":
 		runReport(os.Args[2:])
+	case "verify":
+		runVerify(os.Args[2:])
+	case "evaluate":
+		runEvaluate(os.Args[2:])
 	default:
-		log.Fatalf("unknown subcommand %q: expected generate | match | resolve | report", os.Args[1])
+		log.Fatalf("unknown subcommand %q: expected generate | match | resolve | report | verify | evaluate", os.Args[1])
 	}
 }
 
@@ -77,7 +82,11 @@ func runMatch(args []string) {
 		log.Fatalf("loading data: %v", err)
 	}
 
-	results := matcher.Match(d.Settlements, d.BankStatements)
+	results := matcher.Match(
+	d.Settlements,
+	d.BankStatements,
+	d.LedgerEntries,
+)
 	writeJSON(filepath.Join(*inDir, "match_results.json"), results)
 
 	rate := matcher.MatchRate(results)
@@ -107,7 +116,7 @@ func runMatch(args []string) {
 func runResolve(args []string) {
 	fs := flag.NewFlagSet("resolve", flag.ExitOnError)
 	inDir := fs.String("in", "data", "input directory (output of generate + match)")
-	modelName := fs.String("model", "llama-3.3-70b-versatile", "Groq model id — check your console, this changes over time")
+	modelName := fs.String("model", "openai/gpt-oss-120b", "Groq model id — check console.groq.com/docs/models if this stops working, Groq deprecates models over time")
 	fs.Parse(args)
 
 	apiKey := os.Getenv("GROQ_API_KEY")
@@ -128,33 +137,65 @@ func runResolve(args []string) {
 		settlementLookup[s.SettlementID] = i
 	}
 
-	candidates := resolver.UnusedBankStatements(d.BankStatements, results)
+	// A mutable pool: once a candidate is proposed as a match by the LLM,
+	// remove it so a later settlement in this same loop can't also claim
+	// it — the loop is sequential, so this is safe without locking.
+	candidatePool := resolver.UnusedBankStatements(d.BankStatements, results)
 	client := resolver.NewClient(apiKey, *modelName)
 
 	var resolutions []resolver.Resolution
 	upgraded := 0
+	failed := 0
+	toResolve := 0
 
 	for i, r := range results {
 		if r.Tier != matcher.TierUnresolved {
 			continue
 		}
+		toResolve++
 		s := d.Settlements[settlementLookup[r.SettlementID]]
 
-		res, err := client.Resolve(s, candidates)
+		res, err := client.Resolve(s, candidatePool)
 		if err != nil {
 			log.Printf("WARN: resolving %s failed: %v", s.SettlementID, err)
+			failed++
 			continue
 		}
 		resolutions = append(resolutions, res)
 
-		if res.Resolved {
+		if res.Decision == "MATCH" {
 			upgraded++
 			results[i].Tier = "llm_resolved"
-			results[i].BankUTRRef = res.ProposedMatchUTR
-			results[i].Reason = fmt.Sprintf("[%s confidence] %s", res.Confidence, res.Reason)
+			results[i].BankUTRRef = res.BankUTRRef
+			results[i].Reason = fmt.Sprintf(
+				"[LLM confidence %.2f] %s",
+				res.Confidence,
+				res.Reason,
+			)
+
+			// Remove the claimed bank candidate so it cannot be reused.
+			for j, c := range candidatePool {
+				if c.UTRRef == res.BankUTRRef {
+					candidatePool = append(candidatePool[:j], candidatePool[j+1:]...)
+					break
+				}
+			}
 		} else {
-			results[i].Reason = fmt.Sprintf("confirmed exception: %s", res.Reason)
+			results[i].Reason = fmt.Sprintf(
+				"confirmed exception: %s",
+				res.Reason,
+			)
 		}
+	}
+
+	// If every single call failed (e.g. a bad model id or bad API key),
+	// don't silently write an empty result set that looks like a clean
+	// run with zero LLM-resolvable exceptions — fail loudly instead.
+	if toResolve > 0 && failed == toResolve {
+		log.Fatalf("all %d resolve calls failed — check GROQ_API_KEY and -model (see console.groq.com/docs/models); NOT writing results", failed)
+	}
+	if failed > 0 {
+		log.Printf("WARNING: %d of %d resolve calls failed and were left unresolved — check the errors above", failed, toResolve)
 	}
 
 	writeJSON(filepath.Join(*inDir, "resolutions.json"), resolutions)
@@ -199,6 +240,96 @@ func runReport(args []string) {
 		log.Fatalf("writing html report: %v", err)
 	}
 	fmt.Printf("\nhtml report written to %s\n", *htmlOut)
+}
+
+func runVerify(args []string) {
+	fs := flag.NewFlagSet("verify", flag.ExitOnError)
+	inDir := fs.String("in", "data", "input directory")
+	fs.Parse(args)
+
+	var truth []generator.GroundTruthEntry
+	readJSON(filepath.Join(*inDir, "ground_truth.json"), &truth)
+
+	results, source, err := report.Load(*inDir)
+	if err != nil {
+		log.Fatalf("loading results: %v", err)
+	}
+	log.Printf("verifying against %s", source)
+
+	resultByOrder := make(map[string]matcher.Result)
+	for _, r := range results {
+		resultByOrder[r.OrderID] = r
+	}
+
+	var wrong []string
+	correct := 0
+
+	for _, t := range truth {
+		r, ok := resultByOrder[t.OrderID]
+		if !ok {
+			wrong = append(wrong, fmt.Sprintf("order=%s: no result found at all", t.OrderID))
+			continue
+		}
+		gotMatch := r.Tier != matcher.TierUnresolved
+		if gotMatch == t.ShouldMatch {
+			correct++
+			continue
+		}
+		wrong = append(wrong, fmt.Sprintf(
+			"order=%s type=%s: ground truth says should_match=%v, got tier=%s (%s)",
+			t.OrderID, t.Type, t.ShouldMatch, r.Tier, r.Reason,
+		))
+	}
+
+	fmt.Printf("\n=== ground truth verification ===\n")
+	fmt.Printf("total:   %d\n", len(truth))
+	fmt.Printf("correct: %d (%.1f%%)\n", correct, float64(correct)/float64(len(truth))*100)
+	fmt.Printf("wrong:   %d\n", len(wrong))
+
+	if len(wrong) > 0 {
+		fmt.Printf("\n--- discrepancies (worth investigating before the demo) ---\n")
+		for _, w := range wrong {
+			fmt.Printf("  %s\n", w)
+		}
+	} else {
+		fmt.Printf("\nall results agree with ground truth.\n")
+	}
+}
+
+func runEvaluate(args []string) {
+	fs := flag.NewFlagSet("evaluate", flag.ExitOnError)
+	inDir := fs.String("in", "data", "input directory")
+	fs.Parse(args)
+
+	var truth []evaluation.GroundTruth
+	readJSON(filepath.Join(*inDir, "ground_truth.json"), &truth)
+
+	results, source, err := report.Load(*inDir)
+	if err != nil {
+		log.Fatalf("loading results: %v", err)
+	}
+
+	log.Printf("evaluating results from %s", source)
+
+	summary := evaluation.Calculate(truth, results)
+
+	writeJSON(
+		filepath.Join(*inDir, "evaluation.json"),
+		summary,
+	)
+
+	fmt.Printf("\n=== evaluation ===\n")
+	fmt.Printf("total:             %d\n", summary.Total)
+	fmt.Printf("correct:           %d\n", summary.Correct)
+	fmt.Printf("wrong:             %d\n", summary.Wrong)
+	fmt.Printf("accuracy:          %.1f%%\n", summary.Accuracy*100)
+	fmt.Printf("match rate:        %.1f%%\n", summary.MatchRate*100)
+	fmt.Printf("exception rate:    %.1f%%\n", summary.ExceptionRate*100)
+	fmt.Printf("false positives:   %d\n", summary.FalsePositives)
+	fmt.Printf("false negatives:   %d\n", summary.FalseNegatives)
+
+	fmt.Printf("\nevaluation written to %s\n",
+		filepath.Join(*inDir, "evaluation.json"))
 }
 
 func writeJSON(path string, v interface{}) {

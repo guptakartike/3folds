@@ -1,362 +1,362 @@
 [
   {
-    "order_id": "order_l2INvNSQTZ",
-    "mismatch_type": "clean_match",
+    "order_id": "order_000001",
+    "type": "clean",
     "should_match": true,
-    "explanation": "exact net amount, narration contains payment id, same-day value date"
+    "explanation": "exact payment ID, amount and settlement date match"
   },
   {
-    "order_id": "order_sLiFD4MY7O",
-    "mismatch_type": "clean_match",
+    "order_id": "order_000002",
+    "type": "clean",
     "should_match": true,
-    "explanation": "exact net amount, narration contains payment id, same-day value date"
+    "explanation": "exact payment ID, amount and settlement date match"
   },
   {
-    "order_id": "order_K6SV75azeo",
-    "mismatch_type": "clean_match",
+    "order_id": "order_000003",
+    "type": "clean",
     "should_match": true,
-    "explanation": "exact net amount, narration contains payment id, same-day value date"
+    "explanation": "exact payment ID, amount and settlement date match"
   },
   {
-    "order_id": "order_PeMmGDTQm9",
-    "mismatch_type": "unit_only",
+    "order_id": "order_000004",
+    "type": "clean",
     "should_match": true,
-    "explanation": "bank rounds paisa to nearest rupee; needs tolerance-based amount comparison"
+    "explanation": "exact payment ID, amount and settlement date match"
   },
   {
-    "order_id": "order_tqtNb6pTA5",
-    "mismatch_type": "fee_adjusted",
+    "order_id": "order_000005",
+    "type": "clean",
     "should_match": true,
-    "explanation": "amount only matches after subtracting fee+tax from gross; must reconcile net not gross"
+    "explanation": "exact payment ID, amount and settlement date match"
   },
   {
-    "order_id": "order_L8lGWG0ntL",
-    "mismatch_type": "timing_lagged",
+    "order_id": "order_000006",
+    "type": "clean",
     "should_match": true,
-    "explanation": "value date lags settled_at by 3 days; within acceptable timing window"
+    "explanation": "exact payment ID, amount and settlement date match"
   },
   {
-    "order_id": "order_SlGlRVT3uf",
-    "mismatch_type": "clean_match",
+    "order_id": "order_000007",
+    "type": "clean",
     "should_match": true,
-    "explanation": "exact net amount, narration contains payment id, same-day value date"
+    "explanation": "exact payment ID, amount and settlement date match"
   },
   {
-    "order_id": "order_c3F34UmFkt",
-    "mismatch_type": "fee_adjusted",
+    "order_id": "order_000008",
+    "type": "clean",
     "should_match": true,
-    "explanation": "amount only matches after subtracting fee+tax from gross; must reconcile net not gross"
+    "explanation": "exact payment ID, amount and settlement date match"
   },
   {
-    "order_id": "order_1BB2v2qVDS",
-    "mismatch_type": "clean_match",
+    "order_id": "order_000009",
+    "type": "clean",
     "should_match": true,
-    "explanation": "exact net amount, narration contains payment id, same-day value date"
+    "explanation": "exact payment ID, amount and settlement date match"
   },
   {
-    "order_id": "order_kYoaL6s7p2",
-    "mismatch_type": "fee_adjusted",
+    "order_id": "order_000010",
+    "type": "clean",
     "should_match": true,
-    "explanation": "amount only matches after subtracting fee+tax from gross; must reconcile net not gross"
+    "explanation": "exact payment ID, amount and settlement date match"
   },
   {
-    "order_id": "order_CuxgO0brDr",
-    "mismatch_type": "fee_adjusted",
+    "order_id": "order_000011",
+    "type": "clean",
     "should_match": true,
-    "explanation": "amount only matches after subtracting fee+tax from gross; must reconcile net not gross"
+    "explanation": "exact payment ID, amount and settlement date match"
   },
   {
-    "order_id": "order_guGgWIFHhE",
-    "mismatch_type": "timing_lagged",
+    "order_id": "order_000012",
+    "type": "clean",
     "should_match": true,
-    "explanation": "value date lags settled_at by 3 days; within acceptable timing window"
+    "explanation": "exact payment ID, amount and settlement date match"
   },
   {
-    "order_id": "order_SIlwtGRmuJ",
-    "mismatch_type": "unit_only",
+    "order_id": "order_000013",
+    "type": "clean",
     "should_match": true,
-    "explanation": "bank rounds paisa to nearest rupee; needs tolerance-based amount comparison"
+    "explanation": "exact payment ID, amount and settlement date match"
   },
   {
-    "order_id": "order_UvndoazGwO",
-    "mismatch_type": "timing_lagged",
+    "order_id": "order_000014",
+    "type": "clean",
     "should_match": true,
-    "explanation": "value date lags settled_at by 3 days; within acceptable timing window"
+    "explanation": "exact payment ID, amount and settlement date match"
   },
   {
-    "order_id": "order_u34JpIuI5U",
-    "mismatch_type": "timing_lagged",
+    "order_id": "order_000015",
+    "type": "clean",
     "should_match": true,
-    "explanation": "value date lags settled_at by 3 days; within acceptable timing window"
+    "explanation": "exact payment ID, amount and settlement date match"
   },
   {
-    "order_id": "order_Z312PEcQyC",
-    "mismatch_type": "unit_only",
+    "order_id": "order_000016",
+    "type": "clean",
     "should_match": true,
-    "explanation": "bank rounds paisa to nearest rupee; needs tolerance-based amount comparison"
+    "explanation": "exact payment ID, amount and settlement date match"
   },
   {
-    "order_id": "order_Ujqj17Aptv",
-    "mismatch_type": "unit_only",
+    "order_id": "order_000017",
+    "type": "clean",
     "should_match": true,
-    "explanation": "bank rounds paisa to nearest rupee; needs tolerance-based amount comparison"
+    "explanation": "exact payment ID, amount and settlement date match"
   },
   {
-    "order_id": "order_tiBUUnJpBs",
-    "mismatch_type": "batched",
+    "order_id": "order_000018",
+    "type": "clean",
     "should_match": true,
-    "explanation": "bank credit bundles this settlement with another; amount won't match 1:1, needs batch-aware matching"
+    "explanation": "exact payment ID, amount and settlement date match"
   },
   {
-    "order_id": "order_6kLdABb5HV",
-    "mismatch_type": "clean_match",
+    "order_id": "order_000019",
+    "type": "clean",
     "should_match": true,
-    "explanation": "exact net amount, narration contains payment id, same-day value date"
+    "explanation": "exact payment ID, amount and settlement date match"
   },
   {
-    "order_id": "order_8JHuXsU9tH",
-    "mismatch_type": "batched",
+    "order_id": "order_000020",
+    "type": "clean",
     "should_match": true,
-    "explanation": "bank credit bundles this settlement with another; amount won't match 1:1, needs batch-aware matching"
+    "explanation": "exact payment ID, amount and settlement date match"
   },
   {
-    "order_id": "order_kvE1wjQM0o",
-    "mismatch_type": "clean_match",
+    "order_id": "order_000021",
+    "type": "clean",
     "should_match": true,
-    "explanation": "exact net amount, narration contains payment id, same-day value date"
+    "explanation": "exact payment ID, amount and settlement date match"
   },
   {
-    "order_id": "order_bNkhqEw5NV",
-    "mismatch_type": "batched",
+    "order_id": "order_000022",
+    "type": "fee_adjusted",
     "should_match": true,
-    "explanation": "bank credit bundles this settlement with another; amount won't match 1:1, needs batch-aware matching"
+    "explanation": "bank credit differs slightly from settlement net due to fee adjustment"
   },
   {
-    "order_id": "order_JQASAHzXw1",
-    "mismatch_type": "unit_only",
+    "order_id": "order_000023",
+    "type": "fee_adjusted",
     "should_match": true,
-    "explanation": "bank rounds paisa to nearest rupee; needs tolerance-based amount comparison"
+    "explanation": "bank credit differs slightly from settlement net due to fee adjustment"
   },
   {
-    "order_id": "order_OB1ZXCG9et",
-    "mismatch_type": "clean_match",
+    "order_id": "order_000024",
+    "type": "fee_adjusted",
     "should_match": true,
-    "explanation": "exact net amount, narration contains payment id, same-day value date"
+    "explanation": "bank credit differs slightly from settlement net due to fee adjustment"
   },
   {
-    "order_id": "order_P1wuy9Gvvf",
-    "mismatch_type": "clean_match",
+    "order_id": "order_000025",
+    "type": "fee_adjusted",
     "should_match": true,
-    "explanation": "exact net amount, narration contains payment id, same-day value date"
+    "explanation": "bank credit differs slightly from settlement net due to fee adjustment"
   },
   {
-    "order_id": "order_6E7JuEG2NW",
-    "mismatch_type": "clean_match",
+    "order_id": "order_000026",
+    "type": "fee_adjusted",
     "should_match": true,
-    "explanation": "exact net amount, narration contains payment id, same-day value date"
+    "explanation": "bank credit differs slightly from settlement net due to fee adjustment"
   },
   {
-    "order_id": "order_CWItlDuOjj",
-    "mismatch_type": "fee_adjusted",
+    "order_id": "order_000027",
+    "type": "fee_adjusted",
     "should_match": true,
-    "explanation": "amount only matches after subtracting fee+tax from gross; must reconcile net not gross"
+    "explanation": "bank credit differs slightly from settlement net due to fee adjustment"
   },
   {
-    "order_id": "order_jvYenwPKN4",
-    "mismatch_type": "clean_match",
+    "order_id": "order_000028",
+    "type": "fee_adjusted",
     "should_match": true,
-    "explanation": "exact net amount, narration contains payment id, same-day value date"
+    "explanation": "bank credit differs slightly from settlement net due to fee adjustment"
   },
   {
-    "order_id": "order_nwn4GJZJ5Q",
-    "mismatch_type": "clean_match",
+    "order_id": "order_000029",
+    "type": "fee_adjusted",
     "should_match": true,
-    "explanation": "exact net amount, narration contains payment id, same-day value date"
+    "explanation": "bank credit differs slightly from settlement net due to fee adjustment"
   },
   {
-    "order_id": "order_rSGBW95qP6",
-    "mismatch_type": "clean_match",
+    "order_id": "order_000030",
+    "type": "fee_adjusted",
     "should_match": true,
-    "explanation": "exact net amount, narration contains payment id, same-day value date"
+    "explanation": "bank credit differs slightly from settlement net due to fee adjustment"
   },
   {
-    "order_id": "order_fTs6AxZURm",
-    "mismatch_type": "timing_lagged",
+    "order_id": "order_000031",
+    "type": "fee_adjusted",
     "should_match": true,
-    "explanation": "value date lags settled_at by 3 days; within acceptable timing window"
+    "explanation": "bank credit differs slightly from settlement net due to fee adjustment"
   },
   {
-    "order_id": "order_SiqESfwenZ",
-    "mismatch_type": "clean_match",
+    "order_id": "order_000032",
+    "type": "fee_adjusted",
     "should_match": true,
-    "explanation": "exact net amount, narration contains payment id, same-day value date"
+    "explanation": "bank credit differs slightly from settlement net due to fee adjustment"
   },
   {
-    "order_id": "order_tJZ7RcY0dR",
-    "mismatch_type": "timing_lagged",
+    "order_id": "order_000033",
+    "type": "fee_adjusted",
     "should_match": true,
-    "explanation": "value date lags settled_at by 3 days; within acceptable timing window"
+    "explanation": "bank credit differs slightly from settlement net due to fee adjustment"
   },
   {
-    "order_id": "order_rbUU9Ia08Z",
-    "mismatch_type": "fee_adjusted",
+    "order_id": "order_000034",
+    "type": "unit_difference",
     "should_match": true,
-    "explanation": "amount only matches after subtracting fee+tax from gross; must reconcile net not gross"
+    "explanation": "bank and settlement represent the same amount using different monetary units"
   },
   {
-    "order_id": "order_KKhuMTguqC",
-    "mismatch_type": "fee_adjusted",
+    "order_id": "order_000035",
+    "type": "unit_difference",
     "should_match": true,
-    "explanation": "amount only matches after subtracting fee+tax from gross; must reconcile net not gross"
+    "explanation": "bank and settlement represent the same amount using different monetary units"
   },
   {
-    "order_id": "order_DS0DtsIn6i",
-    "mismatch_type": "timing_lagged",
+    "order_id": "order_000036",
+    "type": "unit_difference",
     "should_match": true,
-    "explanation": "value date lags settled_at by 3 days; within acceptable timing window"
+    "explanation": "bank and settlement represent the same amount using different monetary units"
   },
   {
-    "order_id": "order_uaiCmWge3o",
-    "mismatch_type": "clean_match",
+    "order_id": "order_000037",
+    "type": "unit_difference",
     "should_match": true,
-    "explanation": "exact net amount, narration contains payment id, same-day value date"
+    "explanation": "bank and settlement represent the same amount using different monetary units"
   },
   {
-    "order_id": "order_yVJuhZmDT1",
-    "mismatch_type": "genuine_exception",
+    "order_id": "order_000038",
+    "type": "unit_difference",
+    "should_match": true,
+    "explanation": "bank and settlement represent the same amount using different monetary units"
+  },
+  {
+    "order_id": "order_000039",
+    "type": "unit_difference",
+    "should_match": true,
+    "explanation": "bank and settlement represent the same amount using different monetary units"
+  },
+  {
+    "order_id": "order_000040",
+    "type": "unit_difference",
+    "should_match": true,
+    "explanation": "bank and settlement represent the same amount using different monetary units"
+  },
+  {
+    "order_id": "order_000041",
+    "type": "unit_difference",
+    "should_match": true,
+    "explanation": "bank and settlement represent the same amount using different monetary units"
+  },
+  {
+    "order_id": "order_000042",
+    "type": "unit_difference",
+    "should_match": true,
+    "explanation": "bank and settlement represent the same amount using different monetary units"
+  },
+  {
+    "order_id": "order_000043",
+    "type": "timing_lag",
+    "should_match": true,
+    "explanation": "bank value date is delayed relative to the settlement date"
+  },
+  {
+    "order_id": "order_000044",
+    "type": "timing_lag",
+    "should_match": true,
+    "explanation": "bank value date is delayed relative to the settlement date"
+  },
+  {
+    "order_id": "order_000045",
+    "type": "timing_lag",
+    "should_match": true,
+    "explanation": "bank value date is delayed relative to the settlement date"
+  },
+  {
+    "order_id": "order_000046",
+    "type": "timing_lag",
+    "should_match": true,
+    "explanation": "bank value date is delayed relative to the settlement date"
+  },
+  {
+    "order_id": "order_000047",
+    "type": "timing_lag",
+    "should_match": true,
+    "explanation": "bank value date is delayed relative to the settlement date"
+  },
+  {
+    "order_id": "order_000048",
+    "type": "timing_lag",
+    "should_match": true,
+    "explanation": "bank value date is delayed relative to the settlement date"
+  },
+  {
+    "order_id": "order_000049",
+    "type": "timing_lag",
+    "should_match": true,
+    "explanation": "bank value date is delayed relative to the settlement date"
+  },
+  {
+    "order_id": "order_000050",
+    "type": "timing_lag",
+    "should_match": true,
+    "explanation": "bank value date is delayed relative to the settlement date"
+  },
+  {
+    "order_id": "order_000051",
+    "type": "timing_lag",
+    "should_match": true,
+    "explanation": "bank value date is delayed relative to the settlement date"
+  },
+  {
+    "order_id": "order_000052",
+    "type": "batched",
+    "should_match": true,
+    "explanation": "two real settlements are combined into one bank credit and require multi-settlement reconciliation"
+  },
+  {
+    "order_id": "order_000053",
+    "type": "batched",
+    "should_match": true,
+    "explanation": "two real settlements are combined into one bank credit and require multi-settlement reconciliation"
+  },
+  {
+    "order_id": "order_000054",
+    "type": "batched",
+    "should_match": true,
+    "explanation": "two real settlements are combined into one bank credit and require multi-settlement reconciliation"
+  },
+  {
+    "order_id": "order_000055",
+    "type": "batched",
+    "should_match": true,
+    "explanation": "two real settlements are combined into one bank credit and require multi-settlement reconciliation"
+  },
+  {
+    "order_id": "order_000056",
+    "type": "batched",
+    "should_match": true,
+    "explanation": "two real settlements are combined into one bank credit and require multi-settlement reconciliation"
+  },
+  {
+    "order_id": "order_000057",
+    "type": "batched",
+    "should_match": true,
+    "explanation": "two real settlements are combined into one bank credit and require multi-settlement reconciliation"
+  },
+  {
+    "order_id": "order_000058",
+    "type": "genuine_exception",
     "should_match": false,
-    "explanation": "no bank record found within any reasonable window; likely reversed or delayed beyond batch cutoff"
+    "explanation": "no corresponding bank transaction exists for this settlement"
   },
   {
-    "order_id": "order_e56Bx0byzI",
-    "mismatch_type": "clean_match",
-    "should_match": true,
-    "explanation": "exact net amount, narration contains payment id, same-day value date"
-  },
-  {
-    "order_id": "order_laVsJpu1Lv",
-    "mismatch_type": "clean_match",
-    "should_match": true,
-    "explanation": "exact net amount, narration contains payment id, same-day value date"
-  },
-  {
-    "order_id": "order_i51SH0TvVq",
-    "mismatch_type": "fee_adjusted",
-    "should_match": true,
-    "explanation": "amount only matches after subtracting fee+tax from gross; must reconcile net not gross"
-  },
-  {
-    "order_id": "order_ncZkSJv0Mh",
-    "mismatch_type": "clean_match",
-    "should_match": true,
-    "explanation": "exact net amount, narration contains payment id, same-day value date"
-  },
-  {
-    "order_id": "order_vMCNsaKaRX",
-    "mismatch_type": "batched",
-    "should_match": true,
-    "explanation": "bank credit bundles this settlement with another; amount won't match 1:1, needs batch-aware matching"
-  },
-  {
-    "order_id": "order_WrWkEyFGlZ",
-    "mismatch_type": "unit_only",
-    "should_match": true,
-    "explanation": "bank rounds paisa to nearest rupee; needs tolerance-based amount comparison"
-  },
-  {
-    "order_id": "order_rNT58TerWH",
-    "mismatch_type": "clean_match",
-    "should_match": true,
-    "explanation": "exact net amount, narration contains payment id, same-day value date"
-  },
-  {
-    "order_id": "order_2gapBSbxdx",
-    "mismatch_type": "genuine_exception",
+    "order_id": "order_000059",
+    "type": "genuine_exception",
     "should_match": false,
-    "explanation": "no bank record found within any reasonable window; likely reversed or delayed beyond batch cutoff"
+    "explanation": "no corresponding bank transaction exists for this settlement"
   },
   {
-    "order_id": "order_bYT8fqbagb",
-    "mismatch_type": "fee_adjusted",
-    "should_match": true,
-    "explanation": "amount only matches after subtracting fee+tax from gross; must reconcile net not gross"
-  },
-  {
-    "order_id": "order_euWgFQwo4Z",
-    "mismatch_type": "clean_match",
-    "should_match": true,
-    "explanation": "exact net amount, narration contains payment id, same-day value date"
-  },
-  {
-    "order_id": "order_QXYAxSLqbV",
-    "mismatch_type": "batched",
-    "should_match": true,
-    "explanation": "bank credit bundles this settlement with another; amount won't match 1:1, needs batch-aware matching"
-  },
-  {
-    "order_id": "order_zNiOkgyJz3",
-    "mismatch_type": "batched",
-    "should_match": true,
-    "explanation": "bank credit bundles this settlement with another; amount won't match 1:1, needs batch-aware matching"
-  },
-  {
-    "order_id": "order_7itp3cCWBI",
-    "mismatch_type": "timing_lagged",
-    "should_match": true,
-    "explanation": "value date lags settled_at by 3 days; within acceptable timing window"
-  },
-  {
-    "order_id": "order_UA3O7iBDC4",
-    "mismatch_type": "fee_adjusted",
-    "should_match": true,
-    "explanation": "amount only matches after subtracting fee+tax from gross; must reconcile net not gross"
-  },
-  {
-    "order_id": "order_XWwcNylyBF",
-    "mismatch_type": "batched",
-    "should_match": true,
-    "explanation": "bank credit bundles this settlement with another; amount won't match 1:1, needs batch-aware matching"
-  },
-  {
-    "order_id": "order_4dkMhs07qX",
-    "mismatch_type": "clean_match",
-    "should_match": true,
-    "explanation": "exact net amount, narration contains payment id, same-day value date"
-  },
-  {
-    "order_id": "order_FOlLdvj8bH",
-    "mismatch_type": "timing_lagged",
-    "should_match": true,
-    "explanation": "value date lags settled_at by 3 days; within acceptable timing window"
-  },
-  {
-    "order_id": "order_xougpEoCWt",
-    "mismatch_type": "clean_match",
-    "should_match": true,
-    "explanation": "exact net amount, narration contains payment id, same-day value date"
-  },
-  {
-    "order_id": "order_Y6fsdVp8Cy",
-    "mismatch_type": "fee_adjusted",
-    "should_match": true,
-    "explanation": "amount only matches after subtracting fee+tax from gross; must reconcile net not gross"
-  },
-  {
-    "order_id": "order_KyAZUJgwQW",
-    "mismatch_type": "clean_match",
-    "should_match": true,
-    "explanation": "exact net amount, narration contains payment id, same-day value date"
-  },
-  {
-    "order_id": "order_T6TcQkhJds",
-    "mismatch_type": "batched",
-    "should_match": true,
-    "explanation": "bank credit bundles this settlement with another; amount won't match 1:1, needs batch-aware matching"
-  },
-  {
-    "order_id": "order_1mrPR0IBCv",
-    "mismatch_type": "clean_match",
-    "should_match": true,
-    "explanation": "exact net amount, narration contains payment id, same-day value date"
+    "order_id": "order_000060",
+    "type": "genuine_exception",
+    "should_match": false,
+    "explanation": "no corresponding bank transaction exists for this settlement"
   }
 ]

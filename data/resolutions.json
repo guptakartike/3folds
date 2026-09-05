@@ -1,1 +1,50 @@
-null
+[
+  {
+    "order_id": "order_tiBUUnJpBs",
+    "settlement_id": "stl_gt91IDgLIdgXR5",
+    "proposed_match_utr": "UTRpBGRYCRGmpif",
+    "confidence": "medium",
+    "resolved": true,
+    "reason": "same value date and batch flag, amount plausibly includes this settlement within a larger batch"
+  },
+  {
+    "order_id": "order_8JHuXsU9tH",
+    "settlement_id": "stl_NFlmCHRN32cEm3",
+    "proposed_match_utr": "UTRiMvXpYYmbfSK",
+    "confidence": "medium",
+    "resolved": true,
+    "reason": "matches settlement date and batch flag, amount suggests it includes this settlement among others"
+  },
+  {
+    "order_id": "order_bNkhqEw5NV",
+    "settlement_id": "stl_fczuuNhUEz4a43",
+    "proposed_match_utr": "UTRFnsLlyD1VNW7",
+    "confidence": "medium",
+    "resolved": true,
+    "reason": "The candidate shares the exact settlement date and is flagged as a batch, making it a plausible container despite the higher amount"
+  },
+  {
+    "order_id": "order_yVJuhZmDT1",
+    "settlement_id": "stl_ysG5wAN8Ql2C0s",
+    "proposed_match_utr": "UTR0PikyDScLSIT",
+    "confidence": "medium",
+    "resolved": true,
+    "reason": "Amount is close to net amount and date falls within same batch window, suggesting it may be a bundled settlement entry"
+  },
+  {
+    "order_id": "order_vMCNsaKaRX",
+    "settlement_id": "stl_epfpca2uc9whGZ",
+    "proposed_match_utr": "UTRFnsLlyD1VNW7",
+    "confidence": "medium",
+    "resolved": true,
+    "reason": "Amount (₹6709.87) and date (2026-08-02) are close to the settlement net amount (₹6660.41) and settled_at, suggesting this batch line likely includes the transaction."
+  },
+  {
+    "order_id": "order_2gapBSbxdx",
+    "settlement_id": "stl_CTwK3JxqFsEI6N",
+    "proposed_match_utr": "UTR0PikyDScLSIT",
+    "confidence": "medium",
+    "resolved": true,
+    "reason": "Amount 3433.90 INR on same settlement date is close to net 3291.97 INR, suggesting inclusion in a batch settlement"
+  }
+]
