@@ -6,45 +6,59 @@ import (
 	"threefolds/internal/generator"
 )
 
-func BenchmarkMatch(b *testing.B) {
-	sizes := []int{
-		60,
-		600,
-		6000,
-		60000,
+func TestMatchCanonicalDataset(t *testing.T) {
+	data := generator.Generate(60, 42)
+
+	results := Match(
+		data.Settlements,
+		data.BankStatements,
+		data.LedgerEntries,
+	)
+
+	if len(results) != 60 {
+		t.Fatalf("expected 60 results, got %d", len(results))
 	}
 
-	for _, n := range sizes {
-		b.Run(
-			recordsLabel(n),
-			func(b *testing.B) {
-				ds := generator.Generate(n, 42)
+	var exact, fuzzy, batch, unresolved int
 
-				b.ResetTimer()
-
-				for i := 0; i < b.N; i++ {
-					Match(
-						ds.Settlements,
-						ds.BankStatements,
-						ds.LedgerEntries,
-					)
-				}
-			},
-		)
+	for _, result := range results {
+		switch result.Tier {
+		case TierExact:
+			exact++
+		case TierFuzzy:
+			fuzzy++
+		case TierBatch:
+			batch++
+		case TierUnresolved:
+			unresolved++
+		default:
+			t.Fatalf(
+				"unexpected tier %q for settlement %s",
+				result.Tier,
+				result.SettlementID,
+			)
+		}
 	}
-}
 
-func recordsLabel(n int) string {
-	switch n {
-	case 60:
-		return "60"
-	case 600:
-		return "600"
-	case 6000:
-		return "6000"
-	case 60000:
-		return "60000"
-	default:
-		return "unknown"
+	if exact != 42 {
+		t.Errorf("expected 42 exact matches, got %d", exact)
+	}
+
+	if fuzzy != 9 {
+		t.Errorf("expected 9 fuzzy matches, got %d", fuzzy)
+	}
+
+	if batch != 6 {
+		t.Errorf("expected 6 batch matches, got %d", batch)
+	}
+
+	if unresolved != 3 {
+		t.Errorf("expected 3 unresolved matches, got %d", unresolved)
+	}
+
+	rate := MatchRate(results)
+
+	if rate != 0.95 {
+		t.Errorf("expected 95%% match rate, got %.2f%%", rate*100)
 	}
 }
