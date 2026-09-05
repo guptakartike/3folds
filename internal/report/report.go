@@ -9,26 +9,28 @@ import (
 	"fmt"
 	"html/template"
 	"os"
+	"path/filepath"
 
 	"threefolds/internal/matcher"
 )
 
 // Summary is the aggregate numbers computed across all final results.
 type Summary struct {
-	Total        int
-	Exact        int
-	Fuzzy        int
-	Batch        int
-	LLMResolved  int
-	Exceptions   int
-	MatchRatePct float64 // (Exact+Fuzzy+LLMResolved) / Total * 100
+	Total            int
+	Exact            int
+	Fuzzy            int
+	Batch            int
+	LLMResolved      int
+	Exceptions       int
+	MatchRatePct     float64
+	ProcessingTimeMs float64
+	RecordsPerSecond float64
 }
 
 // Load reads match_results_final.json if it exists (i.e. resolve was
-// run), otherwise falls back to match_results.json (deterministic
-// tiers only).
+// run), otherwise falls back to match_results.json.
 func Load(dir string) ([]matcher.Result, string, error) {
-	finalPath := dir + "/match_results_final.json"
+	finalPath := filepath.Join(dir, "match_results_final.json")
 	if _, err := os.Stat(finalPath); err == nil {
 		var results []matcher.Result
 		if err := readJSON(finalPath, &results); err != nil {
@@ -37,11 +39,12 @@ func Load(dir string) ([]matcher.Result, string, error) {
 		return results, finalPath, nil
 	}
 
-	basicPath := dir + "/match_results.json"
+	basicPath := filepath.Join(dir, "match_results.json")
 	var results []matcher.Result
 	if err := readJSON(basicPath, &results); err != nil {
 		return nil, "", err
 	}
+
 	return results, basicPath, nil
 }
 
@@ -51,12 +54,11 @@ func readJSON(path string, v interface{}) error {
 		return err
 	}
 	defer f.Close()
+
 	return json.NewDecoder(f).Decode(v)
 }
 
-// Summarize computes the aggregate numbers from a result set. Any tier
-// other than "unresolved" counts as resolved for the match rate,
-// matching the track's "measured accuracy" requirement.
+// Summarize computes the aggregate numbers from a result set.
 func Summarize(results []matcher.Result) Summary {
 	s := Summary{Total: len(results)}
 
@@ -90,20 +92,32 @@ func Summarize(results []matcher.Result) Summary {
 	return s
 }
 
-// Exceptions returns only the still-unresolved results, i.e. the
-// "honest exception list" the track explicitly scores.
+// SetThroughput adds measured reconciliation performance to the summary.
+func SetThroughput(s Summary, processingTimeMs float64) Summary {
+	s.ProcessingTimeMs = processingTimeMs
+
+	if processingTimeMs > 0 {
+		s.RecordsPerSecond =
+			float64(s.Total) / (processingTimeMs / 1000)
+	}
+
+	return s
+}
+
+// Exceptions returns only the still-unresolved results.
 func Exceptions(results []matcher.Result) []matcher.Result {
 	var out []matcher.Result
+
 	for _, r := range results {
 		if r.Tier == matcher.TierUnresolved {
 			out = append(out, r)
 		}
 	}
+
 	return out
 }
 
-// PrintCLI writes a plain-text summary to stdout — this is what you'd
-// show live during a demo.
+// PrintCLI writes a plain-text summary to stdout.
 func PrintCLI(s Summary, exceptions []matcher.Result) {
 	fmt.Printf("\n=== 3folds final reconciliation report ===\n")
 	fmt.Printf("total settlements:  %d\n", s.Total)
@@ -114,10 +128,21 @@ func PrintCLI(s Summary, exceptions []matcher.Result) {
 	fmt.Printf("  llm-resolved:     %d\n", s.LLMResolved)
 	fmt.Printf("  exceptions:       %d\n", s.Exceptions)
 
+	if s.ProcessingTimeMs > 0 {
+		fmt.Printf("processing time:    %.3f ms\n", s.ProcessingTimeMs)
+		fmt.Printf("throughput:         %.0f records/sec\n", s.RecordsPerSecond)
+	}
+
 	if len(exceptions) > 0 {
 		fmt.Printf("\n--- honest exception list (unresolved) ---\n")
+
 		for _, e := range exceptions {
-			fmt.Printf("  order=%s settlement=%s reason=%q\n", e.OrderID, e.SettlementID, e.Reason)
+			fmt.Printf(
+				"  order=%s settlement=%s reason=%q\n",
+				e.OrderID,
+				e.SettlementID,
+				e.Reason,
+			)
 		}
 	}
 }
@@ -133,63 +158,310 @@ const htmlTemplate = `<!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
-<title>3folds — reconciliation report</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3folds — Reconciliation Report</title>
+
 <style>
-  body { font-family: -apple-system, sans-serif; max-width: 900px; margin: 40px auto; padding: 0 20px; color: #1a1a1a; }
-  h1 { font-size: 22px; } h2 { font-size: 17px; margin-top: 36px; border-bottom: 1px solid #ddd; padding-bottom: 6px; }
-  .founder-box { background: #f4f4f4; border-radius: 8px; padding: 20px; margin: 16px 0; }
-  .founder-box .rate { font-size: 32px; font-weight: 700; }
-  table { border-collapse: collapse; width: 100%; margin-top: 12px; font-size: 13px; }
-  th, td { text-align: left; padding: 6px 10px; border-bottom: 1px solid #eee; }
-  th { background: #fafafa; }
-  .tier-exact { color: #1a7f37; } .tier-fuzzy { color: #9a6700; }
-  .tier-llm_resolved { color: #6639ba; } .tier-unresolved { color: #cf222e; font-weight: 600; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+    color: #1a1a1a;
+    background: #ffffff;
+  }
+
+  h1 {
+    font-size: 26px;
+    margin-bottom: 6px;
+  }
+
+  h2 {
+    font-size: 17px;
+    margin-top: 36px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 8px;
+  }
+
+  .subtitle {
+    color: #666;
+    margin-bottom: 28px;
+  }
+
+  .founder-box {
+    background: #f4f4f4;
+    border-radius: 10px;
+    padding: 24px;
+    margin: 16px 0;
+  }
+
+  .rate {
+    font-size: 38px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .metric {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+  }
+
+  .metric-value {
+    font-size: 22px;
+    font-weight: 700;
+  }
+
+  .metric-label {
+    color: #666;
+    font-size: 12px;
+    margin-top: 4px;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 12px;
+    font-size: 13px;
+  }
+
+  th, td {
+    text-align: left;
+    padding: 8px 10px;
+    border-bottom: 1px solid #eee;
+    vertical-align: top;
+  }
+
+  th {
+    background: #fafafa;
+  }
+
+  .tier-exact {
+    color: #1a7f37;
+    font-weight: 600;
+  }
+
+  .tier-fuzzy {
+    color: #9a6700;
+    font-weight: 600;
+  }
+
+  .tier-batch {
+    color: #0969da;
+    font-weight: 600;
+  }
+
+  .tier-llm_resolved {
+    color: #6639ba;
+    font-weight: 600;
+  }
+
+  .tier-unresolved {
+    color: #cf222e;
+    font-weight: 600;
+  }
+
+  .exception {
+    background: #fff8f8;
+  }
+
+  @media (max-width: 700px) {
+    .metrics {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
 </style>
 </head>
-<body>
-  <h1>3folds — Multi-Source Reconciliation Report</h1>
 
-  <h2>Founder summary</h2>
-  <div class="founder-box">
-    <div class="rate">{{printf "%.1f" .Summary.MatchRatePct}}% reconciled</div>
-    <div>{{.Summary.Exceptions}} of {{.Summary.Total}} transactions still unresolved</div>
+<body>
+
+<h1>3folds — Multi-Source Reconciliation Report</h1>
+<div class="subtitle">
+  Deterministic reconciliation with measured accuracy, throughput, and honest exceptions.
+</div>
+
+<h2>Founder summary</h2>
+
+<div class="founder-box">
+
+  <div class="rate">
+    {{printf "%.1f" .Summary.MatchRatePct}}% reconciled
   </div>
 
-  <h2>Finance exec — exception queue</h2>
-  <table>
-    <tr><th>Order ID</th><th>Settlement ID</th><th>Reason</th></tr>
-    {{range .Exceptions}}
-    <tr><td>{{.OrderID}}</td><td>{{.SettlementID}}</td><td>{{.Reason}}</td></tr>
-    {{else}}
-    <tr><td colspan="3">No open exceptions.</td></tr>
-    {{end}}
-  </table>
+  <div>
+    {{.Summary.Exceptions}} of {{.Summary.Total}}
+    transactions still unresolved
+  </div>
 
-  <h2>Full audit trail</h2>
-  <table>
-    <tr><th>Order ID</th><th>Settlement ID</th><th>Tier</th><th>Bank UTR</th><th>Reason</th></tr>
-    {{range .Results}}
-    <tr>
-      <td>{{.OrderID}}</td><td>{{.SettlementID}}</td>
-      <td class="tier-{{.Tier}}">{{.Tier}}</td>
-      <td>{{.BankUTRRef}}</td><td>{{.Reason}}</td>
-    </tr>
+  <div class="metrics">
+
+    <div class="metric">
+      <div class="metric-value">{{.Summary.Total}}</div>
+      <div class="metric-label">Total settlements</div>
+    </div>
+
+    <div class="metric">
+      <div class="metric-value">{{.Summary.Exact}}</div>
+      <div class="metric-label">Exact matches</div>
+    </div>
+
+    <div class="metric">
+      <div class="metric-value">{{.Summary.Fuzzy}}</div>
+      <div class="metric-label">Fuzzy matches</div>
+    </div>
+
+    <div class="metric">
+      <div class="metric-value">{{.Summary.Batch}}</div>
+      <div class="metric-label">Batch matches</div>
+    </div>
+
+    <div class="metric">
+      <div class="metric-value">{{.Summary.LLMResolved}}</div>
+      <div class="metric-label">LLM resolved</div>
+    </div>
+
+    <div class="metric">
+      <div class="metric-value">{{.Summary.Exceptions}}</div>
+      <div class="metric-label">Exceptions</div>
+    </div>
+
+    {{if .Summary.ProcessingTimeMs}}
+    <div class="metric">
+      <div class="metric-value">
+        {{printf "%.3f" .Summary.ProcessingTimeMs}} ms
+      </div>
+      <div class="metric-label">Processing time</div>
+    </div>
+
+    <div class="metric">
+      <div class="metric-value">
+        {{printf "%.0f" .Summary.RecordsPerSecond}}
+      </div>
+      <div class="metric-label">Records / second</div>
+    </div>
     {{end}}
-  </table>
+
+  </div>
+</div>
+
+<h2>Finance exec — exception queue</h2>
+
+<table>
+  <tr>
+    <th>Order ID</th>
+    <th>Settlement ID</th>
+    <th>Reason</th>
+  </tr>
+
+  {{range .Exceptions}}
+  <tr class="exception">
+    <td>{{.OrderID}}</td>
+    <td>{{.SettlementID}}</td>
+    <td>{{.Reason}}</td>
+  </tr>
+  {{else}}
+  <tr>
+    <td colspan="3">No open exceptions.</td>
+  </tr>
+  {{end}}
+</table>
+
+<h2>Reconciliation breakdown</h2>
+
+<table>
+  <tr>
+    <th>Tier</th>
+    <th>Count</th>
+    <th>Meaning</th>
+  </tr>
+
+  <tr>
+    <td class="tier-exact">Exact</td>
+    <td>{{.Summary.Exact}}</td>
+    <td>Payment ID, amount, and timing aligned.</td>
+  </tr>
+
+  <tr>
+    <td class="tier-fuzzy">Fuzzy</td>
+    <td>{{.Summary.Fuzzy}}</td>
+    <td>Minor amount or timing difference resolved.</td>
+  </tr>
+
+  <tr>
+    <td class="tier-batch">Batch</td>
+    <td>{{.Summary.Batch}}</td>
+    <td>Multiple settlements reconciled against one bank batch.</td>
+  </tr>
+
+  <tr>
+    <td class="tier-llm_resolved">LLM resolved</td>
+    <td>{{.Summary.LLMResolved}}</td>
+    <td>Previously unresolved case resolved with additional reasoning.</td>
+  </tr>
+
+  <tr>
+    <td class="tier-unresolved">Exception</td>
+    <td>{{.Summary.Exceptions}}</td>
+    <td>No sufficient evidence to reconcile.</td>
+  </tr>
+</table>
+
+<h2>Full audit trail</h2>
+
+<table>
+  <tr>
+    <th>Order ID</th>
+    <th>Settlement ID</th>
+    <th>Tier</th>
+    <th>Bank UTR</th>
+    <th>Reason</th>
+  </tr>
+
+  {{range .Results}}
+  <tr>
+    <td>{{.OrderID}}</td>
+    <td>{{.SettlementID}}</td>
+    <td class="tier-{{.Tier}}">{{.Tier}}</td>
+    <td>{{.BankUTRRef}}</td>
+    <td>{{.Reason}}</td>
+  </tr>
+  {{end}}
+</table>
+
 </body>
 </html>`
 
 // WriteHTML renders the role-based report to path.
-func WriteHTML(path string, s Summary, results, exceptions []matcher.Result) error {
+func WriteHTML(
+	path string,
+	s Summary,
+	results []matcher.Result,
+	exceptions []matcher.Result,
+) error {
 	tmpl, err := template.New("report").Parse(htmlTemplate)
 	if err != nil {
 		return err
 	}
+
 	f, err := os.Create(path)
 	if err != nil {
 		return err
 	}
 	defer f.Close()
 
-	return tmpl.Execute(f, roleData{Summary: s, Results: results, Exceptions: exceptions})
+	return tmpl.Execute(
+		f,
+		roleData{
+			Summary:    s,
+			Results:    results,
+			Exceptions: exceptions,
+		},
+	)
 }

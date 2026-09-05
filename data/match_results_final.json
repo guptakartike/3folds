@@ -658,7 +658,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "confirmed exception: No bank statement entry matches the settlement net amount (2585.89 INR) or the payment ID (pay_watbyyjonoy6); all candidate credits have different amounts and unrelated narrations."
+    "reason": "confirmed exception: No bank statement matches the settlement: payment_id pay_watbyyjonoy6 not found in any narration, order_id order_000058 not referenced, and none of the credit amounts equal the net settlement amount of 2585.89 INR (allowing for rounding)."
   },
   {
     "order_id": "order_000059",
@@ -668,7 +668,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "confirmed exception: No bank statement entry contains the payment ID pay_zql5w8byzvr7 or the net settlement amount 5550.56 INR; amounts and narrations do not correspond to the settlement record."
+    "reason": "confirmed exception: No bank statement contains the payment ID pay_zql5w8byzvr7 or the net settlement amount INR 5550.56; all candidate entries have different payment IDs and amounts."
   },
   {
     "order_id": "order_000060",
@@ -678,6 +678,6 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "confirmed exception: No bank statement entry matches the settlement's net amount (₹2811.31) or payment ID (pay_xx4xplcgqx7p); credit amounts and narrations differ, so reconciliation cannot be confirmed."
+    "reason": "confirmed exception: No bank credit entry matches the settlement net amount (2811.31 INR) or payment ID (pay_xx4xplcgqx7p). Credit amounts are 3862.17, 6798.85, and 3981.58 INR, and narrations reference different payment IDs. Insufficient evidence for reconciliation."
   }
 ]

@@ -2,404 +2,762 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>3folds — reconciliation report</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3folds — Reconciliation Report</title>
+
 <style>
-  body { font-family: -apple-system, sans-serif; max-width: 900px; margin: 40px auto; padding: 0 20px; color: #1a1a1a; }
-  h1 { font-size: 22px; } h2 { font-size: 17px; margin-top: 36px; border-bottom: 1px solid #ddd; padding-bottom: 6px; }
-  .founder-box { background: #f4f4f4; border-radius: 8px; padding: 20px; margin: 16px 0; }
-  .founder-box .rate { font-size: 32px; font-weight: 700; }
-  table { border-collapse: collapse; width: 100%; margin-top: 12px; font-size: 13px; }
-  th, td { text-align: left; padding: 6px 10px; border-bottom: 1px solid #eee; }
-  th { background: #fafafa; }
-  .tier-exact { color: #1a7f37; } .tier-fuzzy { color: #9a6700; }
-  .tier-llm_resolved { color: #6639ba; } .tier-unresolved { color: #cf222e; font-weight: 600; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+    color: #1a1a1a;
+    background: #ffffff;
+  }
+
+  h1 {
+    font-size: 26px;
+    margin-bottom: 6px;
+  }
+
+  h2 {
+    font-size: 17px;
+    margin-top: 36px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 8px;
+  }
+
+  .subtitle {
+    color: #666;
+    margin-bottom: 28px;
+  }
+
+  .founder-box {
+    background: #f4f4f4;
+    border-radius: 10px;
+    padding: 24px;
+    margin: 16px 0;
+  }
+
+  .rate {
+    font-size: 38px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .metric {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+  }
+
+  .metric-value {
+    font-size: 22px;
+    font-weight: 700;
+  }
+
+  .metric-label {
+    color: #666;
+    font-size: 12px;
+    margin-top: 4px;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 12px;
+    font-size: 13px;
+  }
+
+  th, td {
+    text-align: left;
+    padding: 8px 10px;
+    border-bottom: 1px solid #eee;
+    vertical-align: top;
+  }
+
+  th {
+    background: #fafafa;
+  }
+
+  .tier-exact {
+    color: #1a7f37;
+    font-weight: 600;
+  }
+
+  .tier-fuzzy {
+    color: #9a6700;
+    font-weight: 600;
+  }
+
+  .tier-batch {
+    color: #0969da;
+    font-weight: 600;
+  }
+
+  .tier-llm_resolved {
+    color: #6639ba;
+    font-weight: 600;
+  }
+
+  .tier-unresolved {
+    color: #cf222e;
+    font-weight: 600;
+  }
+
+  .exception {
+    background: #fff8f8;
+  }
+
+  @media (max-width: 700px) {
+    .metrics {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
 </style>
 </head>
-<body>
-  <h1>3folds — Multi-Source Reconciliation Report</h1>
 
-  <h2>Founder summary</h2>
-  <div class="founder-box">
-    <div class="rate">95.0% reconciled</div>
-    <div>3 of 60 transactions still unresolved</div>
+<body>
+
+<h1>3folds — Multi-Source Reconciliation Report</h1>
+<div class="subtitle">
+  Deterministic reconciliation with measured accuracy, throughput, and honest exceptions.
+</div>
+
+<h2>Founder summary</h2>
+
+<div class="founder-box">
+
+  <div class="rate">
+    95.0% reconciled
   </div>
 
-  <h2>Finance exec — exception queue</h2>
-  <table>
-    <tr><th>Order ID</th><th>Settlement ID</th><th>Reason</th></tr>
-    
-    <tr><td>order_000058</td><td>set_jn8fh3urm5cs</td><td>confirmed exception: No bank statement entry matches the settlement net amount (2585.89 INR) or the payment ID (pay_watbyyjonoy6); all candidate credits have different amounts and unrelated narrations.</td></tr>
-    
-    <tr><td>order_000059</td><td>set_cyllkwjgmka4</td><td>confirmed exception: No bank statement entry contains the payment ID pay_zql5w8byzvr7 or the net settlement amount 5550.56 INR; amounts and narrations do not correspond to the settlement record.</td></tr>
-    
-    <tr><td>order_000060</td><td>set_yixcr7wwf2jo</td><td>confirmed exception: No bank statement entry matches the settlement&#39;s net amount (₹2811.31) or payment ID (pay_xx4xplcgqx7p); credit amounts and narrations differ, so reconciliation cannot be confirmed.</td></tr>
-    
-  </table>
+  <div>
+    3 of 60
+    transactions still unresolved
+  </div>
 
-  <h2>Full audit trail</h2>
-  <table>
-    <tr><th>Order ID</th><th>Settlement ID</th><th>Tier</th><th>Bank UTR</th><th>Reason</th></tr>
+  <div class="metrics">
+
+    <div class="metric">
+      <div class="metric-value">60</div>
+      <div class="metric-label">Total settlements</div>
+    </div>
+
+    <div class="metric">
+      <div class="metric-value">42</div>
+      <div class="metric-label">Exact matches</div>
+    </div>
+
+    <div class="metric">
+      <div class="metric-value">9</div>
+      <div class="metric-label">Fuzzy matches</div>
+    </div>
+
+    <div class="metric">
+      <div class="metric-value">6</div>
+      <div class="metric-label">Batch matches</div>
+    </div>
+
+    <div class="metric">
+      <div class="metric-value">0</div>
+      <div class="metric-label">LLM resolved</div>
+    </div>
+
+    <div class="metric">
+      <div class="metric-value">3</div>
+      <div class="metric-label">Exceptions</div>
+    </div>
+
     
-    <tr>
-      <td>order_000001</td><td>set_6jif9u8g21qr</td>
-      <td class="tier-exact">exact</td>
-      <td>UTRdygacwkeoh0s</td><td>payment ID, amount and bank evidence match</td>
-    </tr>
+    <div class="metric">
+      <div class="metric-value">
+        0.102 ms
+      </div>
+      <div class="metric-label">Processing time</div>
+    </div>
+
+    <div class="metric">
+      <div class="metric-value">
+        586321
+      </div>
+      <div class="metric-label">Records / second</div>
+    </div>
     
-    <tr>
-      <td>order_000002</td><td>set_8erdias74xqg</td>
-      <td class="tier-exact">exact</td>
-      <td>UTRhhh82fspv9m6</td><td>payment ID, amount and bank evidence match</td>
-    </tr>
-    
-    <tr>
-      <td>order_000003</td><td>set_xol880hpdlq5</td>
-      <td class="tier-exact">exact</td>
-      <td>UTRl0c9xxmciy97</td><td>payment ID, amount and bank evidence match</td>
-    </tr>
-    
-    <tr>
-      <td>order_000004</td><td>set_sat1f01w0z0f</td>
-      <td class="tier-exact">exact</td>
-      <td>UTR63w251p6rlc9</td><td>payment ID, amount and bank evidence match</td>
-    </tr>
-    
-    <tr>
-      <td>order_000005</td><td>set_9fy5auvyjntj</td>
-      <td class="tier-exact">exact</td>
-      <td>UTRjnvli1az7h2s</td><td>payment ID, amount and bank evidence match</td>
-    </tr>
-    
-    <tr>
-      <td>order_000006</td><td>set_zhpbu7l08isp</td>
-      <td class="tier-exact">exact</td>
-      <td>UTR80314rlgttft</td><td>payment ID, amount and bank evidence match</td>
-    </tr>
-    
-    <tr>
-      <td>order_000007</td><td>set_nasi56d1m6n5</td>
-      <td class="tier-exact">exact</td>
-      <td>UTRh6fy1h5tbiw6</td><td>payment ID, amount and bank evidence match</td>
-    </tr>
-    
-    <tr>
-      <td>order_000008</td><td>set_yj80c1mq6pqm</td>
-      <td class="tier-exact">exact</td>
-      <td>UTR1oekv2qfaef6</td><td>payment ID, amount and bank evidence match</td>
-    </tr>
-    
-    <tr>
-      <td>order_000009</td><td>set_wpsqqm7z7zef</td>
-      <td class="tier-exact">exact</td>
-      <td>UTRas8vi8vdma8l</td><td>payment ID, amount and bank evidence match</td>
-    </tr>
-    
-    <tr>
-      <td>order_000010</td><td>set_ltlm6x46haw7</td>
-      <td class="tier-exact">exact</td>
-      <td>UTRngt8h78bmf2e</td><td>payment ID, amount and bank evidence match</td>
-    </tr>
-    
-    <tr>
-      <td>order_000011</td><td>set_z4ba86xhbqnv</td>
-      <td class="tier-exact">exact</td>
-      <td>UTR56nvsus0pjcy</td><td>payment ID, amount and bank evidence match</td>
-    </tr>
-    
-    <tr>
-      <td>order_000012</td><td>set_ts8ecyn68y4a</td>
-      <td class="tier-exact">exact</td>
-      <td>UTR3x1x21xj1p7c</td><td>payment ID, amount and bank evidence match</td>
-    </tr>
-    
-    <tr>
-      <td>order_000013</td><td>set_zafzp8314ay8</td>
-      <td class="tier-exact">exact</td>
-      <td>UTRdnekpei2uknd</td><td>payment ID, amount and bank evidence match</td>
-    </tr>
-    
-    <tr>
-      <td>order_000014</td><td>set_r3gv0wtrcosm</td>
-      <td class="tier-exact">exact</td>
-      <td>UTR0w7ns8rjnxll</td><td>payment ID, amount and bank evidence match</td>
-    </tr>
-    
-    <tr>
-      <td>order_000015</td><td>set_r14gg8f30o4t</td>
-      <td class="tier-exact">exact</td>
-      <td>UTR2tszg9vg5tbv</td><td>payment ID, amount and bank evidence match</td>
-    </tr>
-    
-    <tr>
-      <td>order_000016</td><td>set_eda4uw77i6xu</td>
-      <td class="tier-exact">exact</td>
-      <td>UTRw18b5xonxmv6</td><td>payment ID, amount and bank evidence match</td>
-    </tr>
-    
-    <tr>
-      <td>order_000017</td><td>set_q2bjj2pkueho</td>
-      <td class="tier-exact">exact</td>
-      <td>UTRnlskoejxxe22</td><td>payment ID, amount and bank evidence match</td>
-    </tr>
-    
-    <tr>
-      <td>order_000018</td><td>set_n10vnmi7xbwr</td>
-      <td class="tier-exact">exact</td>
-      <td>UTRwtkjny7fk5ci</td><td>payment ID, amount and bank evidence match</td>
-    </tr>
-    
-    <tr>
-      <td>order_000019</td><td>set_um0km1n7003e</td>
-      <td class="tier-exact">exact</td>
-      <td>UTRgy41c7us3kwn</td><td>payment ID, amount and bank evidence match</td>
-    </tr>
-    
-    <tr>
-      <td>order_000020</td><td>set_jh1wnfardf6g</td>
-      <td class="tier-exact">exact</td>
-      <td>UTR6cdradetfty1</td><td>payment ID, amount and bank evidence match</td>
-    </tr>
-    
-    <tr>
-      <td>order_000021</td><td>set_ji0qctrz2kqc</td>
-      <td class="tier-exact">exact</td>
-      <td>UTR2knh41a1b5ft</td><td>payment ID, amount and bank evidence match</td>
-    </tr>
-    
-    <tr>
-      <td>order_000022</td><td>set_dnju3dticqp4</td>
-      <td class="tier-exact">exact</td>
-      <td>UTRboo4a5cusyjr</td><td>payment ID, amount and bank evidence match</td>
-    </tr>
-    
-    <tr>
-      <td>order_000023</td><td>set_ez5r0i487bhh</td>
-      <td class="tier-exact">exact</td>
-      <td>UTRh68iongfnp74</td><td>payment ID, amount and bank evidence match</td>
-    </tr>
-    
-    <tr>
-      <td>order_000024</td><td>set_76hrqmszilmw</td>
-      <td class="tier-exact">exact</td>
-      <td>UTRlbaxqopx59fw</td><td>payment ID, amount and bank evidence match</td>
-    </tr>
-    
-    <tr>
-      <td>order_000025</td><td>set_emvlwx8myyo3</td>
-      <td class="tier-exact">exact</td>
-      <td>UTRitsfme9lyel1</td><td>payment ID, amount and bank evidence match</td>
-    </tr>
-    
-    <tr>
-      <td>order_000026</td><td>set_dvdq16ob4o3w</td>
-      <td class="tier-exact">exact</td>
-      <td>UTR5orijpguf1zl</td><td>payment ID, amount and bank evidence match</td>
-    </tr>
-    
-    <tr>
-      <td>order_000027</td><td>set_uwutvlkhszlm</td>
-      <td class="tier-exact">exact</td>
-      <td>UTRnviisdth77bo</td><td>payment ID, amount and bank evidence match</td>
-    </tr>
-    
-    <tr>
-      <td>order_000028</td><td>set_qypcbgg6l6yj</td>
-      <td class="tier-exact">exact</td>
-      <td>UTR0jefn9axv811</td><td>payment ID, amount and bank evidence match</td>
-    </tr>
-    
-    <tr>
-      <td>order_000029</td><td>set_4lggdt3xksa0</td>
-      <td class="tier-exact">exact</td>
-      <td>UTRwn675tg6yoim</td><td>payment ID, amount and bank evidence match</td>
-    </tr>
-    
-    <tr>
-      <td>order_000030</td><td>set_3hsouow6z55l</td>
-      <td class="tier-exact">exact</td>
-      <td>UTRapsgt80885xp</td><td>payment ID, amount and bank evidence match</td>
-    </tr>
-    
-    <tr>
-      <td>order_000031</td><td>set_4h745c1iqzk7</td>
-      <td class="tier-exact">exact</td>
-      <td>UTRm3kcqcbo6qpz</td><td>payment ID, amount and bank evidence match</td>
-    </tr>
-    
-    <tr>
-      <td>order_000032</td><td>set_t9nnf67mjtzw</td>
-      <td class="tier-exact">exact</td>
-      <td>UTRm2r9jay6c2fg</td><td>payment ID, amount and bank evidence match</td>
-    </tr>
-    
-    <tr>
-      <td>order_000033</td><td>set_7zigbhn3mc0s</td>
-      <td class="tier-exact">exact</td>
-      <td>UTR50pclyihcsnv</td><td>payment ID, amount and bank evidence match</td>
-    </tr>
-    
-    <tr>
-      <td>order_000034</td><td>set_l4r2zmksw68p</td>
-      <td class="tier-exact">exact</td>
-      <td>UTRhj6xm650xq1z</td><td>payment ID, amount and bank evidence match</td>
-    </tr>
-    
-    <tr>
-      <td>order_000035</td><td>set_9o63ul02xy74</td>
-      <td class="tier-exact">exact</td>
-      <td>UTRpuf4gc2dorxw</td><td>payment ID, amount and bank evidence match</td>
-    </tr>
-    
-    <tr>
-      <td>order_000036</td><td>set_ohwa2bs3rfc7</td>
-      <td class="tier-exact">exact</td>
-      <td>UTRjs4jq023lmwl</td><td>payment ID, amount and bank evidence match</td>
-    </tr>
-    
-    <tr>
-      <td>order_000037</td><td>set_4dlkz97b0t6z</td>
-      <td class="tier-exact">exact</td>
-      <td>UTRccwnraplsspw</td><td>payment ID, amount and bank evidence match</td>
-    </tr>
-    
-    <tr>
-      <td>order_000038</td><td>set_e3djkqsio09j</td>
-      <td class="tier-exact">exact</td>
-      <td>UTRrw1ahqmulnjx</td><td>payment ID, amount and bank evidence match</td>
-    </tr>
-    
-    <tr>
-      <td>order_000039</td><td>set_x35joavi5yfl</td>
-      <td class="tier-exact">exact</td>
-      <td>UTRil3qs5t1839p</td><td>payment ID, amount and bank evidence match</td>
-    </tr>
-    
-    <tr>
-      <td>order_000040</td><td>set_0fty33w5izlu</td>
-      <td class="tier-exact">exact</td>
-      <td>UTRjz5djid4tgd8</td><td>payment ID, amount and bank evidence match</td>
-    </tr>
-    
-    <tr>
-      <td>order_000041</td><td>set_3nb43e96a9cx</td>
-      <td class="tier-exact">exact</td>
-      <td>UTRii8joyv56692</td><td>payment ID, amount and bank evidence match</td>
-    </tr>
-    
-    <tr>
-      <td>order_000042</td><td>set_8gvku1z7sncc</td>
-      <td class="tier-exact">exact</td>
-      <td>UTRes7e4ozznqu1</td><td>payment ID, amount and bank evidence match</td>
-    </tr>
-    
-    <tr>
-      <td>order_000052</td><td>set_nfi5ko5h1cf2</td>
-      <td class="tier-batch">batch</td>
-      <td>UTRo0lc4l70i9w5</td><td>batch match: settlement set_nfi5ko5h1cf2 &#43; settlement set_9asotowz9wkz reconcile to bank batch UTRo0lc4l70i9w5</td>
-    </tr>
-    
-    <tr>
-      <td>order_000053</td><td>set_9asotowz9wkz</td>
-      <td class="tier-batch">batch</td>
-      <td>UTRo0lc4l70i9w5</td><td>batch match: settlement set_9asotowz9wkz &#43; settlement set_nfi5ko5h1cf2 reconcile to bank batch UTRo0lc4l70i9w5</td>
-    </tr>
-    
-    <tr>
-      <td>order_000054</td><td>set_9rl1es8zhis0</td>
-      <td class="tier-batch">batch</td>
-      <td>UTR8ob21ymghvio</td><td>batch match: settlement set_9rl1es8zhis0 &#43; settlement set_wyr1m70q47z5 reconcile to bank batch UTR8ob21ymghvio</td>
-    </tr>
-    
-    <tr>
-      <td>order_000055</td><td>set_wyr1m70q47z5</td>
-      <td class="tier-batch">batch</td>
-      <td>UTR8ob21ymghvio</td><td>batch match: settlement set_wyr1m70q47z5 &#43; settlement set_9rl1es8zhis0 reconcile to bank batch UTR8ob21ymghvio</td>
-    </tr>
-    
-    <tr>
-      <td>order_000056</td><td>set_0qxla28au2sk</td>
-      <td class="tier-batch">batch</td>
-      <td>UTRq2mqbgedcpk3</td><td>batch match: settlement set_0qxla28au2sk &#43; settlement set_ety9o46j70ny reconcile to bank batch UTRq2mqbgedcpk3</td>
-    </tr>
-    
-    <tr>
-      <td>order_000057</td><td>set_ety9o46j70ny</td>
-      <td class="tier-batch">batch</td>
-      <td>UTRq2mqbgedcpk3</td><td>batch match: settlement set_ety9o46j70ny &#43; settlement set_0qxla28au2sk reconcile to bank batch UTRq2mqbgedcpk3</td>
-    </tr>
-    
-    <tr>
-      <td>order_000043</td><td>set_czaj2esg4llo</td>
-      <td class="tier-fuzzy">fuzzy</td>
-      <td>UTRvj877jp9rsdl</td><td>fuzzy match: amount difference ₹0.00, date difference 72.0 hours</td>
-    </tr>
-    
-    <tr>
-      <td>order_000044</td><td>set_qu559k0rlcre</td>
-      <td class="tier-fuzzy">fuzzy</td>
-      <td>UTR3rvay4ghczvh</td><td>fuzzy match: amount difference ₹0.00, date difference 72.0 hours</td>
-    </tr>
-    
-    <tr>
-      <td>order_000045</td><td>set_mm900ym0yfn4</td>
-      <td class="tier-fuzzy">fuzzy</td>
-      <td>UTRye66zz29nthv</td><td>fuzzy match: amount difference ₹0.00, date difference 72.0 hours</td>
-    </tr>
-    
-    <tr>
-      <td>order_000046</td><td>set_c0rq6fxl12ac</td>
-      <td class="tier-fuzzy">fuzzy</td>
-      <td>UTRgqrlgkmqs3g2</td><td>fuzzy match: amount difference ₹0.00, date difference 72.0 hours</td>
-    </tr>
-    
-    <tr>
-      <td>order_000047</td><td>set_wrnnhhf3snbh</td>
-      <td class="tier-fuzzy">fuzzy</td>
-      <td>UTRo0rekhzv6z0e</td><td>fuzzy match: amount difference ₹0.00, date difference 72.0 hours</td>
-    </tr>
-    
-    <tr>
-      <td>order_000048</td><td>set_rz7pxu7b7yeo</td>
-      <td class="tier-fuzzy">fuzzy</td>
-      <td>UTRiudjnc89pfbn</td><td>fuzzy match: amount difference ₹0.00, date difference 72.0 hours</td>
-    </tr>
-    
-    <tr>
-      <td>order_000049</td><td>set_kwh0bxgn4y9t</td>
-      <td class="tier-fuzzy">fuzzy</td>
-      <td>UTR91wxydglmcj5</td><td>fuzzy match: amount difference ₹0.00, date difference 72.0 hours</td>
-    </tr>
-    
-    <tr>
-      <td>order_000050</td><td>set_k2qj6v3bnrel</td>
-      <td class="tier-fuzzy">fuzzy</td>
-      <td>UTR1abg3sg12m44</td><td>fuzzy match: amount difference ₹0.00, date difference 72.0 hours</td>
-    </tr>
-    
-    <tr>
-      <td>order_000051</td><td>set_p5kw0ezey4gk</td>
-      <td class="tier-fuzzy">fuzzy</td>
-      <td>UTR9l4k9uak634o</td><td>fuzzy match: amount difference ₹0.00, date difference 72.0 hours</td>
-    </tr>
-    
-    <tr>
-      <td>order_000058</td><td>set_jn8fh3urm5cs</td>
-      <td class="tier-unresolved">unresolved</td>
-      <td></td><td>confirmed exception: No bank statement entry matches the settlement net amount (2585.89 INR) or the payment ID (pay_watbyyjonoy6); all candidate credits have different amounts and unrelated narrations.</td>
-    </tr>
-    
-    <tr>
-      <td>order_000059</td><td>set_cyllkwjgmka4</td>
-      <td class="tier-unresolved">unresolved</td>
-      <td></td><td>confirmed exception: No bank statement entry contains the payment ID pay_zql5w8byzvr7 or the net settlement amount 5550.56 INR; amounts and narrations do not correspond to the settlement record.</td>
-    </tr>
-    
-    <tr>
-      <td>order_000060</td><td>set_yixcr7wwf2jo</td>
-      <td class="tier-unresolved">unresolved</td>
-      <td></td><td>confirmed exception: No bank statement entry matches the settlement&#39;s net amount (₹2811.31) or payment ID (pay_xx4xplcgqx7p); credit amounts and narrations differ, so reconciliation cannot be confirmed.</td>
-    </tr>
-    
-  </table>
+
+  </div>
+</div>
+
+<h2>Finance exec — exception queue</h2>
+
+<table>
+  <tr>
+    <th>Order ID</th>
+    <th>Settlement ID</th>
+    <th>Reason</th>
+  </tr>
+
+  
+  <tr class="exception">
+    <td>order_000058</td>
+    <td>set_jn8fh3urm5cs</td>
+    <td>confirmed exception: No bank statement matches the settlement: payment_id pay_watbyyjonoy6 not found in any narration, order_id order_000058 not referenced, and none of the credit amounts equal the net settlement amount of 2585.89 INR (allowing for rounding).</td>
+  </tr>
+  
+  <tr class="exception">
+    <td>order_000059</td>
+    <td>set_cyllkwjgmka4</td>
+    <td>confirmed exception: No bank statement contains the payment ID pay_zql5w8byzvr7 or the net settlement amount INR 5550.56; all candidate entries have different payment IDs and amounts.</td>
+  </tr>
+  
+  <tr class="exception">
+    <td>order_000060</td>
+    <td>set_yixcr7wwf2jo</td>
+    <td>confirmed exception: No bank credit entry matches the settlement net amount (2811.31 INR) or payment ID (pay_xx4xplcgqx7p). Credit amounts are 3862.17, 6798.85, and 3981.58 INR, and narrations reference different payment IDs. Insufficient evidence for reconciliation.</td>
+  </tr>
+  
+</table>
+
+<h2>Reconciliation breakdown</h2>
+
+<table>
+  <tr>
+    <th>Tier</th>
+    <th>Count</th>
+    <th>Meaning</th>
+  </tr>
+
+  <tr>
+    <td class="tier-exact">Exact</td>
+    <td>42</td>
+    <td>Payment ID, amount, and timing aligned.</td>
+  </tr>
+
+  <tr>
+    <td class="tier-fuzzy">Fuzzy</td>
+    <td>9</td>
+    <td>Minor amount or timing difference resolved.</td>
+  </tr>
+
+  <tr>
+    <td class="tier-batch">Batch</td>
+    <td>6</td>
+    <td>Multiple settlements reconciled against one bank batch.</td>
+  </tr>
+
+  <tr>
+    <td class="tier-llm_resolved">LLM resolved</td>
+    <td>0</td>
+    <td>Previously unresolved case resolved with additional reasoning.</td>
+  </tr>
+
+  <tr>
+    <td class="tier-unresolved">Exception</td>
+    <td>3</td>
+    <td>No sufficient evidence to reconcile.</td>
+  </tr>
+</table>
+
+<h2>Full audit trail</h2>
+
+<table>
+  <tr>
+    <th>Order ID</th>
+    <th>Settlement ID</th>
+    <th>Tier</th>
+    <th>Bank UTR</th>
+    <th>Reason</th>
+  </tr>
+
+  
+  <tr>
+    <td>order_000001</td>
+    <td>set_6jif9u8g21qr</td>
+    <td class="tier-exact">exact</td>
+    <td>UTRdygacwkeoh0s</td>
+    <td>payment ID, amount and bank evidence match</td>
+  </tr>
+  
+  <tr>
+    <td>order_000002</td>
+    <td>set_8erdias74xqg</td>
+    <td class="tier-exact">exact</td>
+    <td>UTRhhh82fspv9m6</td>
+    <td>payment ID, amount and bank evidence match</td>
+  </tr>
+  
+  <tr>
+    <td>order_000003</td>
+    <td>set_xol880hpdlq5</td>
+    <td class="tier-exact">exact</td>
+    <td>UTRl0c9xxmciy97</td>
+    <td>payment ID, amount and bank evidence match</td>
+  </tr>
+  
+  <tr>
+    <td>order_000004</td>
+    <td>set_sat1f01w0z0f</td>
+    <td class="tier-exact">exact</td>
+    <td>UTR63w251p6rlc9</td>
+    <td>payment ID, amount and bank evidence match</td>
+  </tr>
+  
+  <tr>
+    <td>order_000005</td>
+    <td>set_9fy5auvyjntj</td>
+    <td class="tier-exact">exact</td>
+    <td>UTRjnvli1az7h2s</td>
+    <td>payment ID, amount and bank evidence match</td>
+  </tr>
+  
+  <tr>
+    <td>order_000006</td>
+    <td>set_zhpbu7l08isp</td>
+    <td class="tier-exact">exact</td>
+    <td>UTR80314rlgttft</td>
+    <td>payment ID, amount and bank evidence match</td>
+  </tr>
+  
+  <tr>
+    <td>order_000007</td>
+    <td>set_nasi56d1m6n5</td>
+    <td class="tier-exact">exact</td>
+    <td>UTRh6fy1h5tbiw6</td>
+    <td>payment ID, amount and bank evidence match</td>
+  </tr>
+  
+  <tr>
+    <td>order_000008</td>
+    <td>set_yj80c1mq6pqm</td>
+    <td class="tier-exact">exact</td>
+    <td>UTR1oekv2qfaef6</td>
+    <td>payment ID, amount and bank evidence match</td>
+  </tr>
+  
+  <tr>
+    <td>order_000009</td>
+    <td>set_wpsqqm7z7zef</td>
+    <td class="tier-exact">exact</td>
+    <td>UTRas8vi8vdma8l</td>
+    <td>payment ID, amount and bank evidence match</td>
+  </tr>
+  
+  <tr>
+    <td>order_000010</td>
+    <td>set_ltlm6x46haw7</td>
+    <td class="tier-exact">exact</td>
+    <td>UTRngt8h78bmf2e</td>
+    <td>payment ID, amount and bank evidence match</td>
+  </tr>
+  
+  <tr>
+    <td>order_000011</td>
+    <td>set_z4ba86xhbqnv</td>
+    <td class="tier-exact">exact</td>
+    <td>UTR56nvsus0pjcy</td>
+    <td>payment ID, amount and bank evidence match</td>
+  </tr>
+  
+  <tr>
+    <td>order_000012</td>
+    <td>set_ts8ecyn68y4a</td>
+    <td class="tier-exact">exact</td>
+    <td>UTR3x1x21xj1p7c</td>
+    <td>payment ID, amount and bank evidence match</td>
+  </tr>
+  
+  <tr>
+    <td>order_000013</td>
+    <td>set_zafzp8314ay8</td>
+    <td class="tier-exact">exact</td>
+    <td>UTRdnekpei2uknd</td>
+    <td>payment ID, amount and bank evidence match</td>
+  </tr>
+  
+  <tr>
+    <td>order_000014</td>
+    <td>set_r3gv0wtrcosm</td>
+    <td class="tier-exact">exact</td>
+    <td>UTR0w7ns8rjnxll</td>
+    <td>payment ID, amount and bank evidence match</td>
+  </tr>
+  
+  <tr>
+    <td>order_000015</td>
+    <td>set_r14gg8f30o4t</td>
+    <td class="tier-exact">exact</td>
+    <td>UTR2tszg9vg5tbv</td>
+    <td>payment ID, amount and bank evidence match</td>
+  </tr>
+  
+  <tr>
+    <td>order_000016</td>
+    <td>set_eda4uw77i6xu</td>
+    <td class="tier-exact">exact</td>
+    <td>UTRw18b5xonxmv6</td>
+    <td>payment ID, amount and bank evidence match</td>
+  </tr>
+  
+  <tr>
+    <td>order_000017</td>
+    <td>set_q2bjj2pkueho</td>
+    <td class="tier-exact">exact</td>
+    <td>UTRnlskoejxxe22</td>
+    <td>payment ID, amount and bank evidence match</td>
+  </tr>
+  
+  <tr>
+    <td>order_000018</td>
+    <td>set_n10vnmi7xbwr</td>
+    <td class="tier-exact">exact</td>
+    <td>UTRwtkjny7fk5ci</td>
+    <td>payment ID, amount and bank evidence match</td>
+  </tr>
+  
+  <tr>
+    <td>order_000019</td>
+    <td>set_um0km1n7003e</td>
+    <td class="tier-exact">exact</td>
+    <td>UTRgy41c7us3kwn</td>
+    <td>payment ID, amount and bank evidence match</td>
+  </tr>
+  
+  <tr>
+    <td>order_000020</td>
+    <td>set_jh1wnfardf6g</td>
+    <td class="tier-exact">exact</td>
+    <td>UTR6cdradetfty1</td>
+    <td>payment ID, amount and bank evidence match</td>
+  </tr>
+  
+  <tr>
+    <td>order_000021</td>
+    <td>set_ji0qctrz2kqc</td>
+    <td class="tier-exact">exact</td>
+    <td>UTR2knh41a1b5ft</td>
+    <td>payment ID, amount and bank evidence match</td>
+  </tr>
+  
+  <tr>
+    <td>order_000022</td>
+    <td>set_dnju3dticqp4</td>
+    <td class="tier-exact">exact</td>
+    <td>UTRboo4a5cusyjr</td>
+    <td>payment ID, amount and bank evidence match</td>
+  </tr>
+  
+  <tr>
+    <td>order_000023</td>
+    <td>set_ez5r0i487bhh</td>
+    <td class="tier-exact">exact</td>
+    <td>UTRh68iongfnp74</td>
+    <td>payment ID, amount and bank evidence match</td>
+  </tr>
+  
+  <tr>
+    <td>order_000024</td>
+    <td>set_76hrqmszilmw</td>
+    <td class="tier-exact">exact</td>
+    <td>UTRlbaxqopx59fw</td>
+    <td>payment ID, amount and bank evidence match</td>
+  </tr>
+  
+  <tr>
+    <td>order_000025</td>
+    <td>set_emvlwx8myyo3</td>
+    <td class="tier-exact">exact</td>
+    <td>UTRitsfme9lyel1</td>
+    <td>payment ID, amount and bank evidence match</td>
+  </tr>
+  
+  <tr>
+    <td>order_000026</td>
+    <td>set_dvdq16ob4o3w</td>
+    <td class="tier-exact">exact</td>
+    <td>UTR5orijpguf1zl</td>
+    <td>payment ID, amount and bank evidence match</td>
+  </tr>
+  
+  <tr>
+    <td>order_000027</td>
+    <td>set_uwutvlkhszlm</td>
+    <td class="tier-exact">exact</td>
+    <td>UTRnviisdth77bo</td>
+    <td>payment ID, amount and bank evidence match</td>
+  </tr>
+  
+  <tr>
+    <td>order_000028</td>
+    <td>set_qypcbgg6l6yj</td>
+    <td class="tier-exact">exact</td>
+    <td>UTR0jefn9axv811</td>
+    <td>payment ID, amount and bank evidence match</td>
+  </tr>
+  
+  <tr>
+    <td>order_000029</td>
+    <td>set_4lggdt3xksa0</td>
+    <td class="tier-exact">exact</td>
+    <td>UTRwn675tg6yoim</td>
+    <td>payment ID, amount and bank evidence match</td>
+  </tr>
+  
+  <tr>
+    <td>order_000030</td>
+    <td>set_3hsouow6z55l</td>
+    <td class="tier-exact">exact</td>
+    <td>UTRapsgt80885xp</td>
+    <td>payment ID, amount and bank evidence match</td>
+  </tr>
+  
+  <tr>
+    <td>order_000031</td>
+    <td>set_4h745c1iqzk7</td>
+    <td class="tier-exact">exact</td>
+    <td>UTRm3kcqcbo6qpz</td>
+    <td>payment ID, amount and bank evidence match</td>
+  </tr>
+  
+  <tr>
+    <td>order_000032</td>
+    <td>set_t9nnf67mjtzw</td>
+    <td class="tier-exact">exact</td>
+    <td>UTRm2r9jay6c2fg</td>
+    <td>payment ID, amount and bank evidence match</td>
+  </tr>
+  
+  <tr>
+    <td>order_000033</td>
+    <td>set_7zigbhn3mc0s</td>
+    <td class="tier-exact">exact</td>
+    <td>UTR50pclyihcsnv</td>
+    <td>payment ID, amount and bank evidence match</td>
+  </tr>
+  
+  <tr>
+    <td>order_000034</td>
+    <td>set_l4r2zmksw68p</td>
+    <td class="tier-exact">exact</td>
+    <td>UTRhj6xm650xq1z</td>
+    <td>payment ID, amount and bank evidence match</td>
+  </tr>
+  
+  <tr>
+    <td>order_000035</td>
+    <td>set_9o63ul02xy74</td>
+    <td class="tier-exact">exact</td>
+    <td>UTRpuf4gc2dorxw</td>
+    <td>payment ID, amount and bank evidence match</td>
+  </tr>
+  
+  <tr>
+    <td>order_000036</td>
+    <td>set_ohwa2bs3rfc7</td>
+    <td class="tier-exact">exact</td>
+    <td>UTRjs4jq023lmwl</td>
+    <td>payment ID, amount and bank evidence match</td>
+  </tr>
+  
+  <tr>
+    <td>order_000037</td>
+    <td>set_4dlkz97b0t6z</td>
+    <td class="tier-exact">exact</td>
+    <td>UTRccwnraplsspw</td>
+    <td>payment ID, amount and bank evidence match</td>
+  </tr>
+  
+  <tr>
+    <td>order_000038</td>
+    <td>set_e3djkqsio09j</td>
+    <td class="tier-exact">exact</td>
+    <td>UTRrw1ahqmulnjx</td>
+    <td>payment ID, amount and bank evidence match</td>
+  </tr>
+  
+  <tr>
+    <td>order_000039</td>
+    <td>set_x35joavi5yfl</td>
+    <td class="tier-exact">exact</td>
+    <td>UTRil3qs5t1839p</td>
+    <td>payment ID, amount and bank evidence match</td>
+  </tr>
+  
+  <tr>
+    <td>order_000040</td>
+    <td>set_0fty33w5izlu</td>
+    <td class="tier-exact">exact</td>
+    <td>UTRjz5djid4tgd8</td>
+    <td>payment ID, amount and bank evidence match</td>
+  </tr>
+  
+  <tr>
+    <td>order_000041</td>
+    <td>set_3nb43e96a9cx</td>
+    <td class="tier-exact">exact</td>
+    <td>UTRii8joyv56692</td>
+    <td>payment ID, amount and bank evidence match</td>
+  </tr>
+  
+  <tr>
+    <td>order_000042</td>
+    <td>set_8gvku1z7sncc</td>
+    <td class="tier-exact">exact</td>
+    <td>UTRes7e4ozznqu1</td>
+    <td>payment ID, amount and bank evidence match</td>
+  </tr>
+  
+  <tr>
+    <td>order_000052</td>
+    <td>set_nfi5ko5h1cf2</td>
+    <td class="tier-batch">batch</td>
+    <td>UTRo0lc4l70i9w5</td>
+    <td>batch match: settlement set_nfi5ko5h1cf2 &#43; settlement set_9asotowz9wkz reconcile to bank batch UTRo0lc4l70i9w5</td>
+  </tr>
+  
+  <tr>
+    <td>order_000053</td>
+    <td>set_9asotowz9wkz</td>
+    <td class="tier-batch">batch</td>
+    <td>UTRo0lc4l70i9w5</td>
+    <td>batch match: settlement set_9asotowz9wkz &#43; settlement set_nfi5ko5h1cf2 reconcile to bank batch UTRo0lc4l70i9w5</td>
+  </tr>
+  
+  <tr>
+    <td>order_000054</td>
+    <td>set_9rl1es8zhis0</td>
+    <td class="tier-batch">batch</td>
+    <td>UTR8ob21ymghvio</td>
+    <td>batch match: settlement set_9rl1es8zhis0 &#43; settlement set_wyr1m70q47z5 reconcile to bank batch UTR8ob21ymghvio</td>
+  </tr>
+  
+  <tr>
+    <td>order_000055</td>
+    <td>set_wyr1m70q47z5</td>
+    <td class="tier-batch">batch</td>
+    <td>UTR8ob21ymghvio</td>
+    <td>batch match: settlement set_wyr1m70q47z5 &#43; settlement set_9rl1es8zhis0 reconcile to bank batch UTR8ob21ymghvio</td>
+  </tr>
+  
+  <tr>
+    <td>order_000056</td>
+    <td>set_0qxla28au2sk</td>
+    <td class="tier-batch">batch</td>
+    <td>UTRq2mqbgedcpk3</td>
+    <td>batch match: settlement set_0qxla28au2sk &#43; settlement set_ety9o46j70ny reconcile to bank batch UTRq2mqbgedcpk3</td>
+  </tr>
+  
+  <tr>
+    <td>order_000057</td>
+    <td>set_ety9o46j70ny</td>
+    <td class="tier-batch">batch</td>
+    <td>UTRq2mqbgedcpk3</td>
+    <td>batch match: settlement set_ety9o46j70ny &#43; settlement set_0qxla28au2sk reconcile to bank batch UTRq2mqbgedcpk3</td>
+  </tr>
+  
+  <tr>
+    <td>order_000043</td>
+    <td>set_czaj2esg4llo</td>
+    <td class="tier-fuzzy">fuzzy</td>
+    <td>UTRvj877jp9rsdl</td>
+    <td>fuzzy match: amount difference ₹0.00, date difference 72.0 hours</td>
+  </tr>
+  
+  <tr>
+    <td>order_000044</td>
+    <td>set_qu559k0rlcre</td>
+    <td class="tier-fuzzy">fuzzy</td>
+    <td>UTR3rvay4ghczvh</td>
+    <td>fuzzy match: amount difference ₹0.00, date difference 72.0 hours</td>
+  </tr>
+  
+  <tr>
+    <td>order_000045</td>
+    <td>set_mm900ym0yfn4</td>
+    <td class="tier-fuzzy">fuzzy</td>
+    <td>UTRye66zz29nthv</td>
+    <td>fuzzy match: amount difference ₹0.00, date difference 72.0 hours</td>
+  </tr>
+  
+  <tr>
+    <td>order_000046</td>
+    <td>set_c0rq6fxl12ac</td>
+    <td class="tier-fuzzy">fuzzy</td>
+    <td>UTRgqrlgkmqs3g2</td>
+    <td>fuzzy match: amount difference ₹0.00, date difference 72.0 hours</td>
+  </tr>
+  
+  <tr>
+    <td>order_000047</td>
+    <td>set_wrnnhhf3snbh</td>
+    <td class="tier-fuzzy">fuzzy</td>
+    <td>UTRo0rekhzv6z0e</td>
+    <td>fuzzy match: amount difference ₹0.00, date difference 72.0 hours</td>
+  </tr>
+  
+  <tr>
+    <td>order_000048</td>
+    <td>set_rz7pxu7b7yeo</td>
+    <td class="tier-fuzzy">fuzzy</td>
+    <td>UTRiudjnc89pfbn</td>
+    <td>fuzzy match: amount difference ₹0.00, date difference 72.0 hours</td>
+  </tr>
+  
+  <tr>
+    <td>order_000049</td>
+    <td>set_kwh0bxgn4y9t</td>
+    <td class="tier-fuzzy">fuzzy</td>
+    <td>UTR91wxydglmcj5</td>
+    <td>fuzzy match: amount difference ₹0.00, date difference 72.0 hours</td>
+  </tr>
+  
+  <tr>
+    <td>order_000050</td>
+    <td>set_k2qj6v3bnrel</td>
+    <td class="tier-fuzzy">fuzzy</td>
+    <td>UTR1abg3sg12m44</td>
+    <td>fuzzy match: amount difference ₹0.00, date difference 72.0 hours</td>
+  </tr>
+  
+  <tr>
+    <td>order_000051</td>
+    <td>set_p5kw0ezey4gk</td>
+    <td class="tier-fuzzy">fuzzy</td>
+    <td>UTR9l4k9uak634o</td>
+    <td>fuzzy match: amount difference ₹0.00, date difference 72.0 hours</td>
+  </tr>
+  
+  <tr>
+    <td>order_000058</td>
+    <td>set_jn8fh3urm5cs</td>
+    <td class="tier-unresolved">unresolved</td>
+    <td></td>
+    <td>confirmed exception: No bank statement matches the settlement: payment_id pay_watbyyjonoy6 not found in any narration, order_id order_000058 not referenced, and none of the credit amounts equal the net settlement amount of 2585.89 INR (allowing for rounding).</td>
+  </tr>
+  
+  <tr>
+    <td>order_000059</td>
+    <td>set_cyllkwjgmka4</td>
+    <td class="tier-unresolved">unresolved</td>
+    <td></td>
+    <td>confirmed exception: No bank statement contains the payment ID pay_zql5w8byzvr7 or the net settlement amount INR 5550.56; all candidate entries have different payment IDs and amounts.</td>
+  </tr>
+  
+  <tr>
+    <td>order_000060</td>
+    <td>set_yixcr7wwf2jo</td>
+    <td class="tier-unresolved">unresolved</td>
+    <td></td>
+    <td>confirmed exception: No bank credit entry matches the settlement net amount (2811.31 INR) or payment ID (pay_xx4xplcgqx7p). Credit amounts are 3862.17, 6798.85, and 3981.58 INR, and narrations reference different payment IDs. Insufficient evidence for reconciliation.</td>
+  </tr>
+  
+</table>
+
 </body>
 </html>

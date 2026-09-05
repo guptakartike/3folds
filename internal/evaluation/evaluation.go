@@ -8,18 +8,18 @@ type GroundTruth struct {
 }
 
 type Summary struct {
-	Total             int     `json:"total"`
-	Correct           int     `json:"correct"`
-	Wrong             int     `json:"wrong"`
-	Accuracy          float64 `json:"accuracy"`
-	Matches           int     `json:"matches"`
-	Exceptions        int     `json:"exceptions"`
-	MatchRate         float64 `json:"match_rate"`
-	ExceptionRate     float64 `json:"exception_rate"`
-	FalsePositives    int     `json:"false_positives"`
-	FalseNegatives    int     `json:"false_negatives"`
-	ProcessingTimeMs  float64 `json:"processing_time_ms"`
-	RecordsPerSecond  float64 `json:"records_per_second"`
+	Total            int     `json:"total"`
+	Correct          int     `json:"correct"`
+	Wrong            int     `json:"wrong"`
+	Accuracy         float64 `json:"accuracy"`
+	Matches          int     `json:"matches"`
+	Exceptions       int     `json:"exceptions"`
+	MatchRate        float64 `json:"match_rate"`
+	ExceptionRate    float64 `json:"exception_rate"`
+	FalsePositives   int     `json:"false_positives"`
+	FalseNegatives   int     `json:"false_negatives"`
+	ProcessingTimeMs float64 `json:"processing_time_ms"`
+	RecordsPerSecond float64 `json:"records_per_second"`
 }
 
 func Calculate(

@@ -20,13 +20,13 @@ const groqEndpoint = "https://api.groq.com/openai/v1/chat/completions"
 
 // Resolution is the LLM's verdict on one unresolved settlement.
 type Resolution struct {
-    OrderID      string   `json:"order_id"`
-    SettlementID string   `json:"settlement_id"`
-    Decision     string   `json:"decision"`      // MATCH | EXCEPTION
-    Confidence   float64  `json:"confidence"`    // 0.0 - 1.0
-    BankUTRRef   string   `json:"bank_utr_ref,omitempty"`
-    Reason       string   `json:"reason"`
-    Evidence     []string `json:"evidence"`
+	OrderID      string   `json:"order_id"`
+	SettlementID string   `json:"settlement_id"`
+	Decision     string   `json:"decision"`   // MATCH | EXCEPTION
+	Confidence   float64  `json:"confidence"` // 0.0 - 1.0
+	BankUTRRef   string   `json:"bank_utr_ref,omitempty"`
+	Reason       string   `json:"reason"`
+	Evidence     []string `json:"evidence"`
 }
 
 // Client wraps calls to the Groq chat completions API.
@@ -80,8 +80,6 @@ type groqResponse struct {
 		Message string `json:"message"`
 	} `json:"error,omitempty"`
 }
-
-
 
 const systemPrompt = `
 You are a financial reconciliation controller.

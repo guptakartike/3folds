@@ -4,30 +4,32 @@
     "settlement_id": "set_jn8fh3urm5cs",
     "decision": "EXCEPTION",
     "confidence": 1,
-    "reason": "No bank statement entry matches the settlement net amount (2585.89 INR) or the payment ID (pay_watbyyjonoy6); all candidate credits have different amounts and unrelated narrations.",
+    "reason": "No bank statement matches the settlement: payment_id pay_watbyyjonoy6 not found in any narration, order_id order_000058 not referenced, and none of the credit amounts equal the net settlement amount of 2585.89 INR (allowing for rounding).",
     "evidence": [
-      "Settlement net_amount_inr: 2585.89",
-      "Bank credits: 3862.17 (UTRp9vaj6bbw4la), 6798.85 (UTRxkrdk2su2164), 3981.58 (UTRuc71rawoqb82)"
+      "Settlement net_amount_inr 2585.89 INR",
+      "Bank credit 3862.17 INR (UTRp9vaj6bbw4la)",
+      "Bank credit 6798.85 INR (UTRxkrdk2su2164)",
+      "Bank credit 3981.58 INR (UTRuc71rawoqb82)"
     ]
   },
   {
     "order_id": "order_000059",
     "settlement_id": "set_cyllkwjgmka4",
     "decision": "EXCEPTION",
-    "confidence": 0.99,
-    "reason": "No bank statement entry contains the payment ID pay_zql5w8byzvr7 or the net settlement amount 5550.56 INR; amounts and narrations do not correspond to the settlement record.",
+    "confidence": 1,
+    "reason": "No bank statement contains the payment ID pay_zql5w8byzvr7 or the net settlement amount INR 5550.56; all candidate entries have different payment IDs and amounts.",
     "evidence": [
-      "UTRp9vaj6bbw4la: credit 3862.17 INR, narration pay_opboi6c65ior",
-      "UTRxkrdk2su2164: credit 6798.85 INR, narration pay_iiaa8of7zgd8",
-      "UTRuc71rawoqb82: credit 3981.58 INR, narration pay_tqndl7sljqyw"
+      "UTRp9vaj6bbw4la: payment ID mismatch, amount 3862.17",
+      "UTRxkrdk2su2164: payment ID mismatch, amount 6798.85",
+      "UTRuc71rawoqb82: payment ID mismatch, amount 3981.58"
     ]
   },
   {
     "order_id": "order_000060",
     "settlement_id": "set_yixcr7wwf2jo",
     "decision": "EXCEPTION",
-    "confidence": 0.99,
-    "reason": "No bank statement entry matches the settlement's net amount (₹2811.31) or payment ID (pay_xx4xplcgqx7p); credit amounts and narrations differ, so reconciliation cannot be confirmed.",
+    "confidence": 1,
+    "reason": "No bank credit entry matches the settlement net amount (2811.31 INR) or payment ID (pay_xx4xplcgqx7p). Credit amounts are 3862.17, 6798.85, and 3981.58 INR, and narrations reference different payment IDs. Insufficient evidence for reconciliation.",
     "evidence": []
   }
 ]

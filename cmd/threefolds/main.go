@@ -95,6 +95,19 @@ func runMatch(args []string) {
 	elapsed := time.Since(start)
 	processingTimeMs := float64(elapsed.Nanoseconds()) / 1e6
 
+	throughput := float64(0)
+
+	if processingTimeMs > 0 {
+		throughput = float64(len(d.Settlements)) / (processingTimeMs / 1000)
+	}
+
+	metrics := map[string]float64{
+		"processing_time_ms": processingTimeMs,
+		"records_per_second": throughput,
+	}
+
+	writeJSON(filepath.Join(*inDir, "metrics.json"), metrics)
+
 	writeJSON(filepath.Join(*inDir, "match_results.json"), results)
 
 	rate := matcher.MatchRate(results)
@@ -103,7 +116,7 @@ func runMatch(args []string) {
 		counts[r.Tier]++
 	}
 
-	throughput := 0.0
+	throughput = 0.0
 	if processingTimeMs > 0 {
 		throughput = float64(len(d.Settlements)) / (processingTimeMs / 1000)
 	}
@@ -247,24 +260,50 @@ func readJSON(path string, v interface{}) {
 func runReport(args []string) {
 	fs := flag.NewFlagSet("report", flag.ExitOnError)
 	inDir := fs.String("in", "data", "input directory")
-	htmlOut := fs.String("html", "data/report.html", "path to write the HTML report")
 	fs.Parse(args)
 
 	results, source, err := report.Load(*inDir)
 	if err != nil {
 		log.Fatalf("loading results: %v", err)
 	}
+
 	log.Printf("loaded results from %s", source)
 
 	summary := report.Summarize(results)
+
+	// Load measured throughput from evaluation.json.
+	metricsPath := filepath.Join(*inDir, "metrics.json")
+
+	if data, err := os.ReadFile(metricsPath); err == nil {
+		var metrics struct {
+			ProcessingTimeMs float64 `json:"processing_time_ms"`
+			RecordsPerSecond float64 `json:"records_per_second"`
+		}
+
+		if err := json.Unmarshal(data, &metrics); err == nil {
+			summary = report.SetThroughput(
+				summary,
+				metrics.ProcessingTimeMs,
+			)
+		}
+	}
+
 	exceptions := report.Exceptions(results)
 
 	report.PrintCLI(summary, exceptions)
 
-	if err := report.WriteHTML(*htmlOut, summary, results, exceptions); err != nil {
-		log.Fatalf("writing html report: %v", err)
+	htmlPath := filepath.Join(*inDir, "report.html")
+
+	if err := report.WriteHTML(
+		htmlPath,
+		summary,
+		results,
+		exceptions,
+	); err != nil {
+		log.Fatalf("writing HTML report: %v", err)
 	}
-	fmt.Printf("\nhtml report written to %s\n", *htmlOut)
+
+	log.Printf("html report written to %s", htmlPath)
 }
 
 func runVerify(args []string) {
