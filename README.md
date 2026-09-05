@@ -1,3 +1,19 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/logo-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="assets/logo-light.svg">
+    <img src="assets/logo-dark.svg" alt="3folds Logo" width="260">
+  </picture>
+</p>
+
+<p align="center">
+  <strong>Evidence-first multi-way financial reconciliation across payment gateways, bank statements, and internal ledgers.</strong>
+  <br />
+  
+</p>
+
+---
+
 # 3folds — AI Finance Controller
 
 **3folds** is an evidence-first finance reconciliation controller. It closes one finance-ops loop across settlement, bank, and internal ledger data: deterministic matching handles high-confidence cases, while an LLM investigates only unresolved cases and can leave them as auditable exceptions when evidence is insufficient.
@@ -50,33 +66,9 @@ The accuracy claim is specifically **match/exception classification accuracy**, 
 
 ## Architecture
 
-```text
-                 Synthetic Dataset
-                        │
-          ┌─────────────┼─────────────┐
-          ▼             ▼             ▼
-     Settlements   Bank Statements   Ledger
-          │             │             │
-          └─────────────┼─────────────┘
-                        ▼
-              Deterministic Matcher
-                        │
-        ┌───────────────┼───────────────┐
-        ▼               ▼               ▼
-      Exact           Fuzzy            Batch
-        │               │               │
-        └───────────────┼───────────────┘
-                        ▼
-                  Unresolved
-                        │
-                        ▼
-               LLM Exception Resolver
-                        │
-                 MATCH / EXCEPTION
-                        │
-                        ▼
-               Evaluation + Audit Report
-```
+<p align="center">
+  <img src="assets/architecture.png" alt="3folds Reconciliation Architecture" width="550" />
+</p>
 
 ### Matching policy
 
@@ -141,6 +133,10 @@ go test ./...
 
 ## Interactive Web Dashboard
 
+<p align="center">
+  <img src="assets/dashboard.png" alt="3folds Interactive Reconciliation Dashboard" width="800" />
+</p>
+
 To launch the live reconciliation UI:
 
 **Terminal 1 — Backend API:**
@@ -158,7 +154,7 @@ Open **http://localhost:5173/** in your browser.
 ### Resetting for a Demo Recording
 
 To reset the dashboard to the clean **idle state** (no pre-baked numbers):
-- Click **"Reset Demo to Idle"** in the UI on the **Upload** page, OR
+- Click **"Reset to Empty State"** in the UI on the **Upload** page, OR
 - Run via curl:
   ```bash
   curl -X POST http://localhost:8080/api/reset
@@ -168,7 +164,19 @@ To reset the dashboard to the clean **idle state** (no pre-baked numbers):
   rm data/match_results*.json data/metrics.json data/resolutions.json
   ```
 
-Source files (`settlements.json`, `bank_statements.json`, `ledger_entries.json`) remain intact so you can click **Run Reconciliation** immediately to demonstrate the live execution flow.
+Source files (`settlements.json`, `bank_statements.json`, `ledger_entries.json`) remain intact so you can click **Run Reconciliation Pipeline** immediately to demonstrate the live execution flow.
+
+## Data Ingestion & Live Pipeline Execution
+
+<p align="center">
+  <img src="assets/upload_data.png" alt="3folds Multi-Source Data Ingestion & Upload" width="800" />
+</p>
+
+The interactive upload interface allows finance operators to:
+- **Download Sample Datasets**: Pre-generated CSV and JSON templates representing settlements, bank statements, and internal ERP ledgers.
+- **Upload & Schema Validation**: Real-time multi-file drag-and-drop parsing with schema auto-detection and data preview.
+- **Execute Reconciliation Engine**: One-click live execution through deterministic rules and optional LLM resolution.
+- **Reset to Empty State**: Instantly clear outputs to re-run demo flows on demand.
 
 
 The pipeline produces:
