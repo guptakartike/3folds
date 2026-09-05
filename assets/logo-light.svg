@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 96" fill="none">
+  <g transform="translate(10, 10)">
+    <!-- Top stripe - Deep Petrol / Cyan -->
+    <rect x="0" y="0" width="76" height="20" rx="10" fill="#0c5369" />
+    <!-- Middle stripe - Vibrant Ocean Blue -->
+    <rect x="10" y="28" width="66" height="20" rx="10" fill="#08758f" />
+    <!-- Bottom stripe - Emerald Green -->
+    <rect x="20" y="56" width="56" height="20" rx="10" fill="#00b87a" />
+  </g>
+  <!-- Wordmark in dark navy for Light Mode -->
+  <text x="110" y="64" fill="#0f172a" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="800" font-size="56" letter-spacing="-1.5px">3folds</text>
+</svg>

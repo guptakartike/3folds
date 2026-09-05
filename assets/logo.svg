@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 96" fill="none">
+  <style>
+    .brand-text {
+      fill: #0f172a;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-weight: 800;
+      font-size: 56px;
+      letter-spacing: -1.5px;
+    }
+    @media (prefers-color-scheme: dark) {
+      .brand-text {
+        fill: #f8fafc;
+      }
+    }
+  </style>
+  <g transform="translate(10, 10)">
+    <!-- Top stripe - Deep Petrol / Cyan -->
+    <rect x="0" y="0" width="76" height="20" rx="10" fill="#0c627b" />
+    <!-- Middle stripe - Vibrant Ocean Blue -->
+    <rect x="10" y="28" width="66" height="20" rx="10" fill="#0891b2" />
+    <!-- Bottom stripe - Emerald Green -->
+    <rect x="20" y="56" width="56" height="20" rx="10" fill="#00b87a" />
+  </g>
+  <!-- Wordmark -->
+  <text x="110" y="64" class="brand-text">3folds</text>
+</svg>
