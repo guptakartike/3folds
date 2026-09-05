@@ -28,10 +28,11 @@ func Calculate(
 	processingTimeMs float64,
 ) Summary {
 	s := Summary{
-		Total: len(truth),
+		Total:            len(truth),
+		ProcessingTimeMs: processingTimeMs,
 	}
 
-	resultByOrder := make(map[string]matcher.Result)
+	resultByOrder := make(map[string]matcher.Result, len(results))
 
 	for _, r := range results {
 		resultByOrder[r.OrderID] = r
@@ -52,36 +53,47 @@ func Calculate(
 
 		gotMatch := r.Tier != matcher.TierUnresolved
 
-		if gotMatch == t.ShouldMatch {
-			s.Correct++
-		} else {
-			s.Wrong++
-
-			if t.ShouldMatch {
-				s.FalseNegatives++
-			} else {
-				s.FalsePositives++
-			}
-		}
-
 		if gotMatch {
 			s.Matches++
 		} else {
 			s.Exceptions++
 		}
+
+		if gotMatch == t.ShouldMatch {
+			s.Correct++
+			continue
+		}
+
+		s.Wrong++
+
+		if t.ShouldMatch {
+			s.FalseNegatives++
+		} else {
+			s.FalsePositives++
+		}
 	}
 
 	if s.Total > 0 {
-		s.Accuracy = float64(s.Correct) / float64(s.Total) * 100
-		s.MatchRate = float64(s.Matches) / float64(s.Total) * 100
-		s.ExceptionRate = float64(s.Exceptions) / float64(s.Total) * 100
-	}
+		s.Accuracy =
+			float64(s.Correct) /
+				float64(s.Total) *
+				100
 
-	s.ProcessingTimeMs = processingTimeMs
+		s.MatchRate =
+			float64(s.Matches) /
+				float64(s.Total) *
+				100
+
+		s.ExceptionRate =
+			float64(s.Exceptions) /
+				float64(s.Total) *
+				100
+	}
 
 	if processingTimeMs > 0 {
 		s.RecordsPerSecond =
-			float64(s.Total) / (processingTimeMs / 1000)
+			float64(s.Total) /
+				(processingTimeMs / 1000)
 	}
 
 	return s

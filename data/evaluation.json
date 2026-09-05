@@ -9,6 +9,6 @@
   "exception_rate": 5,
   "false_positives": 0,
   "false_negatives": 0,
-  "processing_time_ms": 0.007833,
-  "records_per_second": 7659900.421294523
+  "processing_time_ms": 0,
+  "records_per_second": 0
 }

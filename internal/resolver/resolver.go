@@ -1,7 +1,3 @@
-// Package resolver sends unresolved settlements to an LLM (via the Groq
-// API, OpenAI-compatible) so it can propose a match or confirm a genuine
-// exception, with a forced JSON shape so the response is always
-// parseable.
 package resolver
 
 import (
@@ -18,44 +14,46 @@ import (
 
 const groqEndpoint = "https://api.groq.com/openai/v1/chat/completions"
 
+const (
+	maxAttempts       = 4
+	initialRetryDelay = 1 * time.Second
+)
+
 // Resolution is the LLM's verdict on one unresolved settlement.
 type Resolution struct {
 	OrderID      string   `json:"order_id"`
 	SettlementID string   `json:"settlement_id"`
-	Decision     string   `json:"decision"`   // MATCH | EXCEPTION
-	Confidence   float64  `json:"confidence"` // 0.0 - 1.0
+	Decision     string   `json:"decision"` // MATCH | EXCEPTION
+	Confidence   float64  `json:"confidence"`
 	BankUTRRef   string   `json:"bank_utr_ref,omitempty"`
 	Reason       string   `json:"reason"`
 	Evidence     []string `json:"evidence"`
 }
 
-// Client wraps calls to the Groq chat completions API.
+// Client wraps calls to the Groq OpenAI-compatible API.
 type Client struct {
 	APIKey     string
-	Model      string // e.g. "llama-3.3-70b-versatile" — confirm current model id in your Groq console
+	Model      string
 	HTTPClient *http.Client
 }
 
-// NewClient builds a resolver client. Pass the model id you have access
-// to on Groq; it changes over time so don't hardcode it blindly.
+// NewClient creates a new Groq resolver client.
 func NewClient(apiKey, model string) *Client {
 	return &Client{
-		APIKey:     apiKey,
-		Model:      model,
-		HTTPClient: &http.Client{Timeout: 30 * time.Second},
+		APIKey: apiKey,
+		Model:  model,
+		HTTPClient: &http.Client{
+			Timeout: 30 * time.Second,
+		},
 	}
 }
 
-// candidatePrompt is the shape of context sent to the model for one
-// unresolved settlement.
 type candidatePrompt struct {
 	Settlement     model.Settlement      `json:"settlement"`
 	NetAmountINR   float64               `json:"net_amount_inr"`
 	CandidateBanks []model.BankStatement `json:"candidate_bank_statements"`
 }
 
-// groqRequest / groqResponse are the OpenAI-compatible chat completion
-// shapes Groq's API uses.
 type groqRequest struct {
 	Model          string          `json:"model"`
 	Messages       []groqMessage   `json:"messages"`
@@ -69,13 +67,14 @@ type groqMessage struct {
 }
 
 type responseFormat struct {
-	Type string `json:"type"` // "json_object"
+	Type string `json:"type"`
 }
 
 type groqResponse struct {
 	Choices []struct {
 		Message groqMessage `json:"message"`
 	} `json:"choices"`
+
 	Error *struct {
 		Message string `json:"message"`
 	} `json:"error,omitempty"`
@@ -92,7 +91,7 @@ RULES:
 1. Never invent a transaction, payment ID, UTR, amount, or date.
 2. Never assume a missing bank record exists.
 3. Do not match based only on semantic similarity.
-4. A match requires concrete evidence from the supplied records.
+4. A MATCH requires concrete evidence from the supplied records.
 5. Consider:
    - payment ID
    - order ID
@@ -100,12 +99,15 @@ RULES:
    - bank credit amount
    - settlement date
    - bank value date
-   - ledger evidence
-6. Fee and tax deductions explain why gross and net amounts differ.
+   - ledger evidence when supplied
+6. Fee and tax deductions can explain why gross and net amounts differ.
 7. Small rounding differences may be acceptable.
 8. Settlement and bank dates may differ because of settlement timing.
 9. If evidence is insufficient or contradictory, return EXCEPTION.
 10. When uncertain, return EXCEPTION.
+11. If returning MATCH, provide the exact UTR from the supplied bank records.
+12. Never create or modify a UTR.
+13. A MATCH must have at least two independent pieces of supporting evidence.
 
 Return JSON only:
 
@@ -118,9 +120,11 @@ Return JSON only:
 }
 `
 
-// Resolve calls the LLM for one unresolved settlement and its remaining
-// unused bank candidates.
-func (c *Client) Resolve(settlement model.Settlement, candidates []model.BankStatement) (Resolution, error) {
+// Resolve asks the LLM to investigate one unresolved settlement.
+func (c *Client) Resolve(
+	settlement model.Settlement,
+	candidates []model.BankStatement,
+) (Resolution, error) {
 	netINR := float64(settlement.NetAmountPaisa) / 100
 
 	payload, err := json.Marshal(candidatePrompt{
@@ -129,79 +133,304 @@ func (c *Client) Resolve(settlement model.Settlement, candidates []model.BankSta
 		CandidateBanks: candidates,
 	})
 	if err != nil {
-		return Resolution{}, fmt.Errorf("marshal prompt: %w", err)
+		return Resolution{}, fmt.Errorf("marshal resolver prompt: %w", err)
 	}
 
 	reqBody := groqRequest{
 		Model: c.Model,
 		Messages: []groqMessage{
-			{Role: "system", Content: systemPrompt},
-			{Role: "user", Content: string(payload)},
+			{
+				Role:    "system",
+				Content: systemPrompt,
+			},
+			{
+				Role:    "user",
+				Content: string(payload),
+			},
 		},
-		ResponseFormat: &responseFormat{Type: "json_object"},
-		Temperature:    0.1, // low — we want consistent judgment, not creativity
+		ResponseFormat: &responseFormat{
+			Type: "json_object",
+		},
+		Temperature: 0.1,
 	}
 
 	body, err := json.Marshal(reqBody)
 	if err != nil {
-		return Resolution{}, fmt.Errorf("marshal request: %w", err)
+		return Resolution{}, fmt.Errorf("marshal Groq request: %w", err)
 	}
 
-	req, err := http.NewRequest(http.MethodPost, groqEndpoint, bytes.NewReader(body))
-	if err != nil {
-		return Resolution{}, fmt.Errorf("build request: %w", err)
+	return c.doRequestWithRetry(
+		body,
+		settlement,
+		candidates,
+	)
+}
+
+// doRequestWithRetry retries transient Groq failures using exponential
+// backoff.
+//
+// Retryable:
+//   - HTTP 429
+//   - HTTP 500
+//   - HTTP 502
+//   - HTTP 503
+//   - HTTP 504
+//   - temporary/network failures
+//
+// Non-retryable errors such as 400/401 fail immediately.
+func (c *Client) doRequestWithRetry(
+	body []byte,
+	settlement model.Settlement,
+	candidates []model.BankStatement,
+) (Resolution, error) {
+	var lastErr error
+
+	for attempt := 1; attempt <= maxAttempts; attempt++ {
+		res, retry, err := c.doRequest(
+			body,
+			settlement,
+			candidates,
+		)
+
+		if err == nil {
+			return res, nil
+		}
+
+		lastErr = err
+
+		if !retry || attempt == maxAttempts {
+			break
+		}
+
+		delay := initialRetryDelay * time.Duration(1<<(attempt-1))
+
+		time.Sleep(delay)
 	}
+
+	return Resolution{}, fmt.Errorf(
+		"Groq request failed after %d attempts: %w",
+		maxAttempts,
+		lastErr,
+	)
+}
+
+// doRequest performs one Groq API request.
+func (c *Client) doRequest(
+	body []byte,
+	settlement model.Settlement,
+	candidates []model.BankStatement,
+) (Resolution, bool, error) {
+	req, err := http.NewRequest(
+		http.MethodPost,
+		groqEndpoint,
+		bytes.NewReader(body),
+	)
+	if err != nil {
+		return Resolution{}, false, fmt.Errorf(
+			"build Groq request: %w",
+			err,
+		)
+	}
+
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", "Bearer "+c.APIKey)
+	req.Header.Set(
+		"Authorization",
+		"Bearer "+c.APIKey,
+	)
 
 	resp, err := c.HTTPClient.Do(req)
 	if err != nil {
-		return Resolution{}, fmt.Errorf("calling groq: %w", err)
+		return Resolution{}, true, fmt.Errorf(
+			"calling Groq: %w",
+			err,
+		)
 	}
 	defer resp.Body.Close()
 
 	raw, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return Resolution{}, fmt.Errorf("reading response: %w", err)
+		return Resolution{}, true, fmt.Errorf(
+			"reading Groq response: %w",
+			err,
+		)
+	}
+
+	if resp.StatusCode != http.StatusOK {
+		message := fmt.Sprintf(
+			"Groq returned HTTP %d",
+			resp.StatusCode,
+		)
+
+		var gr groqResponse
+
+		if err := json.Unmarshal(raw, &gr); err == nil &&
+			gr.Error != nil {
+			message = fmt.Sprintf(
+				"Groq returned HTTP %d: %s",
+				resp.StatusCode,
+				gr.Error.Message,
+			)
+		}
+
+		return Resolution{},
+			isRetryableStatus(resp.StatusCode),
+			fmt.Errorf("%s", message)
 	}
 
 	var gr groqResponse
+
 	if err := json.Unmarshal(raw, &gr); err != nil {
-		return Resolution{}, fmt.Errorf("unmarshal groq response: %w (raw: %s)", err, raw)
+		return Resolution{}, true, fmt.Errorf(
+			"unmarshal Groq response: %w",
+			err,
+		)
 	}
+
 	if gr.Error != nil {
-		return Resolution{}, fmt.Errorf("groq api error: %s", gr.Error.Message)
+		return Resolution{}, false, fmt.Errorf(
+			"Groq API error: %s",
+			gr.Error.Message,
+		)
 	}
+
 	if len(gr.Choices) == 0 {
-		return Resolution{}, fmt.Errorf("groq returned no choices (raw: %s)", raw)
+		return Resolution{}, true, fmt.Errorf(
+			"Groq returned no choices",
+		)
 	}
 
-	var res Resolution
-	if err := json.Unmarshal([]byte(gr.Choices[0].Message.Content), &res); err != nil {
-		return Resolution{}, fmt.Errorf("unmarshal model output as JSON: %w (content: %s)", err, gr.Choices[0].Message.Content)
-	}
-	res.OrderID = settlement.OrderID
-	res.SettlementID = settlement.SettlementID
+	content := gr.Choices[0].Message.Content
 
-	return res, nil
+	var resolution Resolution
+
+	if err := json.Unmarshal(
+		[]byte(content),
+		&resolution,
+	); err != nil {
+		return Resolution{}, false, fmt.Errorf(
+			"unmarshal model output as JSON: %w",
+			err,
+		)
+	}
+
+	// Always use the actual settlement identifiers rather than trusting
+	// the model to reproduce them correctly.
+	resolution.OrderID = settlement.OrderID
+	resolution.SettlementID = settlement.SettlementID
+
+	if err := validateResolution(
+		resolution,
+		candidates,
+	); err != nil {
+		return Resolution{}, false, err
+	}
+
+	return resolution, false, nil
 }
 
-// UnusedBankStatements returns the bank statements that were NOT
-// consumed by the exact/fuzzy matcher, i.e. the pool of candidates the
-// LLM is allowed to reason over.
-func UnusedBankStatements(all []model.BankStatement, results []matcher.Result) []model.BankStatement {
+// validateResolution prevents an LLM from turning unsupported reasoning
+// into an accepted reconciliation.
+func validateResolution(
+	res Resolution,
+	candidates []model.BankStatement,
+) error {
+	if res.Decision != "MATCH" &&
+		res.Decision != "EXCEPTION" {
+		return fmt.Errorf(
+			"invalid LLM decision %q",
+			res.Decision,
+		)
+	}
+
+	if res.Confidence < 0 ||
+		res.Confidence > 1 {
+		return fmt.Errorf(
+			"invalid LLM confidence %.3f",
+			res.Confidence,
+		)
+	}
+
+	// Exceptions do not need a bank UTR.
+	if res.Decision == "EXCEPTION" {
+		return nil
+	}
+
+	// A MATCH must satisfy strict evidence requirements.
+	if res.Confidence < 0.90 {
+		return fmt.Errorf(
+			"LLM proposed MATCH with insufficient confidence %.2f",
+			res.Confidence,
+		)
+	}
+
+	if res.BankUTRRef == "" {
+		return fmt.Errorf(
+			"LLM proposed MATCH without a bank UTR",
+		)
+	}
+
+	if len(res.Evidence) < 2 {
+		return fmt.Errorf(
+			"LLM proposed MATCH without sufficient evidence",
+		)
+	}
+
+	// The model can only select a UTR that was actually supplied
+	// in the candidate pool.
+	for _, candidate := range candidates {
+		if candidate.UTRRef == res.BankUTRRef {
+			return nil
+		}
+	}
+
+	return fmt.Errorf(
+		"LLM proposed unknown bank UTR %q",
+		res.BankUTRRef,
+	)
+}
+
+func isRetryableStatus(status int) bool {
+	switch status {
+	case http.StatusTooManyRequests,
+		http.StatusInternalServerError,
+		http.StatusBadGateway,
+		http.StatusServiceUnavailable,
+		http.StatusGatewayTimeout:
+		return true
+
+	default:
+		return false
+	}
+}
+
+// UnusedBankStatements returns bank statements that were not consumed
+// by deterministic reconciliation.
+func UnusedBankStatements(
+	all []model.BankStatement,
+	results []matcher.Result,
+) []model.BankStatement {
 	used := make(map[string]bool)
+
 	for _, r := range results {
 		if r.BankUTRRef != "" {
 			used[r.BankUTRRef] = true
 		}
 	}
 
-	var remaining []model.BankStatement
-	for _, b := range all {
-		if !used[b.UTRRef] {
-			remaining = append(remaining, b)
+	remaining := make(
+		[]model.BankStatement,
+		0,
+		len(all),
+	)
+
+	for _, bank := range all {
+		if !used[bank.UTRRef] {
+			remaining = append(
+				remaining,
+				bank,
+			)
 		}
 	}
+
 	return remaining
 }

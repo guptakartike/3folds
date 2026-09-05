@@ -186,7 +186,7 @@
 
     <div class="metric">
       <div class="metric-value">
-        586321
+        589437
       </div>
       <div class="metric-label">Records / second</div>
     </div>
@@ -208,19 +208,19 @@
   <tr class="exception">
     <td>order_000058</td>
     <td>set_jn8fh3urm5cs</td>
-    <td>confirmed exception: No bank statement matches the settlement: payment_id pay_watbyyjonoy6 not found in any narration, order_id order_000058 not referenced, and none of the credit amounts equal the net settlement amount of 2585.89 INR (allowing for rounding).</td>
+    <td>confirmed exception: No bank statement matches the settlement net amount (2585.89 INR) or payment ID. Credit amounts differ significantly and narrations reference different payment IDs. Insufficient evidence for reconciliation.</td>
   </tr>
   
   <tr class="exception">
     <td>order_000059</td>
     <td>set_cyllkwjgmka4</td>
-    <td>confirmed exception: No bank statement contains the payment ID pay_zql5w8byzvr7 or the net settlement amount INR 5550.56; all candidate entries have different payment IDs and amounts.</td>
+    <td>confirmed exception: No bank statement shows the net settlement amount of 5550.56 INR, nor does any narration contain the settlement payment_id pay_zql5w8byzvr7 or order_id order_000059. The credit amounts (3862.17, 6798.85, 3981.58 INR) do not match the net amount, and there is no other supporting evidence linking any UTR to this settlement.</td>
   </tr>
   
   <tr class="exception">
     <td>order_000060</td>
     <td>set_yixcr7wwf2jo</td>
-    <td>confirmed exception: No bank credit entry matches the settlement net amount (2811.31 INR) or payment ID (pay_xx4xplcgqx7p). Credit amounts are 3862.17, 6798.85, and 3981.58 INR, and narrations reference different payment IDs. Insufficient evidence for reconciliation.</td>
+    <td>confirmed exception: No bank credit entry matches the settlement net amount of INR 2811.31 and none of the narrations reference the payment_id pay_xx4xplcgqx7p or order_id order_000060; amounts differ significantly.</td>
   </tr>
   
 </table>
@@ -738,7 +738,7 @@
     <td>set_jn8fh3urm5cs</td>
     <td class="tier-unresolved">unresolved</td>
     <td></td>
-    <td>confirmed exception: No bank statement matches the settlement: payment_id pay_watbyyjonoy6 not found in any narration, order_id order_000058 not referenced, and none of the credit amounts equal the net settlement amount of 2585.89 INR (allowing for rounding).</td>
+    <td>confirmed exception: No bank statement matches the settlement net amount (2585.89 INR) or payment ID. Credit amounts differ significantly and narrations reference different payment IDs. Insufficient evidence for reconciliation.</td>
   </tr>
   
   <tr>
@@ -746,7 +746,7 @@
     <td>set_cyllkwjgmka4</td>
     <td class="tier-unresolved">unresolved</td>
     <td></td>
-    <td>confirmed exception: No bank statement contains the payment ID pay_zql5w8byzvr7 or the net settlement amount INR 5550.56; all candidate entries have different payment IDs and amounts.</td>
+    <td>confirmed exception: No bank statement shows the net settlement amount of 5550.56 INR, nor does any narration contain the settlement payment_id pay_zql5w8byzvr7 or order_id order_000059. The credit amounts (3862.17, 6798.85, 3981.58 INR) do not match the net amount, and there is no other supporting evidence linking any UTR to this settlement.</td>
   </tr>
   
   <tr>
@@ -754,7 +754,7 @@
     <td>set_yixcr7wwf2jo</td>
     <td class="tier-unresolved">unresolved</td>
     <td></td>
-    <td>confirmed exception: No bank credit entry matches the settlement net amount (2811.31 INR) or payment ID (pay_xx4xplcgqx7p). Credit amounts are 3862.17, 6798.85, and 3981.58 INR, and narrations reference different payment IDs. Insufficient evidence for reconciliation.</td>
+    <td>confirmed exception: No bank credit entry matches the settlement net amount of INR 2811.31 and none of the narrations reference the payment_id pay_xx4xplcgqx7p or order_id order_000060; amounts differ significantly.</td>
   </tr>
   
 </table>
