@@ -8,7 +8,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "payment ID, amount and bank evidence match"
+    "reason": "payment ID, amount, bank evidence and ledger evidence match"
   },
   {
     "order_id": "order_000002",
@@ -19,7 +19,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "payment ID, amount and bank evidence match"
+    "reason": "payment ID, amount, bank evidence and ledger evidence match"
   },
   {
     "order_id": "order_000003",
@@ -30,7 +30,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "payment ID, amount and bank evidence match"
+    "reason": "payment ID, amount, bank evidence and ledger evidence match"
   },
   {
     "order_id": "order_000004",
@@ -41,7 +41,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "payment ID, amount and bank evidence match"
+    "reason": "payment ID, amount, bank evidence and ledger evidence match"
   },
   {
     "order_id": "order_000005",
@@ -52,7 +52,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "payment ID, amount and bank evidence match"
+    "reason": "payment ID, amount, bank evidence and ledger evidence match"
   },
   {
     "order_id": "order_000006",
@@ -63,7 +63,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "payment ID, amount and bank evidence match"
+    "reason": "payment ID, amount, bank evidence and ledger evidence match"
   },
   {
     "order_id": "order_000007",
@@ -74,7 +74,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "payment ID, amount and bank evidence match"
+    "reason": "payment ID, amount, bank evidence and ledger evidence match"
   },
   {
     "order_id": "order_000008",
@@ -85,7 +85,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "payment ID, amount and bank evidence match"
+    "reason": "payment ID, amount, bank evidence and ledger evidence match"
   },
   {
     "order_id": "order_000009",
@@ -96,7 +96,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "payment ID, amount and bank evidence match"
+    "reason": "payment ID, amount, bank evidence and ledger evidence match"
   },
   {
     "order_id": "order_000010",
@@ -107,7 +107,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "payment ID, amount and bank evidence match"
+    "reason": "payment ID, amount, bank evidence and ledger evidence match"
   },
   {
     "order_id": "order_000011",
@@ -118,7 +118,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "payment ID, amount and bank evidence match"
+    "reason": "payment ID, amount, bank evidence and ledger evidence match"
   },
   {
     "order_id": "order_000012",
@@ -129,7 +129,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "payment ID, amount and bank evidence match"
+    "reason": "payment ID, amount, bank evidence and ledger evidence match"
   },
   {
     "order_id": "order_000013",
@@ -140,7 +140,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "payment ID, amount and bank evidence match"
+    "reason": "payment ID, amount, bank evidence and ledger evidence match"
   },
   {
     "order_id": "order_000014",
@@ -151,7 +151,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "payment ID, amount and bank evidence match"
+    "reason": "payment ID, amount, bank evidence and ledger evidence match"
   },
   {
     "order_id": "order_000015",
@@ -162,7 +162,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "payment ID, amount and bank evidence match"
+    "reason": "payment ID, amount, bank evidence and ledger evidence match"
   },
   {
     "order_id": "order_000016",
@@ -173,7 +173,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "payment ID, amount and bank evidence match"
+    "reason": "payment ID, amount, bank evidence and ledger evidence match"
   },
   {
     "order_id": "order_000017",
@@ -184,7 +184,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "payment ID, amount and bank evidence match"
+    "reason": "payment ID, amount, bank evidence and ledger evidence match"
   },
   {
     "order_id": "order_000018",
@@ -195,7 +195,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "payment ID, amount and bank evidence match"
+    "reason": "payment ID, amount, bank evidence and ledger evidence match"
   },
   {
     "order_id": "order_000019",
@@ -206,7 +206,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "payment ID, amount and bank evidence match"
+    "reason": "payment ID, amount, bank evidence and ledger evidence match"
   },
   {
     "order_id": "order_000020",
@@ -217,7 +217,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "payment ID, amount and bank evidence match"
+    "reason": "payment ID, amount, bank evidence and ledger evidence match"
   },
   {
     "order_id": "order_000021",
@@ -228,7 +228,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "payment ID, amount and bank evidence match"
+    "reason": "payment ID, amount, bank evidence and ledger evidence match"
   },
   {
     "order_id": "order_000022",
@@ -239,7 +239,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "payment ID, amount and bank evidence match"
+    "reason": "payment ID, amount, bank evidence and ledger evidence match"
   },
   {
     "order_id": "order_000023",
@@ -250,7 +250,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "payment ID, amount and bank evidence match"
+    "reason": "payment ID, amount, bank evidence and ledger evidence match"
   },
   {
     "order_id": "order_000024",
@@ -261,7 +261,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "payment ID, amount and bank evidence match"
+    "reason": "payment ID, amount, bank evidence and ledger evidence match"
   },
   {
     "order_id": "order_000025",
@@ -272,7 +272,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "payment ID, amount and bank evidence match"
+    "reason": "payment ID, amount, bank evidence and ledger evidence match"
   },
   {
     "order_id": "order_000026",
@@ -283,7 +283,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "payment ID, amount and bank evidence match"
+    "reason": "payment ID, amount, bank evidence and ledger evidence match"
   },
   {
     "order_id": "order_000027",
@@ -294,7 +294,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "payment ID, amount and bank evidence match"
+    "reason": "payment ID, amount, bank evidence and ledger evidence match"
   },
   {
     "order_id": "order_000028",
@@ -305,7 +305,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "payment ID, amount and bank evidence match"
+    "reason": "payment ID, amount, bank evidence and ledger evidence match"
   },
   {
     "order_id": "order_000029",
@@ -316,7 +316,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "payment ID, amount and bank evidence match"
+    "reason": "payment ID, amount, bank evidence and ledger evidence match"
   },
   {
     "order_id": "order_000030",
@@ -327,7 +327,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "payment ID, amount and bank evidence match"
+    "reason": "payment ID, amount, bank evidence and ledger evidence match"
   },
   {
     "order_id": "order_000031",
@@ -338,7 +338,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "payment ID, amount and bank evidence match"
+    "reason": "payment ID, amount, bank evidence and ledger evidence match"
   },
   {
     "order_id": "order_000032",
@@ -349,7 +349,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "payment ID, amount and bank evidence match"
+    "reason": "payment ID, amount, bank evidence and ledger evidence match"
   },
   {
     "order_id": "order_000033",
@@ -360,7 +360,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "payment ID, amount and bank evidence match"
+    "reason": "payment ID, amount, bank evidence and ledger evidence match"
   },
   {
     "order_id": "order_000034",
@@ -371,7 +371,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "payment ID, amount and bank evidence match"
+    "reason": "payment ID, amount, bank evidence and ledger evidence match"
   },
   {
     "order_id": "order_000035",
@@ -382,7 +382,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "payment ID, amount and bank evidence match"
+    "reason": "payment ID, amount, bank evidence and ledger evidence match"
   },
   {
     "order_id": "order_000036",
@@ -393,7 +393,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "payment ID, amount and bank evidence match"
+    "reason": "payment ID, amount, bank evidence and ledger evidence match"
   },
   {
     "order_id": "order_000037",
@@ -404,7 +404,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "payment ID, amount and bank evidence match"
+    "reason": "payment ID, amount, bank evidence and ledger evidence match"
   },
   {
     "order_id": "order_000038",
@@ -415,7 +415,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "payment ID, amount and bank evidence match"
+    "reason": "payment ID, amount, bank evidence and ledger evidence match"
   },
   {
     "order_id": "order_000039",
@@ -426,7 +426,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "payment ID, amount and bank evidence match"
+    "reason": "payment ID, amount, bank evidence and ledger evidence match"
   },
   {
     "order_id": "order_000040",
@@ -437,7 +437,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "payment ID, amount and bank evidence match"
+    "reason": "payment ID, amount, bank evidence and ledger evidence match"
   },
   {
     "order_id": "order_000041",
@@ -448,7 +448,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "payment ID, amount and bank evidence match"
+    "reason": "payment ID, amount, bank evidence and ledger evidence match"
   },
   {
     "order_id": "order_000042",
@@ -459,7 +459,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "payment ID, amount and bank evidence match"
+    "reason": "payment ID, amount, bank evidence and ledger evidence match"
   },
   {
     "order_id": "order_000052",
@@ -474,7 +474,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "batch match: settlement set_nfi5ko5h1cf2 + settlement set_9asotowz9wkz reconcile to bank batch UTRo0lc4l70i9w5"
+    "reason": "batch bank match supported by ledger: settlement set_nfi5ko5h1cf2 + settlement set_9asotowz9wkz reconcile to bank batch UTRo0lc4l70i9w5"
   },
   {
     "order_id": "order_000053",
@@ -489,7 +489,7 @@
     "date_diff_hours": 576,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "batch match: settlement set_9asotowz9wkz + settlement set_nfi5ko5h1cf2 reconcile to bank batch UTRo0lc4l70i9w5"
+    "reason": "batch bank match supported by ledger: settlement set_9asotowz9wkz + settlement set_nfi5ko5h1cf2 reconcile to bank batch UTRo0lc4l70i9w5"
   },
   {
     "order_id": "order_000054",
@@ -504,7 +504,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "batch match: settlement set_9rl1es8zhis0 + settlement set_wyr1m70q47z5 reconcile to bank batch UTR8ob21ymghvio"
+    "reason": "batch bank match supported by ledger: settlement set_9rl1es8zhis0 + settlement set_wyr1m70q47z5 reconcile to bank batch UTR8ob21ymghvio"
   },
   {
     "order_id": "order_000055",
@@ -519,7 +519,7 @@
     "date_diff_hours": 192,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "batch match: settlement set_wyr1m70q47z5 + settlement set_9rl1es8zhis0 reconcile to bank batch UTR8ob21ymghvio"
+    "reason": "batch bank match supported by ledger: settlement set_wyr1m70q47z5 + settlement set_9rl1es8zhis0 reconcile to bank batch UTR8ob21ymghvio"
   },
   {
     "order_id": "order_000056",
@@ -534,7 +534,7 @@
     "date_diff_hours": 768,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "batch match: settlement set_0qxla28au2sk + settlement set_ety9o46j70ny reconcile to bank batch UTRq2mqbgedcpk3"
+    "reason": "batch bank match supported by ledger: settlement set_0qxla28au2sk + settlement set_ety9o46j70ny reconcile to bank batch UTRq2mqbgedcpk3"
   },
   {
     "order_id": "order_000057",
@@ -549,7 +549,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "batch match: settlement set_ety9o46j70ny + settlement set_0qxla28au2sk reconcile to bank batch UTRq2mqbgedcpk3"
+    "reason": "batch bank match supported by ledger: settlement set_ety9o46j70ny + settlement set_0qxla28au2sk reconcile to bank batch UTRq2mqbgedcpk3"
   },
   {
     "order_id": "order_000043",
@@ -560,7 +560,7 @@
     "date_diff_hours": 72,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "fuzzy match: amount difference ₹0.00, date difference 72.0 hours"
+    "reason": "fuzzy bank match supported by ledger: amount difference ₹0.00, date difference 72.0 hours"
   },
   {
     "order_id": "order_000044",
@@ -571,7 +571,7 @@
     "date_diff_hours": 72,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "fuzzy match: amount difference ₹0.00, date difference 72.0 hours"
+    "reason": "fuzzy bank match supported by ledger: amount difference ₹0.00, date difference 72.0 hours"
   },
   {
     "order_id": "order_000045",
@@ -582,7 +582,7 @@
     "date_diff_hours": 72,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "fuzzy match: amount difference ₹0.00, date difference 72.0 hours"
+    "reason": "fuzzy bank match supported by ledger: amount difference ₹0.00, date difference 72.0 hours"
   },
   {
     "order_id": "order_000046",
@@ -593,7 +593,7 @@
     "date_diff_hours": 72,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "fuzzy match: amount difference ₹0.00, date difference 72.0 hours"
+    "reason": "fuzzy bank match supported by ledger: amount difference ₹0.00, date difference 72.0 hours"
   },
   {
     "order_id": "order_000047",
@@ -604,7 +604,7 @@
     "date_diff_hours": 72,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "fuzzy match: amount difference ₹0.00, date difference 72.0 hours"
+    "reason": "fuzzy bank match supported by ledger: amount difference ₹0.00, date difference 72.0 hours"
   },
   {
     "order_id": "order_000048",
@@ -615,7 +615,7 @@
     "date_diff_hours": 72,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "fuzzy match: amount difference ₹0.00, date difference 72.0 hours"
+    "reason": "fuzzy bank match supported by ledger: amount difference ₹0.00, date difference 72.0 hours"
   },
   {
     "order_id": "order_000049",
@@ -626,7 +626,7 @@
     "date_diff_hours": 72,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "fuzzy match: amount difference ₹0.00, date difference 72.0 hours"
+    "reason": "fuzzy bank match supported by ledger: amount difference ₹0.00, date difference 72.0 hours"
   },
   {
     "order_id": "order_000050",
@@ -637,7 +637,7 @@
     "date_diff_hours": 72,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "fuzzy match: amount difference ₹0.00, date difference 72.0 hours"
+    "reason": "fuzzy bank match supported by ledger: amount difference ₹0.00, date difference 72.0 hours"
   },
   {
     "order_id": "order_000051",
@@ -648,7 +648,7 @@
     "date_diff_hours": 72,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "fuzzy match: amount difference ₹0.00, date difference 72.0 hours"
+    "reason": "fuzzy bank match supported by ledger: amount difference ₹0.00, date difference 72.0 hours"
   },
   {
     "order_id": "order_000058",
@@ -658,7 +658,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "confirmed exception: No bank statement matches the settlement net amount (2585.89 INR) or payment ID. Credit amounts differ significantly and narrations reference different payment IDs. Insufficient evidence for reconciliation."
+    "reason": "confirmed exception: No bank credit entry matches the settlement net amount of 2585.89 INR, nor does any narration contain the settlement payment_id pay_watbyyjonoy6. The available UTRs and amounts differ significantly, providing insufficient evidence for reconciliation."
   },
   {
     "order_id": "order_000059",
@@ -668,7 +668,7 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "confirmed exception: No bank statement shows the net settlement amount of 5550.56 INR, nor does any narration contain the settlement payment_id pay_zql5w8byzvr7 or order_id order_000059. The credit amounts (3862.17, 6798.85, 3981.58 INR) do not match the net amount, and there is no other supporting evidence linking any UTR to this settlement."
+    "reason": "confirmed exception: No bank statement contains the payment_id (pay_zql5w8byzvr7) or order_id (order_000059) in its narration, and none of the credit amounts match the net settlement amount of 5550.56 INR (allowing for rounding). Therefore the settlement cannot be reconciled with the provided bank evidence."
   },
   {
     "order_id": "order_000060",
@@ -678,6 +678,6 @@
     "date_diff_hours": 0,
     "ledger_found": true,
     "ledger_status": "paid",
-    "reason": "confirmed exception: No bank credit entry matches the settlement net amount of INR 2811.31 and none of the narrations reference the payment_id pay_xx4xplcgqx7p or order_id order_000060; amounts differ significantly."
+    "reason": "confirmed exception: None of the candidate bank statements contain the settlement's payment_id (pay_xx4xplcgqx7p) or order_id, and their credit amounts (3862.17, 6798.85, 3981.58 INR) do not match the net settlement amount of 2811.31 INR (even allowing for rounding). Therefore there is insufficient evidence to reconcile the Razorpay settlement with any provided bank record."
   }
 ]

@@ -1,100 +1,132 @@
 package evaluation
 
-import "threefolds/internal/matcher"
+import (
+	"fmt"
+
+	"threefolds/internal/matcher"
+)
 
 type GroundTruth struct {
 	OrderID     string `json:"order_id"`
+	Type        string `json:"type"`
 	ShouldMatch bool   `json:"should_match"`
+	Explanation string `json:"explanation"`
+}
+
+type ScenarioSummary struct {
+	Total     int
+	Correct   int
+	Incorrect int
 }
 
 type Summary struct {
-	Total            int     `json:"total"`
-	Correct          int     `json:"correct"`
-	Wrong            int     `json:"wrong"`
-	Accuracy         float64 `json:"accuracy"`
-	Matches          int     `json:"matches"`
-	Exceptions       int     `json:"exceptions"`
-	MatchRate        float64 `json:"match_rate"`
-	ExceptionRate    float64 `json:"exception_rate"`
-	FalsePositives   int     `json:"false_positives"`
-	FalseNegatives   int     `json:"false_negatives"`
-	ProcessingTimeMs float64 `json:"processing_time_ms"`
-	RecordsPerSecond float64 `json:"records_per_second"`
+	Total              int
+	Correct            int
+	Wrong              int
+	Accuracy           float64
+	ExpectedMatches    int
+	Matched            int
+	MatchCoverage      float64
+	ExpectedExceptions int
+	DetectedExceptions int
+	ExceptionDetection float64
+	FalsePositives     int
+	FalseNegatives     int
+	ProcessingTimeMs   float64
+	RecordsPerSecond   float64
+	ByScenario         map[string]ScenarioSummary
 }
 
 func Calculate(
-	truth []GroundTruth,
+	groundTruth []GroundTruth,
 	results []matcher.Result,
-	processingTimeMs float64,
 ) Summary {
-	s := Summary{
-		Total:            len(truth),
-		ProcessingTimeMs: processingTimeMs,
-	}
-
 	resultByOrder := make(map[string]matcher.Result, len(results))
 
-	for _, r := range results {
-		resultByOrder[r.OrderID] = r
+	for _, result := range results {
+		resultByOrder[result.OrderID] = result
 	}
 
-	for _, t := range truth {
-		r, exists := resultByOrder[t.OrderID]
+	summary := Summary{
+		Total:      len(groundTruth),
+		ByScenario: make(map[string]ScenarioSummary),
+	}
 
-		if !exists {
-			s.Wrong++
+	for _, truth := range groundTruth {
+		result, found := resultByOrder[truth.OrderID]
 
-			if t.ShouldMatch {
-				s.FalseNegatives++
+		gotMatch := found && result.Tier != matcher.TierUnresolved
+
+		if truth.ShouldMatch {
+			summary.ExpectedMatches++
+
+			if gotMatch {
+				summary.Matched++
+			} else {
+				summary.FalseNegatives++
 			}
-
-			continue
-		}
-
-		gotMatch := r.Tier != matcher.TierUnresolved
-
-		if gotMatch {
-			s.Matches++
 		} else {
-			s.Exceptions++
+			summary.ExpectedExceptions++
+
+			if gotMatch {
+				summary.FalsePositives++
+			} else {
+				summary.DetectedExceptions++
+			}
 		}
 
-		if gotMatch == t.ShouldMatch {
-			s.Correct++
-			continue
-		}
+		correct := gotMatch == truth.ShouldMatch
 
-		s.Wrong++
-
-		if t.ShouldMatch {
-			s.FalseNegatives++
+		if correct {
+			summary.Correct++
 		} else {
-			s.FalsePositives++
+			summary.Wrong++
 		}
+
+		scenario := summary.ByScenario[truth.Type]
+		scenario.Total++
+
+		if correct {
+			scenario.Correct++
+		} else {
+			scenario.Incorrect++
+		}
+
+		summary.ByScenario[truth.Type] = scenario
 	}
 
-	if s.Total > 0 {
-		s.Accuracy =
-			float64(s.Correct) /
-				float64(s.Total) *
-				100
-
-		s.MatchRate =
-			float64(s.Matches) /
-				float64(s.Total) *
-				100
-
-		s.ExceptionRate =
-			float64(s.Exceptions) /
-				float64(s.Total) *
-				100
+	if summary.Total > 0 {
+		summary.Accuracy = float64(summary.Correct) / float64(summary.Total) * 100
 	}
 
-	if processingTimeMs > 0 {
-		s.RecordsPerSecond =
-			float64(s.Total) /
-				(processingTimeMs / 1000)
+	if summary.ExpectedMatches > 0 {
+		summary.MatchCoverage =
+			float64(summary.Matched) /
+				float64(summary.ExpectedMatches) * 100
 	}
 
-	return s
+	if summary.ExpectedExceptions > 0 {
+		summary.ExceptionDetection =
+			float64(summary.DetectedExceptions) /
+				float64(summary.ExpectedExceptions) * 100
+	}
+
+	return summary
+}
+
+func Validate(summary Summary) error {
+	if summary.Total == 0 {
+		return fmt.Errorf("evaluation contains no ground-truth records")
+	}
+
+	if summary.Correct+summary.Wrong != summary.Total {
+		return fmt.Errorf(
+			"evaluation invariant failed: correct=%d wrong=%d total=%d",
+			summary.Correct,
+			summary.Wrong,
+			summary.Total,
+		)
+	}
+
+	return nil
 }

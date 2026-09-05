@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"math"
 	"strings"
-	"time"
 
 	"threefolds/internal/model"
 )
@@ -20,35 +19,40 @@ const (
 
 const (
 	amountToleranceINR = 2.0
-	dateToleranceHours = 5 * 24 * time.Hour
+	fuzzyDateDays      = 5
+	exactDateHours     = 24
 )
 
 type Result struct {
-	OrderID      string `json:"order_id"`
-	SettlementID string `json:"settlement_id"`
-	BankUTRRef   string `json:"bank_utr_ref,omitempty"`
-	Tier         Tier   `json:"tier"`
-
+	OrderID            string   `json:"order_id"`
+	SettlementID       string   `json:"settlement_id"`
+	BankUTRRef         string   `json:"bank_utr_ref"`
+	Tier               Tier     `json:"tier"`
 	BatchSettlementIDs []string `json:"batch_settlement_ids,omitempty"`
-
-	AmountDiffINR float64 `json:"amount_diff_inr"`
-	DateDiffHours float64 `json:"date_diff_hours"`
-
-	LedgerFound       bool    `json:"ledger_found"`
-	LedgerAmountDiff  float64 `json:"ledger_amount_diff_inr,omitempty"`
-	LedgerDateDiffHrs float64 `json:"ledger_date_diff_hours,omitempty"`
-	LedgerStatus      string  `json:"ledger_status,omitempty"`
-
-	Reason string `json:"reason"`
+	AmountDiffINR      float64  `json:"amount_diff_inr"`
+	DateDiffHours      float64  `json:"date_diff_hours"`
+	LedgerFound        bool     `json:"ledger_found"`
+	LedgerAmountDiff   float64  `json:"ledger_amount_diff"`
+	LedgerDateDiffHrs  float64  `json:"ledger_date_diff_hours"`
+	LedgerStatus       string   `json:"ledger_status"`
+	Reason             string   `json:"reason"`
 }
 
+// Match reconciles settlements against bank statements and validates
+// candidates against the merchant ledger.
+//
+// Matching strategy:
+//  1. Exact payment-ID + amount + date
+//  2. Batch amount matching
+//  3. Fuzzy amount + date matching
+//  4. Unresolved
 func Match(
 	settlements []model.Settlement,
 	bankStatements []model.BankStatement,
 	ledgerEntries []model.LedgerEntry,
 ) []Result {
 
-	ledgerByOrder := make(map[string]model.LedgerEntry)
+	ledgerByOrder := make(map[string]model.LedgerEntry, len(ledgerEntries))
 
 	for _, ledger := range ledgerEntries {
 		ledgerByOrder[ledger.OrderID] = ledger
@@ -57,10 +61,14 @@ func Match(
 	usedBanks := make(map[string]bool)
 	usedSettlements := make(map[string]bool)
 
+	// Build indexes once instead of repeatedly scanning all bank statements.
+	paymentIndex := buildPaymentIDIndex(bankStatements)
+	batchIndex := buildBatchIndex(bankStatements)
+
 	results := make([]Result, 0, len(settlements))
 
 	// ------------------------------------------------------------
-	// PASS 1: exact payment-ID matches
+	// PASS 1: EXACT MATCH
 	// ------------------------------------------------------------
 
 	for _, settlement := range settlements {
@@ -70,36 +78,39 @@ func Match(
 
 		bank, ok := findExactMatch(
 			settlement,
-			bankStatements,
+			paymentIndex,
 			usedBanks,
+			ledgerByOrder,
 		)
 
 		if !ok {
 			continue
 		}
 
-		result := buildResult(
+		result := buildExactResult(
 			settlement,
 			bank,
 			ledgerByOrder,
-			TierExact,
-			"payment ID, amount and bank evidence match",
 		)
 
 		results = append(results, result)
 
-		usedBanks[bank.UTRRef] = true
 		usedSettlements[settlement.SettlementID] = true
+		usedBanks[bank.UTRRef] = true
 	}
 
 	// ------------------------------------------------------------
-	// PASS 2: real batch matches
+	// PASS 2: BATCH MATCH
 	// ------------------------------------------------------------
 
 	for i := 0; i < len(settlements); i++ {
 		a := settlements[i]
 
 		if usedSettlements[a.SettlementID] {
+			continue
+		}
+
+		if !ledgerSupportsSettlement(a, ledgerByOrder) {
 			continue
 		}
 
@@ -110,10 +121,14 @@ func Match(
 				continue
 			}
 
+			if !ledgerSupportsSettlement(b, ledgerByOrder) {
+				continue
+			}
+
 			bank, ok := findBatchMatch(
 				a,
 				b,
-				bankStatements,
+				batchIndex,
 				usedBanks,
 			)
 
@@ -121,23 +136,21 @@ func Match(
 				continue
 			}
 
-			results = append(results,
-				buildBatchResult(
-					a,
-					b,
-					bank,
-					ledgerByOrder,
-				),
+			resultA := buildBatchResult(
+				a,
+				b,
+				bank,
+				ledgerByOrder,
 			)
-			results = append(results,
 
-				buildBatchResult(
-					b,
-					a,
-					bank,
-					ledgerByOrder,
-				),
+			resultB := buildBatchResult(
+				b,
+				a,
+				bank,
+				ledgerByOrder,
 			)
+
+			results = append(results, resultA, resultB)
 
 			usedBanks[bank.UTRRef] = true
 			usedSettlements[a.SettlementID] = true
@@ -148,17 +161,23 @@ func Match(
 	}
 
 	// ------------------------------------------------------------
-	// PASS 3: fuzzy one-to-one matches
+	// PASS 3: FUZZY MATCH
 	// ------------------------------------------------------------
+
+	fuzzyIndex := buildAmountIndex(bankStatements)
 
 	for _, settlement := range settlements {
 		if usedSettlements[settlement.SettlementID] {
 			continue
 		}
 
-		bank, amountDiff, dateDiff, ok := findBestFuzzyMatch(
+		if !ledgerSupportsSettlement(settlement, ledgerByOrder) {
+			continue
+		}
+
+		bank, ok := findBestFuzzyMatch(
 			settlement,
-			bankStatements,
+			fuzzyIndex,
 			usedBanks,
 		)
 
@@ -166,29 +185,20 @@ func Match(
 			continue
 		}
 
-		result := buildResult(
+		result := buildFuzzyResult(
 			settlement,
 			bank,
 			ledgerByOrder,
-			TierFuzzy,
-			fmt.Sprintf(
-				"fuzzy match: amount difference ₹%.2f, date difference %.1f hours",
-				amountDiff,
-				dateDiff,
-			),
 		)
-
-		result.AmountDiffINR = amountDiff
-		result.DateDiffHours = dateDiff
 
 		results = append(results, result)
 
-		usedBanks[bank.UTRRef] = true
 		usedSettlements[settlement.SettlementID] = true
+		usedBanks[bank.UTRRef] = true
 	}
 
 	// ------------------------------------------------------------
-	// PASS 4: unresolved
+	// PASS 4: UNRESOLVED
 	// ------------------------------------------------------------
 
 	for _, settlement := range settlements {
@@ -202,52 +212,227 @@ func Match(
 		)
 
 		results = append(results, result)
+
+		usedSettlements[settlement.SettlementID] = true
 	}
 
 	return results
 }
 
 // ------------------------------------------------------------
-// Exact matching
+// INDEXES
 // ------------------------------------------------------------
 
-func findExactMatch(
-	settlement model.Settlement,
+// buildPaymentIDIndex indexes non-batch bank statements by payment ID.
+//
+// Bank narration is expected to contain the payment ID, e.g.
+// "Razorpay settlement payment_000001".
+func buildPaymentIDIndex(
 	bankStatements []model.BankStatement,
-	usedBanks map[string]bool,
-) (model.BankStatement, bool) {
+) map[string][]model.BankStatement {
 
-	settlementAmount := float64(settlement.NetAmountPaisa) / 100
+	index := make(map[string][]model.BankStatement)
 
 	for _, bank := range bankStatements {
-		if usedBanks[bank.UTRRef] {
-			continue
-		}
-
 		if bank.BatchFlag {
 			continue
 		}
 
-		// Payment ID must be present.
-		if !strings.Contains(bank.Narration, settlement.PaymentID) {
+		paymentID := extractPaymentID(bank.Narration)
+
+		if paymentID == "" {
 			continue
 		}
 
-		// Bank amount must match the settlement net amount.
-		amountDiff := math.Abs(
-			settlementAmount - bank.CreditAmountINR,
+		index[paymentID] = append(index[paymentID], bank)
+	}
+
+	return index
+}
+
+// buildBatchIndex indexes batch bank statements by their amount in paisa.
+//
+// This eliminates the expensive scan through every bank statement
+// for every settlement pair.
+func buildBatchIndex(
+	bankStatements []model.BankStatement,
+) map[int64][]model.BankStatement {
+
+	index := make(map[int64][]model.BankStatement)
+
+	for _, bank := range bankStatements {
+		if !bank.BatchFlag {
+			continue
+		}
+
+		amountPaisa := int64(
+			math.Round(bank.CreditAmountINR * 100),
 		)
+
+		index[amountPaisa] = append(
+			index[amountPaisa],
+			bank,
+		)
+	}
+
+	return index
+}
+
+// buildAmountIndex creates an amount-bucket index used by fuzzy matching.
+//
+// Amounts are stored in paisa. Fuzzy matching only needs to inspect
+// buckets within ±₹2 instead of scanning every bank statement.
+func buildAmountIndex(
+	bankStatements []model.BankStatement,
+) map[int64][]model.BankStatement {
+
+	index := make(map[int64][]model.BankStatement)
+
+	for _, bank := range bankStatements {
+		if bank.BatchFlag {
+			continue
+		}
+
+		amountPaisa := int64(
+			math.Round(bank.CreditAmountINR * 100),
+		)
+
+		index[amountPaisa] = append(
+			index[amountPaisa],
+			bank,
+		)
+	}
+
+	return index
+}
+
+// extractPaymentID extracts the payment ID from bank narration.
+//
+// The generated data uses narrations containing the payment ID.
+// We locate the token beginning with "payment_".
+func extractPaymentID(narration string) string {
+	const prefix = "pay_"
+
+	start := strings.Index(narration, prefix)
+	if start == -1 {
+		return ""
+	}
+
+	end := start
+
+	for end < len(narration) {
+		c := narration[end]
+
+		if c == '/' || c == ' ' || c == ',' {
+			break
+		}
+
+		end++
+	}
+
+	return narration[start:end]
+}
+
+// ------------------------------------------------------------
+// LEDGER VALIDATION
+// ------------------------------------------------------------
+
+func ledgerSupportsSettlement(
+	settlement model.Settlement,
+	ledgerByOrder map[string]model.LedgerEntry,
+) bool {
+
+	ledger, ok := ledgerByOrder[settlement.OrderID]
+
+	if !ok {
+		return false
+	}
+
+	if math.Abs(
+		ledger.GrossAmountINR-
+			float64(settlement.GrossAmountPaisa)/100,
+	) > amountToleranceINR {
+		return false
+	}
+
+	if strings.ToLower(ledger.InternalStatus) != "paid" {
+		return false
+	}
+
+	return true
+}
+
+func addLedgerEvidence(
+	result *Result,
+	settlement model.Settlement,
+	ledgerByOrder map[string]model.LedgerEntry,
+) {
+
+	ledger, ok := ledgerByOrder[settlement.OrderID]
+
+	if !ok {
+		result.LedgerFound = false
+		return
+	}
+
+	result.LedgerFound = true
+
+	settlementGrossINR :=
+		float64(settlement.GrossAmountPaisa) / 100
+
+	result.LedgerAmountDiff =
+		math.Abs(ledger.GrossAmountINR - settlementGrossINR)
+
+	result.LedgerDateDiffHrs =
+		math.Abs(
+			ledger.ExpectedSettlementDate.
+				Sub(settlement.SettledAt).
+				Hours(),
+		)
+
+	result.LedgerStatus = ledger.InternalStatus
+}
+
+// ------------------------------------------------------------
+// EXACT MATCH
+// ------------------------------------------------------------
+
+func findExactMatch(
+	settlement model.Settlement,
+	paymentIndex map[string][]model.BankStatement,
+	usedBanks map[string]bool,
+	ledgerByOrder map[string]model.LedgerEntry,
+) (model.BankStatement, bool) {
+
+	if !ledgerSupportsSettlement(settlement, ledgerByOrder) {
+		return model.BankStatement{}, false
+	}
+
+	candidates := paymentIndex[settlement.PaymentID]
+
+	expectedAmount :=
+		float64(settlement.NetAmountPaisa) / 100
+
+	for _, bank := range candidates {
+		if usedBanks[bank.UTRRef] {
+			continue
+		}
+
+		amountDiff :=
+			math.Abs(bank.CreditAmountINR - expectedAmount)
 
 		if amountDiff > amountToleranceINR {
 			continue
 		}
 
-		// Bank date must be reasonably close to settlement date.
-		dateDiff := math.Abs(
-			bank.ValueDate.Sub(settlement.SettledAt).Hours(),
-		)
+		dateDiff :=
+			math.Abs(
+				bank.ValueDate.
+					Sub(settlement.SettledAt).
+					Hours(),
+			)
 
-		if dateDiff > 24 {
+		if dateDiff > exactDateHours {
 			continue
 		}
 
@@ -258,42 +443,43 @@ func findExactMatch(
 }
 
 // ------------------------------------------------------------
-// Batch matching
+// BATCH MATCH
 // ------------------------------------------------------------
 
 func findBatchMatch(
 	a model.Settlement,
 	b model.Settlement,
-	bankStatements []model.BankStatement,
+	batchIndex map[int64][]model.BankStatement,
 	usedBanks map[string]bool,
 ) (model.BankStatement, bool) {
 
-	targetPaisa := a.NetAmountPaisa + b.NetAmountPaisa
+	targetPaisa :=
+		a.NetAmountPaisa +
+			b.NetAmountPaisa
 
-	for _, bank := range bankStatements {
+	candidates := batchIndex[targetPaisa]
+
+	for _, bank := range candidates {
 		if usedBanks[bank.UTRRef] {
 			continue
 		}
 
-		if !bank.BatchFlag {
-			continue
-		}
+		dateA :=
+			math.Abs(
+				bank.ValueDate.
+					Sub(a.SettledAt).
+					Hours(),
+			)
 
-		bankPaisa := int64(math.Round(
-			bank.CreditAmountINR * 100,
-		))
+		dateB :=
+			math.Abs(
+				bank.ValueDate.
+					Sub(b.SettledAt).
+					Hours(),
+			)
 
-		if bankPaisa != targetPaisa {
-			continue
-		}
-
-		// Make sure the bank date is reasonably related
-		// to at least one settlement in the batch.
-		dateA := bank.ValueDate.Sub(a.SettledAt)
-		dateB := bank.ValueDate.Sub(b.SettledAt)
-
-		if math.Abs(dateA.Hours()) > 5*24 &&
-			math.Abs(dateB.Hours()) > 5*24 {
+		if dateA > fuzzyDateDays*24 &&
+			dateB > fuzzyDateDays*24 {
 			continue
 		}
 
@@ -304,8 +490,141 @@ func findBatchMatch(
 }
 
 // ------------------------------------------------------------
-// Batch result
+// FUZZY MATCH
 // ------------------------------------------------------------
+
+func findBestFuzzyMatch(
+	settlement model.Settlement,
+	amountIndex map[int64][]model.BankStatement,
+	usedBanks map[string]bool,
+) (model.BankStatement, bool) {
+
+	expectedAmount :=
+		float64(settlement.NetAmountPaisa) / 100
+
+	expectedPaisa := settlement.NetAmountPaisa
+
+	tolerancePaisa :=
+		int64(math.Round(amountToleranceINR * 100))
+
+	var best model.BankStatement
+	bestScore := math.MaxFloat64
+	found := false
+
+	// Search only amount buckets within ±₹2.
+	for amountPaisa := expectedPaisa - tolerancePaisa; amountPaisa <= expectedPaisa+tolerancePaisa; amountPaisa++ {
+
+		candidates := amountIndex[amountPaisa]
+
+		for _, bank := range candidates {
+			if usedBanks[bank.UTRRef] {
+				continue
+			}
+
+			amountDiff :=
+				math.Abs(
+					bank.CreditAmountINR -
+						expectedAmount,
+				)
+
+			if amountDiff > amountToleranceINR {
+				continue
+			}
+
+			dateDiff :=
+				math.Abs(
+					bank.ValueDate.
+						Sub(settlement.SettledAt).
+						Hours(),
+				)
+
+			if dateDiff > fuzzyDateDays*24 {
+				continue
+			}
+
+			// Preserve the original scoring model.
+			score :=
+				amountDiff*10 +
+					dateDiff
+
+			if score < bestScore {
+				bestScore = score
+				best = bank
+				found = true
+			}
+		}
+	}
+
+	return best, found
+}
+
+// ------------------------------------------------------------
+// RESULT BUILDERS
+// ------------------------------------------------------------
+
+func buildExactResult(
+	settlement model.Settlement,
+	bank model.BankStatement,
+	ledgerByOrder map[string]model.LedgerEntry,
+) Result {
+
+	expectedAmount :=
+		float64(settlement.NetAmountPaisa) / 100
+
+	result := Result{
+		OrderID:       settlement.OrderID,
+		SettlementID:  settlement.SettlementID,
+		BankUTRRef:    bank.UTRRef,
+		Tier:          TierExact,
+		AmountDiffINR: math.Abs(bank.CreditAmountINR - expectedAmount),
+		DateDiffHours: math.Abs(
+			bank.ValueDate.
+				Sub(settlement.SettledAt).
+				Hours(),
+		),
+		Reason: "exact payment ID, amount and date match",
+	}
+
+	addLedgerEvidence(
+		&result,
+		settlement,
+		ledgerByOrder,
+	)
+
+	return result
+}
+
+func buildFuzzyResult(
+	settlement model.Settlement,
+	bank model.BankStatement,
+	ledgerByOrder map[string]model.LedgerEntry,
+) Result {
+
+	expectedAmount :=
+		float64(settlement.NetAmountPaisa) / 100
+
+	result := Result{
+		OrderID:       settlement.OrderID,
+		SettlementID:  settlement.SettlementID,
+		BankUTRRef:    bank.UTRRef,
+		Tier:          TierFuzzy,
+		AmountDiffINR: math.Abs(bank.CreditAmountINR - expectedAmount),
+		DateDiffHours: math.Abs(
+			bank.ValueDate.
+				Sub(settlement.SettledAt).
+				Hours(),
+		),
+		Reason: "fuzzy amount/date match",
+	}
+
+	addLedgerEvidence(
+		&result,
+		settlement,
+		ledgerByOrder,
+	)
+
+	return result
+}
 
 func buildBatchResult(
 	settlement model.Settlement,
@@ -323,136 +642,30 @@ func buildBatchResult(
 			settlement.SettlementID,
 			other.SettlementID,
 		},
-		AmountDiffINR: 0,
+		AmountDiffINR: math.Abs(
+			bank.CreditAmountINR -
+				float64(
+					settlement.NetAmountPaisa+
+						other.NetAmountPaisa,
+				)/100,
+		),
 		DateDiffHours: math.Abs(
-			bank.ValueDate.Sub(settlement.SettledAt).Hours(),
+			bank.ValueDate.
+				Sub(settlement.SettledAt).
+				Hours(),
 		),
 		Reason: fmt.Sprintf(
-			"batch match: settlement %s + settlement %s reconcile to bank batch %s",
+			"bank batch matches combined settlement amounts for %s and %s",
 			settlement.SettlementID,
 			other.SettlementID,
-			bank.UTRRef,
 		),
 	}
 
-	if ledger, ok := ledgerByOrder[settlement.OrderID]; ok {
-		result.LedgerFound = true
-
-		settlementGrossINR :=
-			float64(settlement.GrossAmountPaisa) / 100
-
-		result.LedgerAmountDiff =
-			math.Abs(settlementGrossINR - ledger.GrossAmountINR)
-
-		result.LedgerDateDiffHrs =
-			math.Abs(
-				ledger.ExpectedSettlementDate.
-					Sub(settlement.SettledAt).
-					Hours(),
-			)
-
-		result.LedgerStatus = ledger.InternalStatus
-	}
-
-	return result
-}
-
-// ------------------------------------------------------------
-// Fuzzy matching
-// ------------------------------------------------------------
-
-func findBestFuzzyMatch(
-	settlement model.Settlement,
-	bankStatements []model.BankStatement,
-	usedBanks map[string]bool,
-) (model.BankStatement, float64, float64, bool) {
-
-	var best model.BankStatement
-
-	bestScore := math.MaxFloat64
-	bestAmountDiff := 0.0
-	bestDateDiff := 0.0
-	found := false
-
-	settlementAmount := float64(settlement.NetAmountPaisa) / 100
-
-	for _, bank := range bankStatements {
-		if usedBanks[bank.UTRRef] {
-			continue
-		}
-
-		if bank.BatchFlag {
-			continue
-		}
-
-		amountDiff := math.Abs(
-			settlementAmount - bank.CreditAmountINR,
-		)
-
-		dateDiff := math.Abs(
-			bank.ValueDate.Sub(settlement.SettledAt).Hours(),
-		)
-
-		if amountDiff > amountToleranceINR {
-			continue
-		}
-
-		if dateDiff > dateToleranceHours.Hours() {
-			continue
-		}
-
-		score := amountDiff*10 + dateDiff
-
-		if score < bestScore {
-			bestScore = score
-			best = bank
-			bestAmountDiff = amountDiff
-			bestDateDiff = dateDiff
-			found = true
-		}
-	}
-
-	return best, bestAmountDiff, bestDateDiff, found
-}
-
-// ------------------------------------------------------------
-// Result builders
-// ------------------------------------------------------------
-
-func buildResult(
-	settlement model.Settlement,
-	bank model.BankStatement,
-	ledgerByOrder map[string]model.LedgerEntry,
-	tier Tier,
-	reason string,
-) Result {
-
-	result := Result{
-		OrderID:      settlement.OrderID,
-		SettlementID: settlement.SettlementID,
-		BankUTRRef:   bank.UTRRef,
-		Tier:         tier,
-		Reason:       reason,
-	}
-
-	if ledger, ok := ledgerByOrder[settlement.OrderID]; ok {
-		result.LedgerFound = true
-
-		settlementGrossINR :=
-			float64(settlement.GrossAmountPaisa) / 100
-
-		result.LedgerAmountDiff =
-			math.Abs(settlementGrossINR - ledger.GrossAmountINR)
-
-		result.LedgerDateDiffHrs =
-			math.Abs(
-				ledger.ExpectedSettlementDate.
-					Sub(settlement.SettledAt).
-					Hours(),
-			)
-
-		result.LedgerStatus = ledger.InternalStatus
-	}
+	addLedgerEvidence(
+		&result,
+		settlement,
+		ledgerByOrder,
+	)
 
 	return result
 }
@@ -469,30 +682,17 @@ func buildUnresolvedResult(
 		Reason:       "no valid bank match found",
 	}
 
-	if ledger, ok := ledgerByOrder[settlement.OrderID]; ok {
-		result.LedgerFound = true
-
-		settlementGrossINR :=
-			float64(settlement.GrossAmountPaisa) / 100
-
-		result.LedgerAmountDiff =
-			math.Abs(settlementGrossINR - ledger.GrossAmountINR)
-
-		result.LedgerDateDiffHrs =
-			math.Abs(
-				ledger.ExpectedSettlementDate.
-					Sub(settlement.SettledAt).
-					Hours(),
-			)
-
-		result.LedgerStatus = ledger.InternalStatus
-	}
+	addLedgerEvidence(
+		&result,
+		settlement,
+		ledgerByOrder,
+	)
 
 	return result
 }
 
 // ------------------------------------------------------------
-// Metrics
+// METRICS
 // ------------------------------------------------------------
 
 func MatchRate(results []Result) float64 {
@@ -502,8 +702,8 @@ func MatchRate(results []Result) float64 {
 
 	matched := 0
 
-	for _, r := range results {
-		if r.Tier != TierUnresolved {
+	for _, result := range results {
+		if result.Tier != TierUnresolved {
 			matched++
 		}
 	}
