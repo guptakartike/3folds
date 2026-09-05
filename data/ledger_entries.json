@@ -1,422 +1,422 @@
 [
   {
     "order_id": "order_000001",
-    "customer_id": "cust_ot5lso5srw",
-    "gross_amount_inr": 1078.15,
-    "expected_settlement_date": "2026-01-29T10:00:00Z",
+    "customer_id": "cust_9xuy41iblj",
+    "gross_amount_inr": 4924.63,
+    "expected_settlement_date": "2026-09-19T12:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000002",
-    "customer_id": "cust_di1t6u258x",
-    "gross_amount_inr": 7124.29,
-    "expected_settlement_date": "2026-02-09T10:00:00Z",
+    "customer_id": "cust_jt7ye511mk",
+    "gross_amount_inr": 3816.8,
+    "expected_settlement_date": "2026-09-15T10:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000003",
-    "customer_id": "cust_us4aalocs9",
-    "gross_amount_inr": 8171.46,
-    "expected_settlement_date": "2026-02-04T10:00:00Z",
+    "customer_id": "cust_8drc11ertj",
+    "gross_amount_inr": 18796.24,
+    "expected_settlement_date": "2026-09-20T14:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000004",
-    "customer_id": "cust_89hsl9n5hl",
-    "gross_amount_inr": 7377.13,
-    "expected_settlement_date": "2026-01-03T10:00:00Z",
+    "customer_id": "cust_t05uirodxm",
+    "gross_amount_inr": 9121.43,
+    "expected_settlement_date": "2026-09-15T10:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000005",
-    "customer_id": "cust_cvrrbw1ea7",
-    "gross_amount_inr": 1584.42,
-    "expected_settlement_date": "2026-02-15T10:00:00Z",
+    "customer_id": "cust_hocn9j2qp8",
+    "gross_amount_inr": 16928.28,
+    "expected_settlement_date": "2026-09-18T14:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000006",
-    "customer_id": "cust_72n4npfvfn",
-    "gross_amount_inr": 9845.6,
-    "expected_settlement_date": "2026-02-02T10:00:00Z",
+    "customer_id": "cust_s7hzioykl1",
+    "gross_amount_inr": 2021.33,
+    "expected_settlement_date": "2026-09-01T14:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000007",
-    "customer_id": "cust_0nfjmvpqp6",
-    "gross_amount_inr": 3130.95,
-    "expected_settlement_date": "2026-02-04T10:00:00Z",
+    "customer_id": "cust_fkhmy4sj6b",
+    "gross_amount_inr": 13801.9,
+    "expected_settlement_date": "2026-09-14T12:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000008",
-    "customer_id": "cust_x9drbgc50n",
-    "gross_amount_inr": 7396.45,
-    "expected_settlement_date": "2026-02-14T10:00:00Z",
-    "internal_status": "paid"
+    "customer_id": "cust_mu5907if2g",
+    "gross_amount_inr": 9146.44,
+    "expected_settlement_date": "2026-09-01T11:00:00Z",
+    "internal_status": "pending"
   },
   {
     "order_id": "order_000009",
-    "customer_id": "cust_t6zgfexphg",
-    "gross_amount_inr": 4193.82,
-    "expected_settlement_date": "2026-02-07T10:00:00Z",
+    "customer_id": "cust_o9t7e8g8jd",
+    "gross_amount_inr": 9613.46,
+    "expected_settlement_date": "2026-09-12T12:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000010",
-    "customer_id": "cust_f2nn2e2gq1",
-    "gross_amount_inr": 9501.35,
-    "expected_settlement_date": "2026-02-15T10:00:00Z",
+    "customer_id": "cust_tgxn0guo4k",
+    "gross_amount_inr": 4907.85,
+    "expected_settlement_date": "2026-09-14T12:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000011",
-    "customer_id": "cust_yxqto2pi51",
-    "gross_amount_inr": 2061.13,
-    "expected_settlement_date": "2026-01-21T10:00:00Z",
+    "customer_id": "cust_zrixa11dpg",
+    "gross_amount_inr": 15094.32,
+    "expected_settlement_date": "2026-09-17T14:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000012",
-    "customer_id": "cust_zt9cumtcjz",
-    "gross_amount_inr": 7300.12,
-    "expected_settlement_date": "2026-01-25T10:00:00Z",
+    "customer_id": "cust_jckjlteiyz",
+    "gross_amount_inr": 1846.97,
+    "expected_settlement_date": "2026-09-14T14:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000013",
-    "customer_id": "cust_iq2sqxz72l",
-    "gross_amount_inr": 4421.16,
-    "expected_settlement_date": "2026-02-10T10:00:00Z",
+    "customer_id": "cust_y20479t6vx",
+    "gross_amount_inr": 2260.5,
+    "expected_settlement_date": "2026-09-21T14:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000014",
-    "customer_id": "cust_6r1dmel9u3",
-    "gross_amount_inr": 4279.16,
-    "expected_settlement_date": "2026-01-08T10:00:00Z",
+    "customer_id": "cust_eyuhz1gv0e",
+    "gross_amount_inr": 17681.99,
+    "expected_settlement_date": "2026-09-08T12:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000015",
-    "customer_id": "cust_k8w1nysbj9",
-    "gross_amount_inr": 2780.65,
-    "expected_settlement_date": "2026-01-26T10:00:00Z",
+    "customer_id": "cust_d8w3zp08j3",
+    "gross_amount_inr": 11786.3,
+    "expected_settlement_date": "2026-09-16T14:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000016",
-    "customer_id": "cust_k31a29yu8g",
-    "gross_amount_inr": 2300.08,
-    "expected_settlement_date": "2026-02-15T10:00:00Z",
+    "customer_id": "cust_r1yxr2dhyl",
+    "gross_amount_inr": 12696.1,
+    "expected_settlement_date": "2026-09-14T14:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000017",
-    "customer_id": "cust_ir0mazph1g",
-    "gross_amount_inr": 7693.53,
-    "expected_settlement_date": "2026-02-23T10:00:00Z",
+    "customer_id": "cust_zebbk7w1da",
+    "gross_amount_inr": 6463.02,
+    "expected_settlement_date": "2026-09-16T14:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000018",
-    "customer_id": "cust_h52kxotbl2",
-    "gross_amount_inr": 7132.21,
-    "expected_settlement_date": "2026-01-17T10:00:00Z",
+    "customer_id": "cust_kwv08hhxfg",
+    "gross_amount_inr": 2074.22,
+    "expected_settlement_date": "2026-09-06T10:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000019",
-    "customer_id": "cust_uraq2i5vjn",
-    "gross_amount_inr": 1447.74,
-    "expected_settlement_date": "2026-02-10T10:00:00Z",
+    "customer_id": "cust_pqkojtpv60",
+    "gross_amount_inr": 13160.79,
+    "expected_settlement_date": "2026-09-11T10:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000020",
-    "customer_id": "cust_9xkdu2avme",
-    "gross_amount_inr": 1813.21,
-    "expected_settlement_date": "2026-02-04T10:00:00Z",
+    "customer_id": "cust_k83tqll8os",
+    "gross_amount_inr": 524.13,
+    "expected_settlement_date": "2026-09-18T14:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000021",
-    "customer_id": "cust_18c0842ozm",
-    "gross_amount_inr": 5028.63,
-    "expected_settlement_date": "2026-01-22T10:00:00Z",
+    "customer_id": "cust_rzsj49itn7",
+    "gross_amount_inr": 11158.58,
+    "expected_settlement_date": "2026-09-05T10:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000022",
-    "customer_id": "cust_jh748luu0y",
-    "gross_amount_inr": 8140.53,
-    "expected_settlement_date": "2026-02-09T10:00:00Z",
+    "customer_id": "cust_0z3nx39rbs",
+    "gross_amount_inr": 12876.98,
+    "expected_settlement_date": "2026-09-11T10:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000023",
-    "customer_id": "cust_1o9hxa1bu9",
-    "gross_amount_inr": 3654.63,
-    "expected_settlement_date": "2026-01-23T10:00:00Z",
-    "internal_status": "paid"
+    "customer_id": "cust_790pdw5py6",
+    "gross_amount_inr": 1464.5,
+    "expected_settlement_date": "2026-09-11T10:00:00Z",
+    "internal_status": "pending"
   },
   {
     "order_id": "order_000024",
-    "customer_id": "cust_gg2f4tw0w8",
-    "gross_amount_inr": 3100.78,
-    "expected_settlement_date": "2026-02-28T10:00:00Z",
+    "customer_id": "cust_xpj4hnriuu",
+    "gross_amount_inr": 15164.94,
+    "expected_settlement_date": "2026-09-10T10:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000025",
-    "customer_id": "cust_sjxll58fe3",
-    "gross_amount_inr": 6164.07,
-    "expected_settlement_date": "2026-02-11T10:00:00Z",
+    "customer_id": "cust_pu0dk0get8",
+    "gross_amount_inr": 11632.78,
+    "expected_settlement_date": "2026-09-17T12:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000026",
-    "customer_id": "cust_dl4t8giffq",
-    "gross_amount_inr": 8856.03,
-    "expected_settlement_date": "2026-02-02T10:00:00Z",
+    "customer_id": "cust_37dia5u6hc",
+    "gross_amount_inr": 17777.49,
+    "expected_settlement_date": "2026-09-15T12:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000027",
-    "customer_id": "cust_xa1hz8fdzi",
-    "gross_amount_inr": 8761.9,
-    "expected_settlement_date": "2026-01-21T10:00:00Z",
+    "customer_id": "cust_in9n6xcj88",
+    "gross_amount_inr": 17784.53,
+    "expected_settlement_date": "2026-09-15T10:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000028",
-    "customer_id": "cust_xs1wnjkwi7",
-    "gross_amount_inr": 6757.72,
-    "expected_settlement_date": "2026-02-14T10:00:00Z",
+    "customer_id": "cust_a2ilgb0s0r",
+    "gross_amount_inr": 16816.19,
+    "expected_settlement_date": "2026-09-12T10:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000029",
-    "customer_id": "cust_igtycohexk",
-    "gross_amount_inr": 9428.86,
-    "expected_settlement_date": "2026-02-23T10:00:00Z",
+    "customer_id": "cust_ksp2ex5t5p",
+    "gross_amount_inr": 19124.61,
+    "expected_settlement_date": "2026-09-08T14:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000030",
-    "customer_id": "cust_kriu58atup",
-    "gross_amount_inr": 5417.53,
-    "expected_settlement_date": "2026-01-30T10:00:00Z",
+    "customer_id": "cust_z8vmuhxid4",
+    "gross_amount_inr": 8208.31,
+    "expected_settlement_date": "2026-09-04T12:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000031",
-    "customer_id": "cust_ik8dkg0re0",
-    "gross_amount_inr": 1494.79,
-    "expected_settlement_date": "2026-02-08T10:00:00Z",
+    "customer_id": "cust_pmnz1udbfw",
+    "gross_amount_inr": 14634.14,
+    "expected_settlement_date": "2026-09-03T12:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000032",
-    "customer_id": "cust_v98rkellf8",
-    "gross_amount_inr": 6714.04,
-    "expected_settlement_date": "2026-01-15T10:00:00Z",
+    "customer_id": "cust_tiuymo0pqc",
+    "gross_amount_inr": 7065.35,
+    "expected_settlement_date": "2026-09-19T14:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000033",
-    "customer_id": "cust_vdob5mvsl7",
-    "gross_amount_inr": 9270.12,
-    "expected_settlement_date": "2026-01-24T10:00:00Z",
+    "customer_id": "cust_m033ifhv1x",
+    "gross_amount_inr": 4215.02,
+    "expected_settlement_date": "2026-09-21T14:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000034",
-    "customer_id": "cust_li2khjw5n6",
-    "gross_amount_inr": 9934.12,
-    "expected_settlement_date": "2026-01-09T10:00:00Z",
+    "customer_id": "cust_vnu80b6ugv",
+    "gross_amount_inr": 11014.43,
+    "expected_settlement_date": "2026-09-05T10:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000035",
-    "customer_id": "cust_19ggkt8n56",
-    "gross_amount_inr": 5978.45,
-    "expected_settlement_date": "2026-01-18T10:00:00Z",
+    "customer_id": "cust_8vfcx7lxxe",
+    "gross_amount_inr": 15365.32,
+    "expected_settlement_date": "2026-09-05T12:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000036",
-    "customer_id": "cust_uf0e3x64to",
-    "gross_amount_inr": 2072.16,
-    "expected_settlement_date": "2026-01-28T10:00:00Z",
+    "customer_id": "cust_sx5wvfgyw6",
+    "gross_amount_inr": 15624.3,
+    "expected_settlement_date": "2026-09-15T10:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000037",
-    "customer_id": "cust_4g20fd9o9x",
-    "gross_amount_inr": 7527.61,
-    "expected_settlement_date": "2026-01-26T10:00:00Z",
+    "customer_id": "cust_x5td44k1j6",
+    "gross_amount_inr": 3590.12,
+    "expected_settlement_date": "2026-09-14T10:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000038",
-    "customer_id": "cust_mbecrof8yq",
-    "gross_amount_inr": 5683.01,
-    "expected_settlement_date": "2026-03-01T10:00:00Z",
+    "customer_id": "cust_j4t0sekkbp",
+    "gross_amount_inr": 17149.27,
+    "expected_settlement_date": "2026-09-20T14:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000039",
-    "customer_id": "cust_9vthoby5lo",
-    "gross_amount_inr": 5329.1,
-    "expected_settlement_date": "2026-01-17T10:00:00Z",
+    "customer_id": "cust_0mcixdu1em",
+    "gross_amount_inr": 7599.85,
+    "expected_settlement_date": "2026-09-21T11:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000040",
-    "customer_id": "cust_bus87y884t",
-    "gross_amount_inr": 7017.01,
-    "expected_settlement_date": "2026-02-07T10:00:00Z",
+    "customer_id": "cust_2pop8mgyn2",
+    "gross_amount_inr": 6093.53,
+    "expected_settlement_date": "2026-09-03T14:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000041",
-    "customer_id": "cust_x1g8y5qssu",
-    "gross_amount_inr": 9563.16,
-    "expected_settlement_date": "2026-02-01T10:00:00Z",
+    "customer_id": "cust_8fv2bc2nnu",
+    "gross_amount_inr": 13189.75,
+    "expected_settlement_date": "2026-09-05T14:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000042",
-    "customer_id": "cust_i9bc8w6nok",
-    "gross_amount_inr": 4713.04,
-    "expected_settlement_date": "2026-01-19T10:00:00Z",
+    "customer_id": "cust_qdy4lmct64",
+    "gross_amount_inr": 15427.71,
+    "expected_settlement_date": "2026-09-23T11:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000043",
-    "customer_id": "cust_sgdwfltoz4",
-    "gross_amount_inr": 7015.75,
-    "expected_settlement_date": "2026-02-20T10:00:00Z",
-    "internal_status": "paid"
+    "customer_id": "cust_m52xg8p6be",
+    "gross_amount_inr": 3708.96,
+    "expected_settlement_date": "2026-09-10T11:00:00Z",
+    "internal_status": "pending"
   },
   {
     "order_id": "order_000044",
-    "customer_id": "cust_xj1wo9igab",
-    "gross_amount_inr": 5321.49,
-    "expected_settlement_date": "2026-01-13T10:00:00Z",
+    "customer_id": "cust_81jhuwb6tx",
+    "gross_amount_inr": 6835.37,
+    "expected_settlement_date": "2026-09-16T11:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000045",
-    "customer_id": "cust_145rsyr86j",
-    "gross_amount_inr": 7209.72,
-    "expected_settlement_date": "2026-01-18T10:00:00Z",
+    "customer_id": "cust_wi5flul1rs",
+    "gross_amount_inr": 10959.74,
+    "expected_settlement_date": "2026-09-10T14:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000046",
-    "customer_id": "cust_er4ae3vuv2",
-    "gross_amount_inr": 5122.08,
-    "expected_settlement_date": "2026-02-17T10:00:00Z",
+    "customer_id": "cust_1k9ye9o2m7",
+    "gross_amount_inr": 16332.76,
+    "expected_settlement_date": "2026-09-05T11:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000047",
-    "customer_id": "cust_cpigz3nv8b",
-    "gross_amount_inr": 4547.6,
-    "expected_settlement_date": "2026-02-10T10:00:00Z",
+    "customer_id": "cust_ol65wvjx8u",
+    "gross_amount_inr": 5271.92,
+    "expected_settlement_date": "2026-09-02T14:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000048",
-    "customer_id": "cust_ak2k4oqlgh",
-    "gross_amount_inr": 6052.03,
-    "expected_settlement_date": "2026-02-12T10:00:00Z",
+    "customer_id": "cust_lg6mm1zxyv",
+    "gross_amount_inr": 4532.07,
+    "expected_settlement_date": "2026-09-08T12:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000049",
-    "customer_id": "cust_p6qlrm1zsl",
-    "gross_amount_inr": 5678.04,
-    "expected_settlement_date": "2026-01-12T10:00:00Z",
+    "customer_id": "cust_jrht7zewvi",
+    "gross_amount_inr": 14547.43,
+    "expected_settlement_date": "2026-09-17T11:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000050",
-    "customer_id": "cust_pareovzhl6",
-    "gross_amount_inr": 8140.3,
-    "expected_settlement_date": "2026-02-25T10:00:00Z",
+    "customer_id": "cust_g5g79or787",
+    "gross_amount_inr": 18886.63,
+    "expected_settlement_date": "2026-09-02T10:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000051",
-    "customer_id": "cust_52xk9on6th",
-    "gross_amount_inr": 6039.63,
-    "expected_settlement_date": "2026-01-22T10:00:00Z",
+    "customer_id": "cust_plod9r7anq",
+    "gross_amount_inr": 6099.27,
+    "expected_settlement_date": "2026-09-11T12:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000052",
-    "customer_id": "cust_oqiujq2fv2",
-    "gross_amount_inr": 3674.63,
-    "expected_settlement_date": "2026-01-24T10:00:00Z",
+    "customer_id": "cust_1231yv2stn",
+    "gross_amount_inr": 19736.01,
+    "expected_settlement_date": "2026-09-19T10:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000053",
-    "customer_id": "cust_hlh6ik4a7b",
-    "gross_amount_inr": 9238.18,
-    "expected_settlement_date": "2026-02-17T10:00:00Z",
+    "customer_id": "cust_bmc97c7bo1",
+    "gross_amount_inr": 16560.57,
+    "expected_settlement_date": "2026-09-21T14:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000054",
-    "customer_id": "cust_9swrsbx45x",
-    "gross_amount_inr": 3471.84,
-    "expected_settlement_date": "2026-01-12T10:00:00Z",
+    "customer_id": "cust_fg51bxw76i",
+    "gross_amount_inr": 1911.19,
+    "expected_settlement_date": "2026-09-04T10:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000055",
-    "customer_id": "cust_84ctwkuxfr",
-    "gross_amount_inr": 7683.64,
-    "expected_settlement_date": "2026-01-20T10:00:00Z",
+    "customer_id": "cust_v0gyubmxns",
+    "gross_amount_inr": 15102.64,
+    "expected_settlement_date": "2026-09-14T14:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000056",
-    "customer_id": "cust_kczgqzcyih",
-    "gross_amount_inr": 8585.76,
-    "expected_settlement_date": "2026-02-12T10:00:00Z",
+    "customer_id": "cust_5g10ur5l8a",
+    "gross_amount_inr": 4485.08,
+    "expected_settlement_date": "2026-09-04T14:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000057",
-    "customer_id": "cust_05sm9aume8",
-    "gross_amount_inr": 4372.69,
-    "expected_settlement_date": "2026-01-11T10:00:00Z",
+    "customer_id": "cust_vzkhiuit7m",
+    "gross_amount_inr": 16508.83,
+    "expected_settlement_date": "2026-09-18T14:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000058",
-    "customer_id": "cust_yh34xa4fhx",
-    "gross_amount_inr": 2648.38,
-    "expected_settlement_date": "2026-02-16T10:00:00Z",
+    "customer_id": "cust_6xatoaztks",
+    "gross_amount_inr": 15135.16,
+    "expected_settlement_date": "2026-09-14T11:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000059",
-    "customer_id": "cust_qhgch9kwo3",
-    "gross_amount_inr": 5684.71,
-    "expected_settlement_date": "2026-01-24T10:00:00Z",
+    "customer_id": "cust_rp2u4dtbh5",
+    "gross_amount_inr": 19113.36,
+    "expected_settlement_date": "2026-09-19T14:00:00Z",
     "internal_status": "paid"
   },
   {
     "order_id": "order_000060",
-    "customer_id": "cust_gu04s4j69c",
-    "gross_amount_inr": 2879.25,
-    "expected_settlement_date": "2026-02-19T10:00:00Z",
+    "customer_id": "cust_c0mdicvwv8",
+    "gross_amount_inr": 7344.61,
+    "expected_settlement_date": "2026-09-01T12:00:00Z",
     "internal_status": "paid"
   }
 ]

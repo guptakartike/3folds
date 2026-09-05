@@ -255,55 +255,55 @@
     "order_id": "order_000043",
     "type": "timing_lag",
     "should_match": true,
-    "explanation": "payment ID and amount match, but bank value date is delayed by 6 days"
+    "explanation": "payment ID and amount match, but bank value date is delayed by 3 days"
   },
   {
     "order_id": "order_000044",
     "type": "timing_lag",
     "should_match": true,
-    "explanation": "payment ID and amount match, but bank value date is delayed by 6 days"
+    "explanation": "payment ID and amount match, but bank value date is delayed by 3 days"
   },
   {
     "order_id": "order_000045",
     "type": "timing_lag",
     "should_match": true,
-    "explanation": "payment ID and amount match, but bank value date is delayed by 6 days"
+    "explanation": "payment ID and amount match, but bank value date is delayed by 3 days"
   },
   {
     "order_id": "order_000046",
     "type": "timing_lag",
     "should_match": true,
-    "explanation": "payment ID and amount match, but bank value date is delayed by 6 days"
+    "explanation": "payment ID and amount match, but bank value date is delayed by 3 days"
   },
   {
     "order_id": "order_000047",
     "type": "timing_lag",
     "should_match": true,
-    "explanation": "payment ID and amount match, but bank value date is delayed by 6 days"
+    "explanation": "payment ID and amount match, but bank value date is delayed by 3 days"
   },
   {
     "order_id": "order_000048",
     "type": "timing_lag",
     "should_match": true,
-    "explanation": "payment ID and amount match, but bank value date is delayed by 6 days"
+    "explanation": "payment ID and amount match, but bank value date is delayed by 3 days"
   },
   {
     "order_id": "order_000049",
     "type": "timing_lag",
     "should_match": true,
-    "explanation": "payment ID and amount match, but bank value date is delayed by 6 days"
+    "explanation": "payment ID and amount match, but bank value date is delayed by 3 days"
   },
   {
     "order_id": "order_000050",
     "type": "timing_lag",
     "should_match": true,
-    "explanation": "payment ID and amount match, but bank value date is delayed by 6 days"
+    "explanation": "payment ID and amount match, but bank value date is delayed by 3 days"
   },
   {
     "order_id": "order_000051",
     "type": "timing_lag",
     "should_match": true,
-    "explanation": "payment ID and amount match, but bank value date is delayed by 6 days"
+    "explanation": "payment ID and amount match, but bank value date is delayed by 3 days"
   },
   {
     "order_id": "order_000052",

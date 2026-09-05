@@ -1,48 +1,48 @@
 {
-  "Total": 60,
-  "Correct": 60,
-  "Wrong": 0,
-  "Accuracy": 100,
-  "ExpectedMatches": 57,
-  "Matched": 57,
-  "MatchCoverage": 100,
-  "ExpectedExceptions": 3,
-  "DetectedExceptions": 3,
-  "ExceptionDetection": 100,
-  "FalsePositives": 0,
-  "FalseNegatives": 0,
-  "ProcessingTimeMs": 0,
-  "RecordsPerSecond": 0,
-  "ByScenario": {
+  "total": 60,
+  "correct": 60,
+  "wrong": 0,
+  "accuracy": 100,
+  "expected_matches": 57,
+  "matched": 57,
+  "match_coverage": 100,
+  "expected_exceptions": 3,
+  "detected_exceptions": 3,
+  "exception_detection": 100,
+  "false_positives": 0,
+  "false_negatives": 0,
+  "processing_time_ms": 0,
+  "records_per_second": 0,
+  "by_scenario": {
     "batched": {
-      "Total": 6,
-      "Correct": 6,
-      "Incorrect": 0
+      "total": 6,
+      "correct": 6,
+      "incorrect": 0
     },
     "clean": {
-      "Total": 21,
-      "Correct": 21,
-      "Incorrect": 0
+      "total": 21,
+      "correct": 21,
+      "incorrect": 0
     },
     "fee_adjusted": {
-      "Total": 12,
-      "Correct": 12,
-      "Incorrect": 0
+      "total": 12,
+      "correct": 12,
+      "incorrect": 0
     },
     "genuine_exception": {
-      "Total": 3,
-      "Correct": 3,
-      "Incorrect": 0
+      "total": 3,
+      "correct": 3,
+      "incorrect": 0
     },
     "timing_lag": {
-      "Total": 9,
-      "Correct": 9,
-      "Incorrect": 0
+      "total": 9,
+      "correct": 9,
+      "incorrect": 0
     },
     "unit_difference": {
-      "Total": 9,
-      "Correct": 9,
-      "Incorrect": 0
+      "total": 9,
+      "correct": 9,
+      "incorrect": 0
     }
   }
 }

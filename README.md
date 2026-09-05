@@ -139,7 +139,37 @@ Run tests:
 go test ./...
 ```
 
-## Output artifacts
+## Interactive Web Dashboard
+
+To launch the live reconciliation UI:
+
+**Terminal 1 — Backend API:**
+```bash
+go run ./cmd/threefolds serve -port 8080 -in data
+```
+
+**Terminal 2 — React Frontend:**
+```bash
+cd frontend && npm run dev
+```
+
+Open **http://localhost:5173/** in your browser.
+
+### Resetting for a Demo Recording
+
+To reset the dashboard to the clean **idle state** (no pre-baked numbers):
+- Click **"Reset Demo to Idle"** in the UI on the **Upload** page, OR
+- Run via curl:
+  ```bash
+  curl -X POST http://localhost:8080/api/reset
+  ```
+- Or delete match outputs manually:
+  ```bash
+  rm data/match_results*.json data/metrics.json data/resolutions.json
+  ```
+
+Source files (`settlements.json`, `bank_statements.json`, `ledger_entries.json`) remain intact so you can click **Run Reconciliation** immediately to demonstrate the live execution flow.
+
 
 The pipeline produces:
 

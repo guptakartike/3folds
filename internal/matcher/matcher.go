@@ -328,10 +328,13 @@ func buildBatchResult(
 			bank.ValueDate.Sub(settlement.SettledAt).Hours(),
 		),
 		Reason: fmt.Sprintf(
-			"batch match: settlement %s + settlement %s reconcile to bank batch %s",
+			"batch reconciliation: settlement %s (₹%.2f) + settlement %s (₹%.2f) = bank batch %s (₹%.2f)",
 			settlement.SettlementID,
+			float64(settlement.NetAmountPaisa)/100,
 			other.SettlementID,
+			float64(other.NetAmountPaisa)/100,
 			bank.UTRRef,
+			bank.CreditAmountINR,
 		),
 	}
 

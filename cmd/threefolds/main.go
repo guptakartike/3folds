@@ -25,11 +25,12 @@ import (
 	"threefolds/internal/matcher"
 	"threefolds/internal/report"
 	"threefolds/internal/resolver"
+	"threefolds/internal/server"
 )
 
 func main() {
 	if len(os.Args) < 2 {
-		log.Fatal("expected a subcommand: generate | match | resolve | report | verify | evaluate")
+		log.Fatal("expected a subcommand: generate | match | resolve | report | verify | evaluate | serve")
 	}
 
 	var err error
@@ -47,9 +48,11 @@ func main() {
 		err = runVerify(os.Args[2:])
 	case "evaluate":
 		err = runEvaluate(os.Args[2:])
+	case "serve":
+		err = runServe(os.Args[2:])
 	default:
 		err = fmt.Errorf(
-			"unknown subcommand %q: expected generate | match | resolve | report | verify | evaluate",
+			"unknown subcommand %q: expected generate | match | resolve | report | verify | evaluate | serve",
 			os.Args[1],
 		)
 	}
@@ -83,6 +86,10 @@ func runGenerate(args []string) error {
 
 	ds := generator.Generate(*n, *seed)
 
+	os.Remove(filepath.Join(*outDir, "match_results.json"))
+	os.Remove(filepath.Join(*outDir, "match_results_final.json"))
+	os.Remove(filepath.Join(*outDir, "resolutions.json"))
+
 	writeJSON(filepath.Join(*outDir, "settlements.json"), ds.Settlements)
 	writeJSON(filepath.Join(*outDir, "bank_statements.json"), ds.BankStatements)
 	writeJSON(filepath.Join(*outDir, "ledger_entries.json"), ds.LedgerEntries)
@@ -112,6 +119,10 @@ func runMatch(args []string) error {
 	if err != nil {
 		return fmt.Errorf("loading data: %w", err)
 	}
+
+	// Remove any previous final output before starting so results are fresh.
+	os.Remove(filepath.Join(*inDir, "match_results_final.json"))
+	os.Remove(filepath.Join(*inDir, "resolutions.json"))
 
 	// Measure the actual reconciliation operation.
 	start := time.Now()
@@ -539,19 +550,10 @@ func runEvaluate(args []string) error {
 	}
 
 	truthPath := filepath.Join(*inDir, "ground_truth.json")
-	resultsPath := filepath.Join(*inDir, "match_results_final.json")
 
-	// Explicitly require resolve to have completed.
-	if _, err := os.Stat(resultsPath); err != nil {
-		if os.IsNotExist(err) {
-			return fmt.Errorf(
-				"final results not found: %s; run `threefolds resolve -in %s` first",
-				resultsPath,
-				*inDir,
-			)
-		}
-
-		return fmt.Errorf("checking final results: %w", err)
+	results, resultsPath, err := report.Load(*inDir)
+	if err != nil {
+		return fmt.Errorf("loading results from %s: %w", *inDir, err)
 	}
 
 	log.Printf("evaluating results from %s", resultsPath)
@@ -565,17 +567,6 @@ func runEvaluate(args []string) error {
 
 	if err := json.Unmarshal(truthFile, &truth); err != nil {
 		return fmt.Errorf("decoding ground truth: %w", err)
-	}
-
-	resultsFile, err := os.ReadFile(resultsPath)
-	if err != nil {
-		return fmt.Errorf("reading final results: %w", err)
-	}
-
-	var results []matcher.Result
-
-	if err := json.Unmarshal(resultsFile, &results); err != nil {
-		return fmt.Errorf("decoding final results: %w", err)
 	}
 
 	// Evaluation itself is intentionally not reported as the reconciliation
@@ -648,3 +639,17 @@ func writeJSON(path string, v interface{}) {
 		log.Fatalf("encoding %s: %v", path, err)
 	}
 }
+
+func runServe(args []string) error {
+	fs := flag.NewFlagSet("serve", flag.ContinueOnError)
+
+	port := fs.Int("port", 8080, "HTTP server port")
+	inDir := fs.String("in", "data", "data directory")
+
+	if err := fs.Parse(args); err != nil {
+		return err
+	}
+
+	return server.Run(*port, *inDir)
+}
+
