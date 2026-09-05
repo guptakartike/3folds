@@ -1,64 +1,165 @@
 # 3folds — AI Finance Controller
 
-3folds is an evidence-first finance reconciliation controller that
-reconciles settlement records against bank statements and internal
-ledger data.
+**3folds** is an evidence-first finance reconciliation controller. It closes one finance-ops loop across settlement, bank, and internal ledger data: deterministic matching handles high-confidence cases, while an LLM investigates only unresolved cases and can leave them as auditable exceptions when evidence is insufficient.
 
-It uses deterministic matching for high-confidence cases and escalates
-unresolved cases to an LLM instead of forcing unsupported matches.
+## What it solves
 
-## Problem
+A finance team needs to reconcile three views of the same money movement:
 
-Finance operations teams still spend significant time reconciling:
+```text
+Razorpay settlement  →  expected cash
+Bank statement       →  actual cash
+Internal ledger      →  accounting state
+```
 
-- Expected settlements
-- Actual bank credits
-- Internal accounting records
+The difficult cases are not just exact matches. The synthetic dataset deliberately includes:
 
-The difficult cases are not the obvious matches. They are:
+- clean matches
+- fee-adjusted amounts
+- unit / rounding differences
+- settlement timing lag
+- batched payouts
+- genuine missing / unrelated transactions
 
-- Amount differences
-- Settlement timing differences
-- Batched payouts
-- Missing transactions
-- Ambiguous records
+The system must match what it can prove and **refuse to force-match what it cannot prove**.
 
-3folds automates the reconciliation loop while maintaining an explicit
-exception queue for cases that cannot be resolved with sufficient
-evidence.
+## Results on the canonical 60-record dataset
+
+Generated with `seed=42`.
+
+| Metric | Result |
+|---|---:|
+| Settlements | **60** |
+| Automatic reconciliation | **95.0%** |
+| Classification accuracy | **100.0%** |
+| Expected matches | **57** |
+| Expected matches found | **57/57** |
+| Genuine exceptions detected | **3/3** |
+| False positives | **0** |
+| False negatives | **0** |
+| LLM cases reviewed | **3** |
+| LLM cases upgraded to matches | **0** |
+| LLM-confirmed exceptions | **3** |
+
+Matcher performance for this 60-record run:
+
+- **0.122 ms** processing time
+- **491,469 records/sec** measured throughput
+
+The accuracy claim is specifically **match/exception classification accuracy**, not a claim that every transaction was reconciled.
 
 ## Architecture
 
 ```text
-Synthetic Data
-      |
-      v
-+---------------------------+
-| Settlement + Bank + Ledger|
-+---------------------------+
-              |
-              v
-+---------------------------+
-| Deterministic Matcher     |
-|                           |
-| Exact                     |
-| Batch                     |
-| Fuzzy                     |
-| Unresolved                |
-+---------------------------+
-              |
-              v
-      Unresolved Cases
-              |
-              v
-+---------------------------+
-| LLM Exception Resolver    |
-|                           |
-| MATCH or EXCEPTION        |
-| Confidence + Evidence     |
-+---------------------------+
-              |
-              v
-+---------------------------+
-| Evaluation + Audit Report |
-+---------------------------+
+                 Synthetic Dataset
+                        │
+          ┌─────────────┼─────────────┐
+          ▼             ▼             ▼
+     Settlements   Bank Statements   Ledger
+          │             │             │
+          └─────────────┼─────────────┘
+                        ▼
+              Deterministic Matcher
+                        │
+        ┌───────────────┼───────────────┐
+        ▼               ▼               ▼
+      Exact           Fuzzy            Batch
+        │               │               │
+        └───────────────┼───────────────┘
+                        ▼
+                  Unresolved
+                        │
+                        ▼
+               LLM Exception Resolver
+                        │
+                 MATCH / EXCEPTION
+                        │
+                        ▼
+               Evaluation + Audit Report
+```
+
+### Matching policy
+
+1. **Exact** — payment ID, amount, and date align.
+2. **Fuzzy** — small amount or timing differences are tolerated within explicit bounds.
+3. **Batch** — multiple real settlements are reconciled against one bank batch.
+4. **Unresolved** — no sufficiently supported bank match exists.
+5. **LLM review** — only unresolved cases are sent to the model. A `MATCH` requires high confidence, a valid candidate UTR, and multiple evidence items. Otherwise the case remains an exception.
+
+The internal ledger is used as a validation signal so a bank match is not accepted solely because an amount happens to be similar.
+
+## Reproducible run
+
+Requirements:
+
+- Go 1.25.5+
+- A Groq API key for the LLM resolution step
+
+Generate the canonical dataset:
+
+```bash
+go run ./cmd/threefolds generate -n 60 -seed 42 -out data
+```
+
+Run deterministic reconciliation:
+
+```bash
+go run ./cmd/threefolds match -in data
+```
+
+Run the LLM exception review:
+
+```bash
+export GROQ_API_KEY="your_key_here"
+go run ./cmd/threefolds resolve -in data
+```
+
+Evaluate against generated ground truth:
+
+```bash
+go run ./cmd/threefolds evaluate -in data
+```
+
+Generate the HTML finance report:
+
+```bash
+go run ./cmd/threefolds report -in data
+open data/report.html
+```
+
+Run the ground-truth verification directly:
+
+```bash
+go run ./cmd/threefolds verify -in data
+```
+
+Run tests:
+
+```bash
+go test ./...
+```
+
+## Output artifacts
+
+The pipeline produces:
+
+- `settlements.json` — expected settlement records
+- `bank_statements.json` — actual bank-side records
+- `ledger_entries.json` — internal accounting records
+- `ground_truth.json` — synthetic expected outcomes
+- `match_results.json` — deterministic matcher output
+- `match_results_final.json` — final output after LLM review
+- `resolutions.json` — LLM decisions and evidence
+- `evaluation.json` — measured classification performance
+- `metrics.json` — measured matcher runtime and throughput
+- `report.html` — finance-executive summary and full audit trail
+
+## Why this is different
+
+3folds is not designed to maximize the number of rows labelled `MATCH`.
+
+It is designed around **evidence, measurement, and controlled escalation**:
+
+> **Automate high-confidence reconciliation. Measure the result. Escalate ambiguity. Preserve the exception when evidence is insufficient.**
+
+That makes the output useful as an operational finance control rather than just a text-generation demo.

@@ -232,7 +232,7 @@ func createBankRecord(
 			"bank amount differs by ₹0.50 due to unit/rounding representation"
 
 	case TimingLag:
-		// Keep the amount exact but move the bank date by 6 days.
+		// Keep the amount exact but move the bank date by 3 days.
 		// This exceeds the exact date tolerance and also exceeds
 		// the current fuzzy date tolerance, so it should remain
 		// unresolved unless the fuzzy rules are relaxed.
@@ -240,7 +240,7 @@ func createBankRecord(
 
 		return &bank,
 			true,
-			"payment ID and amount match, but bank value date is delayed by 6 days"
+			"payment ID and amount match, but bank value date is delayed by 3 days"
 
 	case Exception:
 		// Genuine exception: unrelated bank transaction.

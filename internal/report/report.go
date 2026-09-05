@@ -16,15 +16,25 @@ import (
 
 // Summary is the aggregate numbers computed across all final results.
 type Summary struct {
-	Total            int
-	Exact            int
-	Fuzzy            int
-	Batch            int
-	LLMResolved      int
-	Exceptions       int
-	MatchRatePct     float64
-	ProcessingTimeMs float64
-	RecordsPerSecond float64
+	Total                 int
+	Exact                 int
+	Fuzzy                 int
+	Batch                 int
+	LLMResolved           int
+	LLMReviewed           int
+	ConfirmedExceptions   int
+	Exceptions            int
+	ExpectedMatches       int
+	ExpectedExceptions    int
+	DetectedExceptions    int
+	Matched               int
+	MatchRatePct          float64
+	ClassificationPct     float64
+	ExceptionDetectionPct float64
+	FalsePositives        int
+	FalseNegatives        int
+	ProcessingTimeMs      float64
+	RecordsPerSecond      float64
 }
 
 // Load reads match_results_final.json if it exists (i.e. resolve was
@@ -104,6 +114,42 @@ func SetThroughput(s Summary, processingTimeMs float64) Summary {
 	return s
 }
 
+// SetEvaluation adds ground-truth evaluation metrics to the report.
+func SetEvaluation(
+	s Summary,
+	total, correct, matched, expectedMatches, expectedExceptions,
+	detectedExceptions, falsePositives, falseNegatives int,
+) Summary {
+	s.ClassificationPct = 0
+	if total > 0 {
+		s.ClassificationPct = float64(correct) / float64(total) * 100
+	}
+
+	s.Matched = matched
+	s.ExpectedMatches = expectedMatches
+	s.ExpectedExceptions = expectedExceptions
+	s.DetectedExceptions = detectedExceptions
+	s.FalsePositives = falsePositives
+	s.FalseNegatives = falseNegatives
+
+	if expectedExceptions > 0 {
+		s.ExceptionDetectionPct =
+			float64(detectedExceptions) / float64(expectedExceptions) * 100
+	} else {
+		s.ExceptionDetectionPct = 100
+	}
+
+	return s
+}
+
+// SetLLM records how many unresolved cases were reviewed by the LLM and
+// how many of those were confirmed as exceptions.
+func SetLLM(s Summary, reviewed, confirmedExceptions int) Summary {
+	s.LLMReviewed = reviewed
+	s.ConfirmedExceptions = confirmedExceptions
+	return s
+}
+
 // Exceptions returns only the still-unresolved results.
 func Exceptions(results []matcher.Result) []matcher.Result {
 	var out []matcher.Result
@@ -120,17 +166,36 @@ func Exceptions(results []matcher.Result) []matcher.Result {
 // PrintCLI writes a plain-text summary to stdout.
 func PrintCLI(s Summary, exceptions []matcher.Result) {
 	fmt.Printf("\n=== 3folds final reconciliation report ===\n")
-	fmt.Printf("total settlements:  %d\n", s.Total)
-	fmt.Printf("match rate:         %.1f%%\n", s.MatchRatePct)
-	fmt.Printf("  exact:            %d\n", s.Exact)
-	fmt.Printf("  fuzzy:            %d\n", s.Fuzzy)
-	fmt.Printf("  batch:            %d\n", s.Batch)
-	fmt.Printf("  llm-resolved:     %d\n", s.LLMResolved)
-	fmt.Printf("  exceptions:       %d\n", s.Exceptions)
+	fmt.Printf("total settlements:        %d\n", s.Total)
+	fmt.Printf("automatic match rate:     %.1f%%\n", s.MatchRatePct)
+	fmt.Printf("classification accuracy:  %.1f%%\n", s.ClassificationPct)
+	fmt.Printf("  exact:                  %d\n", s.Exact)
+	fmt.Printf("  fuzzy:                  %d\n", s.Fuzzy)
+	fmt.Printf("  batch:                  %d\n", s.Batch)
+	fmt.Printf("  llm-resolved:           %d\n", s.LLMResolved)
+	fmt.Printf("  exceptions:             %d\n", s.Exceptions)
+
+	if s.ExpectedMatches > 0 {
+		fmt.Printf("\nexpected matches:         %d\n", s.ExpectedMatches)
+		fmt.Printf("matched:                  %d\n", s.Matched)
+		fmt.Printf("match coverage:           %.1f%%\n", float64(s.Matched)/float64(s.ExpectedMatches)*100)
+	}
+	if s.ExpectedExceptions > 0 {
+		fmt.Printf("\nexpected exceptions:      %d\n", s.ExpectedExceptions)
+		fmt.Printf("detected exceptions:      %d\n", s.DetectedExceptions)
+		fmt.Printf("exception detection:      %.1f%%\n", s.ExceptionDetectionPct)
+	}
+	fmt.Printf("false positives:           %d\n", s.FalsePositives)
+	fmt.Printf("false negatives:           %d\n", s.FalseNegatives)
+
+	if s.LLMReviewed > 0 {
+		fmt.Printf("\nllm reviewed:             %d\n", s.LLMReviewed)
+		fmt.Printf("llm-confirmed exceptions: %d\n", s.ConfirmedExceptions)
+	}
 
 	if s.ProcessingTimeMs > 0 {
-		fmt.Printf("processing time:    %.3f ms\n", s.ProcessingTimeMs)
-		fmt.Printf("throughput:         %.0f records/sec\n", s.RecordsPerSecond)
+		fmt.Printf("\nprocessing time:          %.3f ms\n", s.ProcessingTimeMs)
+		fmt.Printf("throughput:               %.0f records/sec\n", s.RecordsPerSecond)
 	}
 
 	if len(exceptions) > 0 {
@@ -198,7 +263,18 @@ const htmlTemplate = `<!DOCTYPE html>
   .rate {
     font-size: 38px;
     font-weight: 700;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
+  }
+
+  .accuracy {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .subtle {
+    color: #666;
+    font-size: 13px;
   }
 
   .metrics {
@@ -295,9 +371,12 @@ const htmlTemplate = `<!DOCTYPE html>
     {{printf "%.1f" .Summary.MatchRatePct}}% reconciled
   </div>
 
-  <div>
-    {{.Summary.Exceptions}} of {{.Summary.Total}}
-    transactions still unresolved
+  <div class="accuracy">
+    {{printf "%.1f" .Summary.ClassificationPct}}% match / exception classification accuracy
+  </div>
+
+  <div class="subtle">
+    {{.Summary.Exceptions}} of {{.Summary.Total}} transactions remain open exceptions.
   </div>
 
   <div class="metrics">
@@ -323,13 +402,13 @@ const htmlTemplate = `<!DOCTYPE html>
     </div>
 
     <div class="metric">
-      <div class="metric-value">{{.Summary.LLMResolved}}</div>
-      <div class="metric-label">LLM resolved</div>
+      <div class="metric-value">{{.Summary.LLMReviewed}}</div>
+      <div class="metric-label">LLM reviewed</div>
     </div>
 
     <div class="metric">
-      <div class="metric-value">{{.Summary.Exceptions}}</div>
-      <div class="metric-label">Exceptions</div>
+      <div class="metric-value">{{.Summary.ConfirmedExceptions}}</div>
+      <div class="metric-label">Exceptions confirmed</div>
     </div>
 
     {{if .Summary.ProcessingTimeMs}}
@@ -403,14 +482,25 @@ const htmlTemplate = `<!DOCTYPE html>
   <tr>
     <td class="tier-llm_resolved">LLM resolved</td>
     <td>{{.Summary.LLMResolved}}</td>
-    <td>Previously unresolved case resolved with additional reasoning.</td>
+    <td>Previously unresolved case resolved with additional evidence and reasoning.</td>
   </tr>
 
   <tr>
     <td class="tier-unresolved">Exception</td>
     <td>{{.Summary.Exceptions}}</td>
-    <td>No sufficient evidence to reconcile.</td>
+    <td>No sufficient evidence to reconcile; safely escalated rather than force-matched.</td>
   </tr>
+</table>
+
+<h2>Evaluation</h2>
+
+<table>
+  <tr><th>Metric</th><th>Result</th></tr>
+  <tr><td>Classification accuracy</td><td>{{printf "%.1f" .Summary.ClassificationPct}}%</td></tr>
+  <tr><td>Expected matches found</td><td>{{.Summary.Matched}} / {{.Summary.ExpectedMatches}}</td></tr>
+  <tr><td>False positives</td><td>{{.Summary.FalsePositives}}</td></tr>
+  <tr><td>False negatives</td><td>{{.Summary.FalseNegatives}}</td></tr>
+  <tr><td>Exception detection</td><td>{{.Summary.DetectedExceptions}} / {{.Summary.ExpectedExceptions}} ({{printf "%.1f" .Summary.ExceptionDetectionPct}}%)</td></tr>
 </table>
 
 <h2>Full audit trail</h2>

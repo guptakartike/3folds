@@ -387,6 +387,42 @@ func runReport(args []string) error {
 
 	exceptions := report.Exceptions(results)
 
+	// Add ground-truth evaluation metrics when the evaluation artifact exists.
+	truthPath := filepath.Join(*inDir, "ground_truth.json")
+	if data, err := os.ReadFile(truthPath); err == nil {
+		var truth []evaluation.GroundTruth
+		if err := json.Unmarshal(data, &truth); err == nil {
+			evaluated := evaluation.Calculate(truth, results, summary.ProcessingTimeMs)
+			summary = report.SetEvaluation(
+				summary,
+				evaluated.Total,
+				evaluated.Correct,
+				evaluated.Matched,
+				evaluated.ExpectedMatches,
+				evaluated.ExpectedExceptions,
+				evaluated.DetectedExceptions,
+				evaluated.FalsePositives,
+				evaluated.FalseNegatives,
+			)
+		}
+	}
+
+	// The resolution artifact tells the report whether the LLM actually
+	// reviewed the open cases; final results alone cannot distinguish that.
+	resolutionsPath := filepath.Join(*inDir, "resolutions.json")
+	if data, err := os.ReadFile(resolutionsPath); err == nil {
+		var resolutions []resolver.Resolution
+		if err := json.Unmarshal(data, &resolutions); err == nil {
+			confirmed := 0
+			for _, resolution := range resolutions {
+				if resolution.Decision == "EXCEPTION" {
+					confirmed++
+				}
+			}
+			summary = report.SetLLM(summary, len(resolutions), confirmed)
+		}
+	}
+
 	report.PrintCLI(summary, exceptions)
 
 	htmlPath := filepath.Join(*inDir, "report.html")
@@ -505,7 +541,7 @@ func runEvaluate(args []string) error {
 	truthPath := filepath.Join(*inDir, "ground_truth.json")
 	resultsPath := filepath.Join(*inDir, "match_results_final.json")
 
-	// Resolve must run before evaluation.
+	// Explicitly require resolve to have completed.
 	if _, err := os.Stat(resultsPath); err != nil {
 		if os.IsNotExist(err) {
 			return fmt.Errorf(
@@ -517,6 +553,8 @@ func runEvaluate(args []string) error {
 
 		return fmt.Errorf("checking final results: %w", err)
 	}
+
+	log.Printf("evaluating results from %s", resultsPath)
 
 	truthFile, err := os.ReadFile(truthPath)
 	if err != nil {
@@ -540,10 +578,11 @@ func runEvaluate(args []string) error {
 		return fmt.Errorf("decoding final results: %w", err)
 	}
 
-	summary := evaluation.Calculate(truth, results)
-
+	// Evaluation itself is intentionally not reported as the reconciliation
+	// throughput metric. The actual matcher benchmark is stored in metrics.json.
+	summary := evaluation.Calculate(truth, results, 0)
 	if err := evaluation.Validate(summary); err != nil {
-		return fmt.Errorf("evaluation validation failed: %w", err)
+		return err
 	}
 
 	fmt.Println()
@@ -551,45 +590,32 @@ func runEvaluate(args []string) error {
 	fmt.Printf("total:                    %d\n", summary.Total)
 	fmt.Printf("correct:                  %d\n", summary.Correct)
 	fmt.Printf("wrong:                    %d\n", summary.Wrong)
-	fmt.Printf("classification accuracy: %.1f%%\n", summary.Accuracy)
-	fmt.Println()
-
-	fmt.Printf("expected matches:         %d\n", summary.ExpectedMatches)
+	fmt.Printf("classification accuracy:  %.1f%%\n", summary.Accuracy)
+	fmt.Printf("\nexpected matches:         %d\n", summary.ExpectedMatches)
 	fmt.Printf("matched:                  %d\n", summary.Matched)
 	fmt.Printf("match coverage:           %.1f%%\n", summary.MatchCoverage)
-	fmt.Println()
-
-	fmt.Printf("expected exceptions:      %d\n", summary.ExpectedExceptions)
+	fmt.Printf("\nexpected exceptions:      %d\n", summary.ExpectedExceptions)
 	fmt.Printf("detected exceptions:      %d\n", summary.DetectedExceptions)
 	fmt.Printf("exception detection:      %.1f%%\n", summary.ExceptionDetection)
-	fmt.Println()
-
-	fmt.Printf("false positives:          %d\n", summary.FalsePositives)
+	fmt.Printf("\nfalse positives:          %d\n", summary.FalsePositives)
 	fmt.Printf("false negatives:          %d\n", summary.FalseNegatives)
 
-	fmt.Println()
-	fmt.Println("--- by scenario ---")
-
-	for _, scenario := range []string{
-		"clean",
-		"fee_adjusted",
-		"unit_difference",
-		"timing_lag",
-		"batched",
-		"genuine_exception",
-	} {
-		s := summary.ByScenario[scenario]
-
-		if s.Total == 0 {
-			continue
+	if len(summary.ByScenario) > 0 {
+		fmt.Println("\n--- by scenario ---")
+		for _, scenario := range []string{
+			"clean",
+			"fee_adjusted",
+			"unit_difference",
+			"timing_lag",
+			"batched",
+			"genuine_exception",
+		} {
+			stats, ok := summary.ByScenario[scenario]
+			if !ok {
+				continue
+			}
+			fmt.Printf("%-18s %d/%d correct\n", scenario, stats.Correct, stats.Total)
 		}
-
-		fmt.Printf(
-			"%-18s %d/%d correct\n",
-			scenario,
-			s.Correct,
-			s.Total,
-		)
 	}
 
 	outputPath := filepath.Join(*inDir, "evaluation.json")
@@ -598,8 +624,6 @@ func runEvaluate(args []string) error {
 	if err != nil {
 		return fmt.Errorf("encoding evaluation: %w", err)
 	}
-
-	data = append(data, '\n')
 
 	if err := os.WriteFile(outputPath, data, 0o644); err != nil {
 		return fmt.Errorf("writing evaluation: %w", err)

@@ -1,0 +1,12 @@
+.DS_Store
+__MACOSX/
+*.log
+*.zip
+
+# Generated runtime artifacts
+data/metrics.json
+data/match_results.json
+data/match_results_final.json
+data/resolutions.json
+data/evaluation.json
+data/report.html
